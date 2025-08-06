@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Livewire\Roles;
@@ -34,4 +35,7 @@ route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')
         Route::post('/roles/store', [RolesController::class, 'createRole'])->name('roles.store');
         Route::get('/roles/edit/{id}', [RolesController::class, 'editRole'])->name('roles.edit');
         Route::put('/roles/update/{id}', [RolesController::class, 'updateRole'])->name('roles.update');
+
+        //Category
+        Route::get('/categories', [CategoryController::class, 'categoryList'])->name('category.list');
     });

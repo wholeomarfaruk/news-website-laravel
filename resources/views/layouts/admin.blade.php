@@ -11,7 +11,6 @@
     </title>
     <link rel="icon" href="favicon.ico">
     <link href="{{asset('tailadmin/build/style.css')}}" rel="stylesheet">
-
 <!-- SweetAlert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -108,7 +107,7 @@
                         </button>
                         <!-- Hamburger Toggle BTN -->
 
-                        <a href="index.html" class="lg:hidden">
+                        <a href="{{route('admin.dashboard')}}" class="lg:hidden">
                             <img class="dark:hidden" src="{{asset('tailadmin/images/logo/logo.png')}}" alt="Logo" />
                             <img class="hidden dark:block" src="{{asset('tailadmin/images/logo/logo.png')}}" alt="Logo" />
                         </a>
@@ -216,7 +215,7 @@
                                             <a class="flex gap-3 rounded-lg border-b border-gray-100 p-3 px-4.5 py-3 hover:bg-gray-100 dark:border-gray-800 dark:hover:bg-white/5"
                                                 href="#">
                                                 <span class="relative z-1 block h-10 w-full max-w-10 rounded-full">
-                                                    <img src="src/images/user/user-02.jpg" alt="User"
+                                                    <img src="{{asset('tailadmin/src/images/user/user-02.jpg')}}" alt="User"
                                                         class="overflow-hidden rounded-full" />
                                                     <span
                                                         class="bg-success-500 absolute right-0 bottom-0 z-10 h-2.5 w-full max-w-2.5 rounded-full border-[1.5px] border-white dark:border-gray-900"></span>
@@ -247,7 +246,7 @@
                                             <a class="flex gap-3 rounded-lg border-b border-gray-100 p-3 px-4.5 py-3 hover:bg-gray-100 dark:border-gray-800 dark:hover:bg-white/5"
                                                 href="#">
                                                 <span class="relative z-1 block h-10 w-full max-w-10 rounded-full">
-                                                    <img src="src/images/user/user-03.jpg" alt="User"
+                                                    <img src="{{asset('tailadmin/src/images/user/user-03.jpg')}}" alt="User"
                                                         class="overflow-hidden rounded-full" />
                                                     <span
                                                         class="bg-success-500 absolute right-0 bottom-0 z-10 h-2.5 w-full max-w-2.5 rounded-full border-[1.5px] border-white dark:border-gray-900"></span>
@@ -278,7 +277,7 @@
                                             <a class="flex gap-3 rounded-lg border-b border-gray-100 p-3 px-4.5 py-3 hover:bg-gray-100 dark:border-gray-800 dark:hover:bg-white/5"
                                                 href="#">
                                                 <span class="relative z-1 block h-10 w-full max-w-10 rounded-full">
-                                                    <img src="src/images/user/user-04.jpg" alt="User"
+                                                    <img src="{{asset('tailadmin/src/images/user/user-04.jpg')}}" alt="User"
                                                         class="overflow-hidden rounded-full" />
                                                     <span
                                                         class="bg-success-500 absolute right-0 bottom-0 z-10 h-2.5 w-full max-w-2.5 rounded-full border-[1.5px] border-white dark:border-gray-900"></span>
@@ -310,7 +309,7 @@
                                             <a class="flex gap-3 rounded-lg border-b border-gray-100 p-3 px-4.5 py-3 hover:bg-gray-100 dark:border-gray-800 dark:hover:bg-white/5"
                                                 href="#">
                                                 <span class="relative z-1 block h-10 w-full max-w-10 rounded-full">
-                                                    <img src="src/images/user/user-05.jpg" alt="User"
+                                                    <img src="{{asset('tailadmin/src/images/user/user-05.jpg')}}" alt="User"
                                                         class="overflow-hidden rounded-full" />
                                                     <span
                                                         class="bg-error-500 absolute right-0 bottom-0 z-10 h-2.5 w-full max-w-2.5 rounded-full border-[1.5px] border-white dark:border-gray-900"></span>
@@ -342,7 +341,7 @@
                                             <a class="flex gap-3 rounded-lg border-b border-gray-100 p-3 px-4.5 py-3 hover:bg-gray-100 dark:border-gray-800 dark:hover:bg-white/5"
                                                 href="#">
                                                 <span class="relative z-1 block h-10 w-full max-w-10 rounded-full">
-                                                    <img src="src/images/user/user-02.jpg" alt="User"
+                                                    <img src="{{asset('tailadmin/src/images/user/user-02.jpg')}}" alt="User"
                                                         class="overflow-hidden rounded-full" />
                                                     <span
                                                         class="bg-success-500 absolute right-0 bottom-0 z-10 h-2.5 w-full max-w-2.5 rounded-full border-[1.5px] border-white dark:border-gray-900"></span>
@@ -373,7 +372,7 @@
                                             <a class="flex gap-3 rounded-lg border-b border-gray-100 p-3 px-4.5 py-3 hover:bg-gray-100 dark:border-gray-800 dark:hover:bg-white/5"
                                                 href="#">
                                                 <span class="relative z-1 block h-10 w-full max-w-10 rounded-full">
-                                                    <img src="src/images/user/user-03.jpg" alt="User"
+                                                    <img src="{{asset('tailadmin/src/images/user/user-03.jpg')}}" alt="User"
                                                         class="overflow-hidden rounded-full" />
                                                     <span
                                                         class="bg-success-500 absolute right-0 bottom-0 z-10 h-2.5 w-full max-w-2.5 rounded-full border-[1.5px] border-white dark:border-gray-900"></span>
@@ -404,7 +403,7 @@
                                             <a class="flex gap-3 rounded-lg border-b border-gray-100 p-3 px-4.5 py-3 hover:bg-gray-100 dark:border-gray-800 dark:hover:bg-white/5"
                                                 href="#">
                                                 <span class="relative z-1 block h-10 w-full max-w-10 rounded-full">
-                                                    <img src="src/images/user/user-04.jpg" alt="User"
+                                                    <img src="{{asset('tailadmin/src/images/user/user-04.jpg')}}" alt="User"
                                                         class="overflow-hidden rounded-full" />
                                                     <span
                                                         class="bg-success-500 absolute right-0 bottom-0 z-10 h-2.5 w-full max-w-2.5 rounded-full border-[1.5px] border-white dark:border-gray-900"></span>
@@ -436,7 +435,7 @@
                                             <a class="flex gap-3 rounded-lg border-b border-gray-100 p-3 px-4.5 py-3 hover:bg-gray-100 dark:border-gray-800 dark:hover:bg-white/5"
                                                 href="#">
                                                 <span class="relative z-1 block h-10 w-full max-w-10 rounded-full">
-                                                    <img src="src/images/user/user-05.jpg" alt="User"
+                                                    <img src="{{asset('tailadmin/src/images/user/user-05.jpg')}}" alt="User"
                                                         class="overflow-hidden rounded-full" />
                                                     <span
                                                         class="bg-error-500 absolute right-0 bottom-0 z-10 h-2.5 w-full max-w-2.5 rounded-full border-[1.5px] border-white dark:border-gray-900"></span>
@@ -480,7 +479,7 @@
                             <a class="flex items-center text-gray-700 dark:text-gray-400" href="#"
                                 @click.prevent="dropdownOpen = ! dropdownOpen">
                                 <span class="mr-3 h-11 w-11 overflow-hidden rounded-full">
-                                    <img src="src/images/user/owner.jpg" alt="User" />
+                                    <img src="{{asset('tailadmin/src/images/user/owner.jpg')}}" alt="User" />
                                 </span>
 
                                 <span class="text-theme-sm mr-1 block font-medium">{{auth()->user()->name ?? 'User Name'}}</span>
@@ -533,7 +532,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="settings.html"
+                                        <a href="#"
                                             class="group text-theme-sm flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300">
                                             <svg class="fill-gray-500 group-hover:fill-gray-700 dark:fill-gray-400 dark:group-hover:fill-gray-300"
                                                 width="24" height="24" viewBox="0 0 24 24" fill="none"
