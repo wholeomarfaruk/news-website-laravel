@@ -16,6 +16,8 @@ class RolesAndPermissionsSeeder extends Seeder
             // User
             'user.view', 'user.create', 'user.edit', 'user.delete',
             'user.ban', 'user.unban', 'user.assign-role', 'user.remove-role',
+            //role
+            'role.view', 'role.create', 'role.edit', 'role.delete',
 
             // Post
             'post.view', 'post.create', 'post.edit', 'post.delete',

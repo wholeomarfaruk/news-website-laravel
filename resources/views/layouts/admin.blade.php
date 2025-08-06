@@ -483,7 +483,7 @@
                                     <img src="src/images/user/owner.jpg" alt="User" />
                                 </span>
 
-                                <span class="text-theme-sm mr-1 block font-medium"> Musharof </span>
+                                <span class="text-theme-sm mr-1 block font-medium">{{auth()->user()->name ?? 'User Name'}}</span>
 
                                 <svg :class="dropdownOpen && 'rotate-180'" class="stroke-gray-500 dark:stroke-gray-400"
                                     width="18" height="20" viewBox="0 0 18 20" fill="none"
@@ -498,10 +498,10 @@
                                 class="shadow-theme-lg dark:bg-gray-dark absolute right-0 mt-[17px] flex w-[260px] flex-col rounded-2xl border border-gray-200 bg-white p-3 dark:border-gray-800">
                                 <div>
                                     <span class="text-theme-sm block font-medium text-gray-700 dark:text-gray-400">
-                                        Musharof Chowdhury
+                                        {{ auth()->user()->name ?? 'Admin' }}
                                     </span>
                                     <span class="text-theme-xs mt-0.5 block text-gray-500 dark:text-gray-400">
-                                        randomuser@pimjo.com
+                                        {{ auth()->user()->email ?? ''}}
                                     </span>
                                 </div>
 
@@ -546,7 +546,8 @@
                                         </a>
                                     </li>
                                 </ul>
-                                <button
+
+                                <a href="{{route('logout')}}"
                                     class="group text-theme-sm mt-3 flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300">
                                     <svg class="fill-gray-500 group-hover:fill-gray-700 dark:group-hover:fill-gray-300"
                                         width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -557,7 +558,7 @@
                                     </svg>
 
                                     Sign out
-                                </button>
+                                </a>
                             </div>
                             <!-- Dropdown End -->
                         </div>

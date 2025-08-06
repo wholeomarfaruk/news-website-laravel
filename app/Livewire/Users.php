@@ -3,8 +3,11 @@
 namespace App\Livewire;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
 use Livewire\Component;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Traits\HasPermissions;
 
 class Users extends Component
 {
@@ -15,14 +18,19 @@ class Users extends Component
     public $email;
     public $password;
     public $userId;
-       public $editModal = false;
-       public $createModal = false;
-       public $viewModal = false;
-public $viewUser = [];
-public $search = '';
+    public $editModal = false;
+    public $createModal = false;
+    public $viewModal = false;
+    public $viewUser = [];
+    public $search = '';
 
     public function render()
     {
+
+       if(!auth()->user()->can('user.view')) {
+            return abort(403, 'Unauthorized action.');
+        }
+
         $roles = Role::all(); // Fetch all roles from the database
         $this->roles = $roles; // Assign roles to the component property
         $users = User::all(); // Fetch all users from the database
@@ -36,6 +44,9 @@ public $search = '';
     }
     public function deleteUser($userId)
     {
+             if(!auth()->user()->can('user.delete')) {
+            return abort(403, 'Unauthorized action.');
+        }
         $user = User::find($userId);
         if ($user) {
             $user->delete();
@@ -48,8 +59,11 @@ public $search = '';
     }
     public function createUser()
     {
+             if(!auth()->user()->can('user.create')) {
+            return abort(403, 'Unauthorized action.');
+        }
 
-      $this->validate([
+        $this->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8',
@@ -65,7 +79,7 @@ public $search = '';
                 $user->assignRole($role);
             }
         }
-         // Close the modal after user creation
+        // Close the modal after user creation
 
         // Logic to create a new user
         session()->flash('message', 'User created successfully.');
@@ -74,8 +88,11 @@ public $search = '';
         $this->createModal = false; // Close the create modal
 
     }
-     public function openEditModal($id)
+    public function openEditModal($id)
     {
+             if(!auth()->user()->can('user.edit')) {
+            return abort(403, 'Unauthorized action.');
+        }
         $user = User::findOrFail($id);
 
         $this->userId = $user->id;
@@ -88,7 +105,7 @@ public $search = '';
     {
         $this->reset(['name', 'email', 'password', 'selectedRole']); // Reset form fields
         $this->createModal = true; // Open the create modal
-        $this->dispatch('openModal', 'createUserModal'); // Dispatch an event to open the modal
+        // $this->dispatch('openModal', 'createUserModal'); // Dispatch an event to open the modal
     }
     public function updateUser()
     {
@@ -97,7 +114,7 @@ public $search = '';
             'email' => 'required|email',
         ]);
 
-        $User=User::findOrFail($this->userId);
+        $User = User::findOrFail($this->userId);
         $User->name = $this->name;
         $User->email = $this->email;
         if ($this->password) {
@@ -118,17 +135,26 @@ public $search = '';
         // $this->reset(['name', 'email', 'selectedRole', 'userId']); // Reset form fields
         $this->dispatch('userUpdated', ); // Close the modal after user update
     }
-public function openViewModal($id)
-{
-    $user = User::with('roles')->findOrFail($id);
+    public function openViewModal($id)
+    {
+        $user = User::with('roles')->findOrFail($id);
 
         $this->userId = $user->id;
         $this->name = $user->name;
         $this->email = $user->email;
         $this->selectedRole = $user->getRoleNames()->first(); // Get the first role name
-    $this->viewModal = true;
-}
+        $this->viewModal = true;
+    }
+    public function closeViewModal()
+    {
+        $this->viewModal = false; // Close the view modal
+        $this->reset(['userId', 'name', 'email', 'selectedRole']); // Reset form fields
 
-
+    }
+    public function closeEditModal()
+    {
+        $this->editModal = false; // Close the edit modal
+        $this->reset(['userId', 'name', 'email', 'selectedRole']); // Reset form fields
+    }
 
 }

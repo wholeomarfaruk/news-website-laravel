@@ -9,7 +9,7 @@
                     <ol class="flex items-center gap-1.5">
                         <li>
                             <a class="inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400"
-                                href="index.html">
+                                href="{{ route('admin.dashboard') }}">
                                 Home
                                 <svg class="stroke-current" width="17" height="16" viewBox="0 0 17 16" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -156,15 +156,20 @@
                                                         class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs ring-1 ring-gray-300 transition hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white">
                                                         Show
                                                     </button>
+                                                    @can('user.edit')
 
                                                     <button wire:click="openEditModal({{ $user->id }})"
                                                         class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs ring-1 ring-gray-300 transition hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white">
                                                         Edit
                                                     </button>
+                                                    @endcan
+                                                    @can('user.delete')
+
                                                     <button wire:click="deleteUser({{ $user->id }})"
                                                         class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs ring-1 ring-gray-300 transition hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white">
                                                         Delete
                                                     </button>
+                                                    @endcan
                                                 </div>
 
                                             </td>
@@ -185,7 +190,7 @@
     <!-- Edit Modal -->
     <div x-data="{ open: @entangle('editModal') }" x-show="open"
         class="fixed inset-0 z-99999 flex items-center justify-center bg-black/50" x-transition>
-        <div @click.away="open = false" class="bg-white w-full max-w-md p-6 rounded-lg shadow-lg transition"
+        <div @click.away="open = false" class="bg-white w-full max-w-md p-6 rounded-lg shadow-lg transition dark:bg-gray-700"
             x-show="open" x-transition>
             <h2 class="text-lg font-semibold mb-4">Edit User</h2>
 
@@ -282,21 +287,21 @@
 
             <!-- Modal footer -->
             <div class="mt-4 flex justify-end">
-                <button @click="open = false"
-                    class="bg-gray-300 text-gray-800 px-4 py-2 rounded mr-2 hover:bg-gray-400">Cancel</button>
+                <button wire:click="closeEditModal" @click="open = false"
+                    class="bg-gray-300 text-gray-800 px-4 py-2 rounded mr-2 hover:bg-gray-400inline-flex items-center gap-2 rounded-lg bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs ring-1 ring-gray-300 transition hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white">Cancel</button>
                 <button wire:click="updateUser"
-                    class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Save</button>
+                    class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Save</button>
             </div>
         </div>
     </div>
     <!-- create user Modal -->
     <div x-data="{ open: @entangle('createModal') }" x-show="open"
         class="fixed inset-0 z-99999 flex items-center justify-center bg-black/50" x-transition>
-        <div @click.away="open = false" class="bg-white w-full max-w-md p-6 rounded-lg shadow-lg transition"
+        <div @click.away="open = false" class="bg-white w-full max-w-md p-6 rounded-lg shadow-lg transition dark:bg-gray-700"
             x-show="open" x-transition>
             <h2 class="text-lg font-semibold mb-4">Create New User</h2>
 
-
+       
             <form wire:submit.prevent="updateUser">
 
                 <div class="mt-2">
@@ -389,17 +394,17 @@
             </form>
 
             <!-- Modal footer -->
-            <div class="mt-4 flex justify-end">
+            <div class="mt-4 flex justify-end gap-2">
                 <button @click="open = false"
-                    class="bg-gray-300 text-gray-800 px-4 py-2 rounded mr-2 hover:bg-gray-400">Cancel</button>
+                    class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs ring-1 ring-gray-300 transition hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white">Cancel</button>
                 <button wire:click="createUser"
-                    class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Save</button>
+                    class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Save</button>
             </div>
         </div>
     </div>
     <div x-data="{ open: @entangle('viewModal') }" x-show="open"
         class="fixed inset-0 z-99999 flex items-center justify-center bg-black/50" x-transition>
-        <div @click.away="open = false" class="bg-white w-full max-w-md p-6 rounded-lg shadow-lg transition"
+        <div @click.away="open = false" class="bg-white w-full max-w-md p-6 rounded-lg shadow-lg transition dark:bg-gray-700"
             x-show="open" x-transition>
             <h2 class="text-lg font-semibold mb-4">View User</h2>
 
@@ -443,8 +448,8 @@
 
             <!-- Modal footer -->
             <div class="mt-4 flex justify-end">
-                <button @click="open = false"
-                    class="bg-gray-300 text-gray-800 px-4 py-2 rounded mr-2 hover:bg-gray-400">Close</button>
+                <button wire:click="closeViewModal"
+                    class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs ring-1 ring-gray-300 transition hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white">Close</button>
             </div>
         </div>
     </div>
