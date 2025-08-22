@@ -26,6 +26,7 @@ class Category extends Component
     public function render()
     {
         if($this->search) {
+            
             $this->categories = CategoryList::where('name', 'like', '%' . $this->search . '%')
                 ->orWhereHas('children', function ($query) {
                     $query->where('name', 'like', '%' . $this->search . '%');

@@ -21,4 +21,7 @@ class Category extends Model
     {
         return $query->whereNull('parent_id');
     }
+    public function posts(){
+        return $this->hasMany(Post::class,'category_id');
+    }
 }

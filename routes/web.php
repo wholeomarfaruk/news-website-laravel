@@ -1,12 +1,16 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\RolesController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Website\HomeController;
 use App\Livewire\Roles;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'welcome');
+Route::get('/', [HomeController::class,'index']);
+Route::get('/single-post',[HomeController::class,'singlePost'])->name('post');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 Route::get('dashboard', function () {
     return redirect()->route('admin.dashboard'); // Redirect to the admin dashboard
@@ -38,4 +42,15 @@ route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')
 
         //Category
         Route::get('/categories', [CategoryController::class, 'categoryList'])->name('category.list');
+
+        //Posts
+        Route::get('/posts',[PostController::class, 'postList'])->name('post.list');
+        Route::get('/posts/create', [PostController::class, 'createPostForm'])->name('post.create');
+        Route::post('/posts/store', [PostController::class, 'createPost'])->name('post.store');
+        Route::get('/posts/edit/{id}', [PostController::class, 'editPost'])->name('post.edit');
+        Route::put('/posts/update/{id}', [PostController::class, 'updatePost'])->name('post.update');
+        Route::delete('/posts/delete/{id}', [PostController::class, 'deletePost'])->name('post.delete');
+
+        //user profile
+        Route::get('/profile',[UserController::class,'profile'])->name('profile');
     });

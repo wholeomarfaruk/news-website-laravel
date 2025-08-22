@@ -12,6 +12,7 @@
         "livewire/livewire": "^3.6",
         "livewire/volt": "^1.7.0",
         "realrashid/sweet-alert": "^7.3",
+        "spatie/image-optimizer": "^1.8",
         "spatie/laravel-permission": "^6.21"
     },
     "require-dev": {
