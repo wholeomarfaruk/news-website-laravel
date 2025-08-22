@@ -269,9 +269,9 @@
 				<div class="col-sm-5 footer-top hidden-print" >
 					<ul class="footer-menu text-end">
 
-						<li class="d-inline me-2"><a class="border border-secondary p-2" href="https://www.jagonews24.com/about-us">আমাদের কথা</a></li>
-						<li class="d-inline me-2"><a class="border border-secondary p-2" href="https://www.jagonews24.com/contact">যোগাযোগ </a></li>
-						<li class="d-inline me-2"><a class="border border-secondary p-2" href="https://www.jagonews24.com/privacy-policy" target="_blank">প্রাইভেসি পলিসি</a></li>
+						<li class="d-inline me-2"><a class="border border-secondary p-2" href="#">আমাদের কথা</a></li>
+						<li class="d-inline me-2"><a class="border border-secondary p-2" href="#">যোগাযোগ </a></li>
+						<li class="d-inline me-2"><a class="border border-secondary p-2" href="#" target="_blank">প্রাইভেসি পলিসি</a></li>
 					</ul>
 				</div>
 			</div>
