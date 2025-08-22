@@ -281,7 +281,7 @@
                             src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
                             alt="">
                         <div class="p-2">
-                            <div class="fw-bold" style="font-size: 18px;">মাত্র ২৭ টেস্ট পর শচিনের সর্বোচ্চ রানের রেকর্ড
+                            <div class="fw-bold title" >মাত্র ২৭ টেস্ট পর শচিনের সর্বোচ্চ রানের রেকর্ড
                                 ভেঙে দেবেন রুট! ১</div>
                             <div class="text-muted" style="font-size: 16px;">
                                 ‘বাজবল ক্রিকেটে’র যুগ এখন। বিশেষ করে ইংল্যান্ড এই বাজবল ক্রিকেটকে সবচেয়ে বেশি ব্যবহার করছে।
@@ -295,7 +295,7 @@
                             src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
                             alt="">
                         <div class="p-2">
-                            <div class="fw-bold" style="font-size: 18px;">মাত্র ২৭ টেস্ট পর শচিনের সর্বোচ্চ রানের রেকর্ড
+                            <div class="fw-bold title" >মাত্র ২৭ টেস্ট পর শচিনের সর্বোচ্চ রানের রেকর্ড
                                 ভেঙে দেবেন রুট! ২</div>
 
                         </div>
@@ -305,7 +305,7 @@
                             src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
                             alt="">
                         <div class="p-2">
-                            <div class="fw-bold" style="font-size: 18px;">মাত্র ২৭ টেস্ট পর শচিনের সর্বোচ্চ রানের রেকর্ড
+                            <div class="fw-bold title" >মাত্র ২৭ টেস্ট পর শচিনের সর্বোচ্চ রানের রেকর্ড
                                 ভেঙে দেবেন রুট! ৩</div>
 
                         </div>
@@ -315,7 +315,7 @@
                             src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
                             alt="">
                         <div class="p-2">
-                            <div class="fw-bold" style="font-size: 18px;">মাত্র ২৭ টেস্ট পর শচিনের সর্বোচ্চ রানের রেকর্ড
+                            <div class="fw-bold title" >মাত্র ২৭ টেস্ট পর শচিনের সর্বোচ্চ রানের রেকর্ড
                                 ভেঙে দেবেন রুট! ৪</div>
                             <div class="text-muted" style="font-size: 1px;">
                                 <i class="fa-regular fa-clock"></i> ১:৫৫ মিনিট
@@ -327,7 +327,7 @@
                             src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
                             alt="">
                         <div class="p-2">
-                            <div class="fw-bold" style="font-size: 18px;">মাত্র ২৭ টেস্ট পর শচিনের সর্বোচ্চ রানের রেকর্ড
+                            <div class="fw-bold title" >মাত্র ২৭ টেস্ট পর শচিনের সর্বোচ্চ রানের রেকর্ড
                                 ভেঙে দেবেন রুট! ৫</div>
 
                         </div>
@@ -862,8 +862,8 @@
 
                         </div>
                         <div class="col-12">
-                            <div class="d-flex justify-content-evenly gap-3">
-                                <div class="col-md-3 item py-3 border-bottom border-light-subtle ">
+                            <div class="row">
+                                <div class="col-6 col-lg-3 item py-3 border-bottom border-light-subtle ">
 
 
                                     <img class=" w-100"
@@ -881,7 +881,7 @@
 
 
                                 </div>
-                                <div class="col-md-3 item py-3 border-bottom border-light-subtle ">
+                                <div class="col-6 col-lg-3 item py-3 border-bottom border-light-subtle ">
 
                                     <img class=" w-100"
                                         src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/trump-uganda-20250821215756.jpg"
@@ -896,7 +896,7 @@
 
 
                                 </div>
-                                <div class="col-md-3 item py-3 border-bottom border-light-subtle ">
+                                <div class="col-6 col-lg-3 item py-3 border-bottom border-light-subtle ">
 
                                     <img class=" w-100"
                                         src="https://cdn.jagonews24.com/media/imgAllNew/SM/2023March/boeing-20250821201815.jpg"
@@ -912,7 +912,7 @@
 
 
                                 </div>
-                                <div class="col-md-3item py-3 border-bottom border-light-subtle ">
+                                <div class="col-6 col-lg-3 item py-3 border-bottom border-light-subtle ">
 
                                     <img class=" w-100"
                                         src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/trump-uganda-20250821215756.jpg"

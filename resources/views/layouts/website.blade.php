@@ -251,32 +251,32 @@
 			<div class="row justify-content-between w-100 align-items-center" >
 				<div class="col-sm-7" >
 					<p class="small text-muted">
-						<span>সম্পাদক: কে. এম. জিয়াউল হক <br>© ২০২৫ সর্বস্বত্ব সংরক্ষিত | দিমেসেজ২ডে.কম, একেসি প্রাইভেট লিমিটেডের একটি প্রতিষ্ঠান</span><br>
+						<span>সম্পাদক: Engr. Md. Saiful Islam Shikder<br>© ২০২৫ সর্বস্বত্ব সংরক্ষিত | দিমেসেজ২ডে.কম, একেসি প্রাইভেট লিমিটেডের একটি প্রতিষ্ঠান</span><br>
 						<svg class="footer-icon" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="map-marker-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path></svg>
-						আজহার কমফোর্ট কমপ্লেক্স (৫ম তলা), গ-১৩০/এ প্রগতি সরণি, মধ্যবাড্ডা, ঢাকা-১২১২
+						১৭৮/১ ওয়েস্ট শেওরাপাড়া, মিরপুর, ঢাকা-১২১৬
 						<br>
 						<abbr title="Phone:">
-							<svg class="footer-icon" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="mobile-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M272 0H48C21.5 0 0 21.5 0 48v416c0 26.5 21.5 48 48 48h224c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48zM160 480c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm112-108c0 6.6-5.4 12-12 12H60c-6.6 0-12-5.4-12-12V60c0-6.6 5.4-12 12-12h200c6.6 0 12 5.4 12 12v312z"></path></svg> 
-						</abbr> ৮৮ ০২ ২২২২৬২৬৮৯ ,
-						
+							<svg class="footer-icon" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="mobile-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M272 0H48C21.5 0 0 21.5 0 48v416c0 26.5 21.5 48 48 48h224c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48zM160 480c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm112-108c0 6.6-5.4 12-12 12H60c-6.6 0-12-5.4-12-12V60c0-6.6 5.4-12 12-12h200c6.6 0 12 5.4 12 12v312z"></path></svg>
+						</abbr> +88 01835117590, +88 01303708576,
+
 						<span class="small">
 							<abbr title="Email:">
 								<svg class="footer-icon" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="envelope" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"></path></svg>
-							</abbr> info@themessage2day.com<br>
+							</abbr> themessage2daynews@gmail.com<br>
 						</span>
 					</p>
 				</div>
 				<div class="col-sm-5 footer-top hidden-print" >
 					<ul class="footer-menu text-end">
-						
+
 						<li class="d-inline me-2"><a class="border border-secondary p-2" href="https://www.jagonews24.com/about-us">আমাদের কথা</a></li>
 						<li class="d-inline me-2"><a class="border border-secondary p-2" href="https://www.jagonews24.com/contact">যোগাযোগ </a></li>
 						<li class="d-inline me-2"><a class="border border-secondary p-2" href="https://www.jagonews24.com/privacy-policy" target="_blank">প্রাইভেসি পলিসি</a></li>
 					</ul>
 				</div>
 			</div>
-			
-		
+
+
         </div>
     </footer>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
@@ -293,7 +293,7 @@
         window.onscroll = function () {
         // header sticky on scroll start
         var scroll = document.documentElement.scrollTop;
-      
+
         if (scroll > 200) {
           document.getElementById("menubar").classList.add("sticky");
         } else {
