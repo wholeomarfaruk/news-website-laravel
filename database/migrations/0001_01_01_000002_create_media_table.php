@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -31,13 +30,13 @@ return new class extends Migration
             //image/video/document
             $table->string('disk')->default('public'); // disk/storage location (optional)
             $table->string('path');            // relative path or URL
-            $table->unsignedBigInteger('user_id')->nullable(); // uploader (optional)
             $table->timestamps(); // Created and updated timestamps
             $table->nullableMorphs('mediable'); // adds mediable_id and mediable_type columns
 
+            $table->unsignedBigInteger('user_id')->nullable(); // must allow NULL
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             // Indexing for better performance in queries involving model type and model ID
-            $table->index(['user_id','type','category', 'created_at']);
+            $table->index(['user_id', 'type', 'category', 'created_at']);
         });
     }
 
