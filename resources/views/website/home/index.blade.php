@@ -7,7 +7,7 @@
                     <div class="border p-3 rounded ">
                         <div class="row">
                             <div class="col-md-8">
-                                @if ($latestPost)
+                                @if ($latestPost->count()>0)
                                     <?php
 
                                     ?>
@@ -66,7 +66,7 @@
                                 @endif
 
                                 <div class="row g-2">
-                                    @if ($latestPost)
+                                    @if ($latestPost->count() >0)
                                         @foreach ($latestPost->slice(1,2) as $post)
                                             {{-- @if ($index > 1 && $index < 3) --}}
                                             <div class="col-md-4">
