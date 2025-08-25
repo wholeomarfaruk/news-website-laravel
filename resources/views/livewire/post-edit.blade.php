@@ -14,22 +14,24 @@
             </div>
             <div class="flex items-center gap-3">
                 @if ($post->status === 'published')
-                                                        <span
-                                                            class="inline-flex rounded-full bg-success-50 px-2 py-0.5 text-theme-xs font-medium text-success-700 dark:bg-success-500/15 dark:text-success-500">
-                                                            Published
-                                                        </span>
-                                                    @elseif ($post->status === 'draft')
-                                                        <span
-                                                            class="inline-flex rounded-full bg-orange-400/10 px-2 py-0.5 text-theme-xs font-medium text-orange-400">
-                                                            Draft
-                                                        </span>
-                                                    @endif
-            <button type="submit" wire:click="$set('status', 'draft')" class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs ring-1 ring-gray-300 transition hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03]">
-                Draft
-            </button>
-            <button type="submit" wire:click="$set('status', 'published')" class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs ring-1 ring-gray-300 transition hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03]">
-                Publish
-            </button>
+                    <span
+                        class="inline-flex rounded-full bg-success-50 px-2 py-0.5 text-theme-xs font-medium text-success-700 dark:bg-success-500/15 dark:text-success-500">
+                        Published
+                    </span>
+                @elseif ($post->status === 'draft')
+                    <span
+                        class="inline-flex rounded-full bg-orange-400/10 px-2 py-0.5 text-theme-xs font-medium text-orange-400">
+                        Draft
+                    </span>
+                @endif
+                <button type="submit" wire:click="$set('status', 'draft')"
+                    class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs ring-1 ring-gray-300 transition hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03]">
+                    Draft
+                </button>
+                <button type="submit" wire:click="$set('status', 'published')"
+                    class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs ring-1 ring-gray-300 transition hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03]">
+                    Publish
+                </button>
             </div>
         </div>
 
@@ -49,7 +51,7 @@
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                     </div>
-                                    <div wire:ignore class="mt-2">
+                    <div wire:ignore class="mt-2">
                         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                             Article
                         </label>
@@ -68,15 +70,14 @@
                 <div
                     class="flex flex-col rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-white/[0.03] xl:w-1/5">
                     <div x-data="{ switcherToggle: @entangle('isFeatured') }">
-                         <label for="slug" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                        <label for="slug" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                             Is Featured?
                         </label>
                         <label for="toggle1"
                             class="flex cursor-pointer items-center gap-3 text-sm font-medium text-gray-700 select-none dark:text-gray-400">
                             <div class="relative">
-                                <input x-model="switcherToggle"  type="checkbox" id="toggle1" class="sr-only">
-                                <div
-                                    :class="switcherToggle ? 'bg-brand-500 dark:bg-brand-500' : 'bg-gray-200 dark:bg-white/10'"
+                                <input x-model="switcherToggle" type="checkbox" id="toggle1" class="sr-only">
+                                <div :class="switcherToggle ? 'bg-brand-500 dark:bg-brand-500' : 'bg-gray-200 dark:bg-white/10'"
                                     class="block h-6 w-11 rounded-full transition-colors duration-300">
                                 </div>
                                 <div :class="switcherToggle ? 'translate-x-full' : 'translate-x-0'"
@@ -109,144 +110,91 @@
 
                     </div>
                     <div class="mt-2">
-        <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-            Select Category
-        </label>
-        <div x-data="{ isOptionSelected: false }" class="relative z-20 bg-transparent">
-            <select wire:model="category_id" name="category_id"
-                class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 pr-11 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
-                :class="isOptionSelected && 'text-gray-800 dark:text-white/90'" @change="isOptionSelected = true">
+                        <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                            Select Category
+                        </label>
+                        <div x-data="{ isOptionSelected: false }" class="relative z-20 bg-transparent">
+                            <select wire:model="category_id" name="category_id"
+                                class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 pr-11 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
+                                :class="isOptionSelected && 'text-gray-800 dark:text-white/90'"
+                                @change="isOptionSelected = true">
 
-                <option value="" class="text-gray-700 dark:bg-gray-900 dark:text-gray-400">
-                    Select a category
-                </option>
-                @foreach ($categories as $category)
-                    <option value="{{ $category->id }}" class="text-gray-700 dark:bg-gray-900 dark:text-gray-400">
-                        {{ $category->name }}
-                    </option>
-                    @if ($category->children->count() > 0)
-                        @foreach ($category->children as $child)
-                            <option value="{{ $child->id }}"
-                                class="text-gray-700 dark:bg-gray-900 dark:text-gray-400 pl-4">
-                                &#8195;{{ $child->name }}
-                            </option>
-                            @if ($child->children->count() > 0)
-                                @foreach ($child->children as $child2)
-                                    <option value="{{ $child2->id }}"
-                                        class="text-gray-700 dark:bg-gray-900 dark:text-gray-400 pl-6">
-                                        &#8195; &#8195;{{ $child2->name }}
-                                    </option>
-                                @endforeach
-                            @endif
-                        @endforeach
-                    @endif
-                @endforeach
-
-            </select>
-            <span
-                class="pointer-events-none absolute top-1/2 right-4 z-30 -translate-y-1/2 text-gray-500 dark:text-gray-400">
-                <svg class="stroke-current" width="20" height="20" viewBox="0 0 20 20" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4.79175 7.396L10.0001 12.6043L15.2084 7.396" stroke="" stroke-width="1.5"
-                        stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-            </span>
-        </div>
-        @error('parent_id')
-            <span class="text-red-500 text-sm">{{ $message }}</span>
-        @enderror
-        <div class="align-right mt-2">
-            <a class="text-sm text-blue-600 hover:underline" href="javascript:void(0)" wire:click="openCreateModal">
-                Add New Category
-            </a>
-        </div>
-    </div>
-    <div x-data="{ open: @entangle('createModal') }" x-show="open"
-        class="fixed inset-0 z-99999 flex items-center justify-center bg-black/50" x-transition>
-        <div @click.away="open = false"
-            class="bg-white w-full max-w-md p-6 rounded-lg shadow-lg transition dark:bg-gray-700" x-show="open"
-            x-transition>
-            <h2 class="text-lg font-semibold mb-4">Create New Category</h2>
-
-
-            <form wire:submit.prevent="createCategory">
-
-                <div class="mt-2">
-                    <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                        Category Name
-                    </label>
-                    <input wire:model="name" type="text" placeholder="Enter full name"
-                        class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
-                    @error('name')
-                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="mt-2">
-                    <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                        Select Parent Category
-                    </label>
-                    <div x-data="{ isOptionSelected: false }" class="relative z-20 bg-transparent">
-                        <select wire:model="parent_id"
-                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 pr-11 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
-                            :class="isOptionSelected && 'text-gray-800 dark:text-white/90'"
-                            @change="isOptionSelected = true">
-
-                            <option value="" class="text-gray-700 dark:bg-gray-900 dark:text-gray-400">
-                                No Parent Category
-                            </option>
-                            @foreach ($categories as $category)
-                                <option value="{{ $category->id }}"
-                                    class="text-gray-700 dark:bg-gray-900 dark:text-gray-400">
-                                    {{ $category->name }}
+                                <option value="" class="text-gray-700 dark:bg-gray-900 dark:text-gray-400">
+                                    Select a category
                                 </option>
-                                @if ($category->children->count() > 0)
-                                    @foreach ($category->children as $child)
-                                        <option value="{{ $child->id }}"
-                                            class="text-gray-700 dark:bg-gray-900 dark:text-gray-400 pl-4">
-                                            &emsp;{{ $child->name }}
-                                        </option>
-                                        @if ($child->children->count() > 0)
-                                @foreach ($child->children as $child2)
-                                    <option value="{{ $child2->id }}"
-                                        class="text-gray-700 dark:bg-gray-900 dark:text-gray-400 pl-6">
-                                        &#8195; &#8195;{{ $child2->name }}
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}"
+                                        class="text-gray-700 dark:bg-gray-900 dark:text-gray-400">
+                                        {{ $category->name }}
                                     </option>
+                                    @if ($category->children->count() > 0)
+                                        @foreach ($category->children as $child)
+                                            <option value="{{ $child->id }}"
+                                                class="text-gray-700 dark:bg-gray-900 dark:text-gray-400 pl-4">
+                                                &#8195;{{ $child->name }}
+                                            </option>
+                                            @if ($child->children->count() > 0)
+                                                @foreach ($child->children as $child2)
+                                                    <option value="{{ $child2->id }}"
+                                                        class="text-gray-700 dark:bg-gray-900 dark:text-gray-400 pl-6">
+                                                        &#8195; &#8195;{{ $child2->name }}
+                                                    </option>
+                                                @endforeach
+                                            @endif
+                                        @endforeach
+                                    @endif
                                 @endforeach
-                            @endif
-                                    @endforeach
-                                @endif
 
-                            @endforeach
-
-                        </select>
-                        <span
-                            class="pointer-events-none absolute top-1/2 right-4 z-30 -translate-y-1/2 text-gray-500 dark:text-gray-400">
-                            <svg class="stroke-current" width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path d="M4.79175 7.396L10.0001 12.6043L15.2084 7.396" stroke="" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </span>
+                            </select>
+                            <span
+                                class="pointer-events-none absolute top-1/2 right-4 z-30 -translate-y-1/2 text-gray-500 dark:text-gray-400">
+                                <svg class="stroke-current" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4.79175 7.396L10.0001 12.6043L15.2084 7.396" stroke=""
+                                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </span>
+                        </div>
+                        @error('parent_id')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
+                        <div class="align-right mt-2">
+                            <a class="text-sm text-blue-600 hover:underline" href="javascript:void(0)"
+                                wire:click="openCreateModal">
+                                Add New Category
+                            </a>
+                        </div>
                     </div>
-                    @error('parent_id')
-                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                    @enderror
-                </div>
 
 
-            </form>
+                    <div class="mt-2">
+                         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                            Featured Image
+                        </label>
+                        <input wire:model="featured_image" type="file"
+                            class="focus:border-ring-brand-300 shadow-theme-xs focus:file:ring-brand-300 h-11 w-full overflow-hidden rounded-lg border border-gray-300 bg-transparent text-sm text-gray-500 transition-colors file:mr-5 file:border-collapse file:cursor-pointer file:rounded-l-lg file:border-0 file:border-r file:border-solid file:border-gray-200 file:bg-gray-50 file:py-3 file:pr-3 file:pl-3.5 file:text-sm file:text-gray-700 placeholder:text-gray-400 hover:file:bg-gray-100 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-gray-400 dark:text-white/90 dark:file:border-gray-800 dark:file:bg-white/[0.03] dark:file:text-gray-400 dark:placeholder:text-gray-400">
+                        @error('featured_image')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
 
-            <!-- Modal footer -->
-            <div class="mt-4 flex justify-end gap-2">
-                <button @click="open = false"
-                    class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs ring-1 ring-gray-300 transition hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white">Cancel</button>
-                <button wire:click="createCategory"
-                    class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Save</button>
-            </div>
-        </div>
-    </div>
-                    @livewire('post-create-featured-image')
+                        {{-- Preview for newly uploaded file --}}
+                        @if ($featured_image)
+                            <div class="mt-2">
+                                <label class="block text-xs text-gray-500 dark:text-gray-400 mb-1">Preview:</label>
+                                <img src="{{ $featured_image->temporaryUrl() }}" alt="Image Preview"
+                                    class="rounded-lg max-h-40 border border-gray-200 dark:border-gray-700">
+                            </div>
+                        @elseif ($featured_image_url)
+                            {{-- Preview for existing image --}}
+                            <div class="mt-2">
+                                <label class="block text-xs text-gray-500 dark:text-gray-400 mb-1">Current
+                                    Image:</label>
+                                <img src="{{ $featured_image_url }}" alt="Current Featured Image"
+                                    class="rounded-lg max-h-40 border border-gray-200 dark:border-gray-700">
+                            </div>
+                        @endif
+                    </div>
+
                 </div>
 
                 <!-- ====== Table Six End -->
@@ -254,28 +202,114 @@
 
         </div>
     </form>
+  <div x-data="{ open: @entangle('createModal') }" x-show="open"
+                        class="fixed inset-0 z-99999 flex items-center justify-center bg-black/50" x-transition>
+                        <div @click.away="open = false"
+                            class="bg-white w-full max-w-md p-6 rounded-lg shadow-lg transition dark:bg-gray-700"
+                            x-show="open" x-transition>
+                            <h2 class="text-lg font-semibold mb-4">Create New Category</h2>
 
-@push('scripts')
-    <script>
-        // When Livewire updates, re-init editor if needed
-        document.addEventListener('livewire:update', function() {
-            if (!tinymce.get('#editor')) {
-                initTinyMCE();
-            }
-        });
-        Livewire.on('postUpdateStatus', (data) => {
-            console.log(data[0])
-           $toaster.fire({
-                icon: 'error',
-                title: data[0].error
+
+                            <form wire:submit.prevent="createCategory">
+
+                                <div class="mt-2">
+                                    <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                        Category Name
+                                    </label>
+                                    <input wire:model="name" type="text" placeholder="Enter full name"
+                                        class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
+                                    @error('name')
+                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="mt-2">
+                                    <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                        Select Parent Category
+                                    </label>
+                                    <div x-data="{ isOptionSelected: false }" class="relative z-20 bg-transparent">
+                                        <select wire:model="parent_id"
+                                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 pr-11 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
+                                            :class="isOptionSelected && 'text-gray-800 dark:text-white/90'"
+                                            @change="isOptionSelected = true">
+
+                                            <option value=""
+                                                class="text-gray-700 dark:bg-gray-900 dark:text-gray-400">
+                                                No Parent Category
+                                            </option>
+                                            @foreach ($categories as $category)
+                                                <option value="{{ $category->id }}"
+                                                    class="text-gray-700 dark:bg-gray-900 dark:text-gray-400">
+                                                    {{ $category->name }}
+                                                </option>
+                                                @if ($category->children->count() > 0)
+                                                    @foreach ($category->children as $child)
+                                                        <option value="{{ $child->id }}"
+                                                            class="text-gray-700 dark:bg-gray-900 dark:text-gray-400 pl-4">
+                                                            &emsp;{{ $child->name }}
+                                                        </option>
+                                                        @if ($child->children->count() > 0)
+                                                            @foreach ($child->children as $child2)
+                                                                <option value="{{ $child2->id }}"
+                                                                    class="text-gray-700 dark:bg-gray-900 dark:text-gray-400 pl-6">
+                                                                    &#8195; &#8195;{{ $child2->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            @endforeach
+
+                                        </select>
+                                        <span
+                                            class="pointer-events-none absolute top-1/2 right-4 z-30 -translate-y-1/2 text-gray-500 dark:text-gray-400">
+                                            <svg class="stroke-current" width="20" height="20"
+                                                viewBox="0 0 20 20" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M4.79175 7.396L10.0001 12.6043L15.2084 7.396" stroke=""
+                                                    stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    @error('parent_id')
+                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+
+                            </form>
+
+                            <!-- Modal footer -->
+                            <div class="mt-4 flex justify-end gap-2">
+                                <button @click="open = false"
+                                    class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs ring-1 ring-gray-300 transition hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white">Cancel</button>
+                                <button wire:click="createCategory"
+                                    class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Save</button>
+                            </div>
+                        </div>
+                    </div>
+    @push('scripts')
+        <script>
+            // When Livewire updates, re-init editor if needed
+            document.addEventListener('livewire:update', function() {
+                if (!tinymce.get('#editor')) {
+                    initTinyMCE();
+                }
             });
-        });
-        Livewire.on('loaded', () => {
-            console.log('Loaded')
-        });
-    </script>
-    <script src="https://cdn.tiny.cloud/1/6fc0o57nwmnuyujo3x2t2m7qttqr09s74djxb47lnzygcixp/tinymce/8/tinymce.min.js"
-        referrerpolicy="origin" crossorigin="anonymous"></script>
+            Livewire.on('postUpdateStatus', (data) => {
+                console.log(data[0])
+                $toaster.fire({
+                    icon: 'error',
+                    title: data[0].error
+                });
+            });
+            Livewire.on('loaded', () => {
+                console.log('Loaded')
+            });
+        </script>
+        <script src="https://cdn.tiny.cloud/1/6fc0o57nwmnuyujo3x2t2m7qttqr09s74djxb47lnzygcixp/tinymce/8/tinymce.min.js"
+            referrerpolicy="origin" crossorigin="anonymous"></script>
 
 
         <script>
@@ -296,11 +330,11 @@
             });
         </script>
 
-    <script>
-        document.addEventListener('livewire:load', function() {
-            Livewire.on('slug', () => {
-                alert('test slug');
+        <script>
+            document.addEventListener('livewire:load', function() {
+                Livewire.on('slug', () => {
+                    alert('test slug');
+                });
             });
-        });
-    </script>
-@endpush
+        </script>
+    @endpush

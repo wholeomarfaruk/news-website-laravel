@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Category;
+use App\Models\Media;
 use App\Models\Post;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -26,6 +27,7 @@ class PostEdit extends Component
     public $isFeatured = false;
     public $postId;
     public $post;
+    public $featured_image_url;
     public function mount($id)
     {
         $this->postId = $id;
@@ -35,12 +37,13 @@ class PostEdit extends Component
         $this->category_id = $post->category_id;
         $this->slug = $post->slug;
         $this->content = $post->content;
+        $this->excerpt = $post->excerpt;
         $this->status = $post->status;
         $this->url = $this->url = url('/') . "/" . $post->slug;
         $this->isFeatured = $post->is_featured;
         $this->publish_date = $post->updated_at;
-
-
+  $media = $post->media()->where('category','featured_image')->first();
+    $this->featured_image_url = $media ? asset('storage/' . $media->path) : null;
 
     }
     public function generateSlug()
@@ -72,20 +75,65 @@ class PostEdit extends Component
         ]);
         $post = Post::find($this->postId);
         if (!$post) {
-                      $this->dispatch('postUpdateStatus', ['error' => 'Post not found']);
+            $this->dispatch('postUpdateStatus', ['error' => 'Post not found']);
 
         }
         try {
 
 
-            $post->update([
-                'title' => $this->title,
-                'content' => $this->content,
-                'slug' => $this->slug,
-                'is_featured' => $this->isFeatured,
-                'category_id' => $this->category_id,
-                'status' => $this->status,
-            ]);
+
+
+            $post->title = $this->title;
+            $post->content = $this->content;
+            $post->slug = $this->slug;
+            $post->is_featured = $this->isFeatured;
+            $post->category_id = $this->category_id;
+            $post->status = $this->status;
+            $post->excerpt = $this->excerpt;
+            $post->save();
+            if ($this->featured_image) {
+                // Generate random filename
+                $filename = Str::random(20) . '.' . $this->featured_image->getClientOriginalExtension();
+
+                // Store file in 'public/media'
+                $path = $this->featured_image->storeAs('media', $filename, 'public');
+
+                // Save in media table
+                $media = $post->media->where('category', 'featured_image')->first();
+                if ($media) {
+                    $media->filename = $filename;
+                    $media->original_name = $this->featured_image->getClientOriginalName();
+                    $media->mime_type = $this->featured_image->getMimeType();
+                    $media->extension = $this->featured_image->getClientOriginalExtension();
+                    $media->size = $this->featured_image->getSize();
+                    $media->type = 'image';
+                    $media->category = 'featured_image';
+                    $media->disk = 'public';
+                    $media->path = $path;
+                    $media->mediable_id = $post->id;
+                    $media->mediable_type = Post::class;
+                    $media->user_id = auth()->id();
+                    $media->save();
+
+                } else {
+                    $media = new Media();
+                    $media->filename = $filename;
+                    $media->original_name = $this->featured_image->getClientOriginalName();
+                    $media->mime_type = $this->featured_image->getMimeType();
+                    $media->extension = $this->featured_image->getClientOriginalExtension();
+                    $media->size = $this->featured_image->getSize();
+                    $media->type = 'image';
+                    $media->category = 'featured_image';
+                    $media->disk = 'public';
+                    $media->path = $path;
+                    $media->mediable_id = $post->id;
+                    $media->mediable_type = Post::class;
+                    $media->user_id = auth()->id();
+                    $media->save();
+
+                }
+
+            }
             return redirect()->route('admin.post.list')->with('success', 'Post Updated Successfully.');
         } catch (\Throwable $th) {
             $this->dispatch('postUpdateStatus', ['error' => $th->getMessage()]);
@@ -93,7 +141,7 @@ class PostEdit extends Component
 
 
     }
-        public function createPost()
+    public function createPost()
     {
         // dd($this->category_id);
 

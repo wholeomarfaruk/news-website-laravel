@@ -6,6 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Media extends Model
 {
+        protected $fillable = [
+        'filename',
+        'original_name',
+        'mime_type',
+        'extension',
+        'size',
+        'type',
+        'disk',
+        'path',
+        'category',
+        'mediable_id',
+        'mediable_type',
+        'user_id',
+    ];
 
         public function variants()
     {
