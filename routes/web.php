@@ -16,7 +16,7 @@ Route::get('/{slug}',[HomeController::class,'singlePost'])->name('singlepost');
 Route::get('/category',[HomeController::class,'category'])->name('category');
 
 
-Route::get('/run-maintenance', function () {
+Route::get('/optimize', function () {
     // Simple security check with a secret key
     if (request()->get('key') !== env('MAINTENANCE_KEY')) {
         abort(403, 'Unauthorized');
