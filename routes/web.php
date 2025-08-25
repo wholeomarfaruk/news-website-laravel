@@ -7,12 +7,33 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Website\HomeController;
 use App\Livewire\Roles;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class,'index']);
 Route::get('/single-post',[HomeController::class,'singlePostDemo'])->name('post');
 Route::get('/{slug}',[HomeController::class,'singlePost'])->name('singlepost');
 Route::get('/category',[HomeController::class,'category'])->name('category');
+
+
+Route::get('/run-maintenance', function () {
+    // Simple security check with a secret key
+    if (request()->get('key') !== env('MAINTENANCE_KEY')) {
+        abort(403, 'Unauthorized');
+    }
+
+    // Run optimization & clear caches
+    Artisan::call('optimize');
+    Artisan::call('cache:clear');
+    Artisan::call('config:cache');
+    Artisan::call('route:cache');
+    Artisan::call('view:clear');
+
+    return '✅ Application optimized and caches cleared!';
+});
+
+
+
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 Route::get('dashboard', function () {
     return redirect()->route('admin.dashboard'); // Redirect to the admin dashboard
