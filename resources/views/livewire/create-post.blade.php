@@ -280,7 +280,7 @@
 
                 $toaster.fire({
                     icon: 'error',
-                    title: data.error
+                    title: data[0].error
                 });
             });
             Livewire.on('loaded', () => {

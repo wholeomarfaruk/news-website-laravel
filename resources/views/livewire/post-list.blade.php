@@ -115,7 +115,7 @@
                                                     </p>
                                                     <div class="h-10 w-10 overflow-hidden rounded-lg">
 
-                                                        <img src="{{ asset('storage/'.$post->media->where('category','featured_image')->first()?->path) }}"
+                                                        <img src="{{ asset('uploads/'.$post->media->where('category','featured_image')->first()?->path) }}"
                                                             alt="brand" />
                                                     </div> -
 

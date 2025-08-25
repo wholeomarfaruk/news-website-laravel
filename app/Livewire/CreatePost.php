@@ -8,6 +8,7 @@ use Livewire\Component;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Livewire\WithFileUploads;
 
 
@@ -49,34 +50,35 @@ class CreatePost extends Component
     }
     public function createPost()
     {
-        // dd($this->category_id);
+
 
         $this->validate([
             'title' => "string|min:3",
             "content" => "required"
 
         ]);
+
+
         try {
 
             $post = new Post();
-            $post->title= $this->title;
+            $post->title = $this->title;
             $post->content = $this->content;
-            $post->slug=$this->slug;
-            $post->is_featured=$this->isFeatured;
-            $post->category_id=$this->category_id;
-            $post->status=$this->status;
-            $post->excerpt=$this->excerpt;
+            $post->slug = $this->slug;
+            $post->is_featured = $this->isFeatured;
+            $post->category_id = $this->category_id;
+            $post->status = $this->status;
+            $post->excerpt = $this->excerpt;
             $post->save();
+
             if ($this->featured_image) {
-                // Generate random filename
-                $filename = Str::random(20) . '.' . $this->featured_image->getClientOriginalExtension();
 
                 // Store file in 'public/media'
-                $path = $this->featured_image->storeAs('media', $filename, 'public');
+                $path = $this->storeFeaturedImage($this->featured_image);
 
                 // Save in media table
                 $media = new Media();
-                $media->filename = $filename;
+                $media->filename = basename($path);
                 $media->original_name = $this->featured_image->getClientOriginalName();
                 $media->mime_type = $this->featured_image->getMimeType();
                 $media->extension = $this->featured_image->getClientOriginalExtension();
@@ -89,12 +91,20 @@ class CreatePost extends Component
                 $media->mediable_type = Post::class;
                 $media->user_id = auth()->id();
                 $media->save();
-
+            }else{
+                 abort(403);
             }
 
+            DB::commit(); // commit transaction
             return redirect()->route('admin.post.list')->with('success', 'Post Successfully Created.');
         } catch (\Throwable $th) {
-            $this->dispatch('postCreateStatus', ['error' => $th]);
+            DB::rollBack(); // rollback on any error
+
+            // Optionally delete the uploaded file if it exists
+            if (isset($path) && file_exists(public_path($path))) {
+                unlink(public_path($path));
+            }
+            $this->dispatch('postCreateStatus', ['error' => $th->getMessage()]);
         }
 
 
@@ -121,5 +131,27 @@ class CreatePost extends Component
         $this->createModal = true;
     }
 
+    /**
+     * Store uploaded file in public/media and return path
+     *
+     * @param \Livewire\TemporaryUploadedFile $file
+     * @return string Path relative to public folder
+     */
+    protected function storeFeaturedImage($file)
+    {
+        $filename = Str::random(20) . '.' . $file->getClientOriginalExtension();
+        $destinationPath = public_path('uploads/media');
+
+        // Create directory if it doesn't exist
+        if (!file_exists($destinationPath)) {
+            mkdir($destinationPath, 0755, true); // recursive
+        }
+
+        // Move uploaded file
+        $file->storeAs('media',$filename);
+
+        // Return relative path for database
+        return 'media/' . $filename;
+    }
 
 }

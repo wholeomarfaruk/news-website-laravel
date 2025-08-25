@@ -8,6 +8,7 @@ use App\Models\Post;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use function PHPUnit\Framework\fileExists;
 
 class PostEdit extends Component
 {
@@ -96,11 +97,17 @@ class PostEdit extends Component
                 $filename = Str::random(20) . '.' . $this->featured_image->getClientOriginalExtension();
 
                 // Store file in 'public/media'
-                $path = $this->featured_image->storeAs('media', $filename, 'public');
+
+                $path = $path = $this->storeFeaturedImage($this->featured_image);
+
 
                 // Save in media table
                 $media = $post->media->where('category', 'featured_image')->first();
                 if ($media) {
+                    if(file_exists(public_path('uploads/'.$media->path))){
+
+                        unlink(public_path('uploads/'.$media->path));
+                    }
                     $media->filename = $filename;
                     $media->original_name = $this->featured_image->getClientOriginalName();
                     $media->mime_type = $this->featured_image->getMimeType();
@@ -116,6 +123,7 @@ class PostEdit extends Component
                     $media->save();
 
                 } else {
+
                     $media = new Media();
                     $media->filename = $filename;
                     $media->original_name = $this->featured_image->getClientOriginalName();
@@ -187,5 +195,20 @@ class PostEdit extends Component
         $this->reset(['name', 'parent_id']);
         $this->createModal = true;
     }
+   protected function storeFeaturedImage($file)
+    {
+        $filename = Str::random(20) . '.' . $file->getClientOriginalExtension();
+        $destinationPath = public_path('uploads/media');
 
+        // Create directory if it doesn't exist
+        if (!file_exists($destinationPath)) {
+            mkdir($destinationPath, 0755, true); // recursive
+        }
+
+        // Move uploaded file
+        $file->storeAs('media',$filename);
+
+        // Return relative path for database
+        return 'media/' . $filename;
+    }
 }
