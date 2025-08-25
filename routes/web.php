@@ -10,6 +10,12 @@ use App\Livewire\Roles;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Auth\VerifyEmailController;
+use Livewire\Volt\Volt;
+require __DIR__ . '/auth.php';
+
+
+
 Route::get('/', [HomeController::class,'index']);
 Route::get('/single-post',[HomeController::class,'singlePostDemo'])->name('post');
 Route::get('/{slug}',[HomeController::class,'singlePost'])->name('singlepost');
@@ -43,7 +49,7 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-require __DIR__ . '/auth.php';
+
 
 route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')
     ->group(function () {
