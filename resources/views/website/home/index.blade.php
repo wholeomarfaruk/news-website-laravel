@@ -10,7 +10,7 @@
                         <div class="row">
                             <div class="col-md-8">
                                  @if($latestPost)
-                                <a href="{{ route('singlepost',$latestPost->first()->slug) }}">
+                                <a href="{{ route('singlepost',$latestPost->first()?->slug) }}">
 
                                     <div class="card mb-3 p-2 rounded ">
                                         <div class="row flex-column g-0">
