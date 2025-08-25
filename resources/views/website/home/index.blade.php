@@ -14,7 +14,7 @@
                                             <div class="row flex-column g-0">
                                                 <div class="col-auto">
                                                     <img style="height: 100%; width: cover;"
-                                                        src="{{ asset($latestPost?->first()?->media?->where('category', 'featured_image')?->first()?->path) }}"
+                                                        src="{{ asset('uploads/'.$latestPost?->first()?->media?->where('category', 'featured_image')?->first()?->path) }}"
                                                         class="img-fluid rounded-start" alt="...">
                                                 </div>
                                                 <div class="col-auto">
@@ -74,7 +74,7 @@
     $featuredImage = $post->media->where('category', 'featured_image')->first();
 @endphp
                                                         @if ($featuredImage)
-                                                            <img src="{{ asset($featuredImage->path) }}"
+                                                            <img src="{{ asset('uploads/' . $featuredImage->path) }}"
                                                                 class="card-img-top" alt="{{ $post->title }}">
                                                         @else
                                                             <img src="{{ asset('images/default.png') }}"
