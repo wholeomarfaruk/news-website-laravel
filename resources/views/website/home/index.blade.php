@@ -7,10 +7,8 @@
                     <div class="border p-3 rounded ">
                         <div class="row">
                             <div class="col-md-8">
-                                @if ($latestPost->count()>0)
-                                    <?php
+                                @if ($latestPost && $latestPost->count()>0)
 
-                                    ?>
                                     <a href="{{ route('singlepost', $latestPost?->first()?->slug) }}">
                                         <div class="card mb-3 p-2 rounded ">
                                             <div class="row flex-column g-0">
