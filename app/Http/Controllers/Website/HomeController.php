@@ -11,7 +11,7 @@ use function Laravel\Prompts\error;
 class HomeController extends Controller
 {
     public function index(){
-        $latestPost = Post::latest()->take(10);
+        $latestPost = Post::latest()->take(10)->get();
         return view('website.home.index',compact('latestPost'));
     }
     public function singlePost($slug){

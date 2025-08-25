@@ -5,99 +5,129 @@
             <div class="row align-items-stretch">
                 <div class="col-md-9">
                     <div class="border p-3 rounded ">
-
-
                         <div class="row">
                             <div class="col-md-8">
-                                 @if($latestPost)
-                                <a href="{{ route('post') }}">
+                                @if ($latestPost)
+                                    <?php
 
-                                    <div class="card mb-3 p-2 rounded ">
-                                        <div class="row flex-column g-0">
-                                            <div class="col-auto">
+                                    ?>
+                                    <a href="{{ route('singlepost', $latestPost?->first()?->slug) }}">
+                                        <div class="card mb-3 p-2 rounded ">
+                                            <div class="row flex-column g-0">
+                                                <div class="col-auto">
+                                                    <img style="height: 100%; width: cover;"
+                                                        src="{{ asset('storage/' . $latestPost?->first()?->media?->where('category', 'featured_image')?->first()?->path) }}"
+                                                        class="img-fluid rounded-start" alt="...">
+                                                </div>
+                                                <div class="col-auto">
+                                                    <div class="card-body">
 
-                                                <img style="height: 100%; "
-                                                    src="{{asset('storage/'.$latestPost->first()->media->where('category','featured_image')->first()->path)}}"
-                                                    class="img-fluid rounded-start" alt="...">
-                                            </div>
-                                            <div class="col-auto">
-                                                <div class="card-body">
-
-                                                    <h5 class="card-title fw-bold">{{$latestPost->first()->title}}
-                                                    </h5>
-                                                    <p class="card-text " style="font-size: 12px">
-                                                        {{$latestPost->first()->excerpt}}</p>
-                                                    </p>
+                                                        <h5 class="card-title fw-bold">{{ $latestPost->first()->title }}
+                                                        </h5>
+                                                        <p class="card-text " style="font-size: 12px">
+                                                            {{ $latestPost->first()?->excerpt }}
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
+                                    </a>
                                 @else
-                                <a href="{{ route('post') }}">
-                                    <div class="card mb-3 p-2 rounded ">
-                                        <div class="row flex-column g-0">
-                                            <div class="col-auto">
-                                                <img style="height: 100%; width: cover;"
-                                                    src="https://www.kalbela.com/assets/news_photos/2025/08/18/image_214577_1755532555.webp"
-                                                    class="img-fluid rounded-start" alt="...">
-                                            </div>
-                                            <div class="col-auto">
-                                                <div class="card-body">
+                                    <a href="{{ route('post') }}">
+                                        <div class="card mb-3 p-2 rounded ">
+                                            <div class="row flex-column g-0">
+                                                <div class="col-auto">
+                                                    <img style="height: 100%; width: cover;"
+                                                        src="https://www.kalbela.com/assets/news_photos/2025/08/18/image_214577_1755532555.webp"
+                                                        class="img-fluid rounded-start" alt="...">
+                                                </div>
+                                                <div class="col-auto">
+                                                    <div class="card-body">
 
-                                                    <h5 class="card-title fw-bold">এক টাকাও খরচ করতে পারেনি ১২ মন্ত্রণালয় ও বিভাগ
-                                                    </h5>
-                                                    <p class="card-text " style="font-size: 12px">
-                                                        গত অর্থবছরের ধারবাহিকতায় চলতি অর্থবছরেও এডিপি বাস্তবায়নে বেহাল দশা
-                                                        দেখা
-                                                        দিয়েছে। সদ্য শুরু হওয়া ২০২৫-২৬ অর্থবছরের এক মাস পেরিয়ে গেলেও সব
-                                                        মন্ত্রণালয় ও বিভাগ মিলে বরাদ্দের ১ শতাংশও বাস্তবায়ন করতে পারেনি। আর
-                                                        বার্ষিক উন্নয়ন কর্মসূচিতে (এডিপি) বরাদ্দ থাকলেও খরচের খাতা খুলতে
-                                                        পারেনি
-                                                        ১২টি মন্ত্রণালয় ও বিভাগ। বাকিরা খাতা খুললেও নাম </p>
-                                                    </p>
+                                                        <h5 class="card-title fw-bold">এক টাকাও খরচ করতে পারেনি ১২
+                                                            মন্ত্রণালয় ও বিভাগ
+                                                        </h5>
+                                                        <p class="card-text " style="font-size: 12px">
+                                                            গত অর্থবছরের ধারবাহিকতায় চলতি অর্থবছরেও এডিপি বাস্তবায়নে বেহাল
+                                                            দশা
+                                                            দেখা
+                                                            দিয়েছে। সদ্য শুরু হওয়া ২০২৫-২৬ অর্থবছরের এক মাস পেরিয়ে গেলেও সব
+                                                            মন্ত্রণালয় ও বিভাগ মিলে বরাদ্দের ১ শতাংশও বাস্তবায়ন করতে পারেনি।
+                                                            আর
+                                                            বার্ষিক উন্নয়ন কর্মসূচিতে (এডিপি) বরাদ্দ থাকলেও খরচের খাতা খুলতে
+                                                            পারেনি
+                                                            ১২টি মন্ত্রণালয় ও বিভাগ। বাকিরা খাতা খুললেও নাম </p>
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
+                                    </a>
                                 @endif
+
                                 <div class="row g-2">
-
-
-                                    <div class="col-md-4">
-                                        <a href="{{ route('post') }}">
-                                            <div class="card">
-                                                <img src="https://www.kalbela.com/assets/news_photos/2025/08/19/image_214696_1755563348.webp"
-                                                    class="card-img-top" alt="...">
-                                                <div class="card-body">
-                                                    <h5 class="card-title fw-bold">এনসিপির কেন্দ্রীয় নেতা মাহিন সরকারকে বহিষ্কার</h5>
-                                                </div>
+                                    @if ($latestPost)
+                                        @foreach ($latestPost->slice(1,2) as $post)
+                                            {{-- @if ($index > 1 && $index < 3) --}}
+                                            <div class="col-md-4">
+                                                <a href="{{ route('singlepost', $post->slug) }}">
+                                                    <div class="card">
+                                                        @php
+    $featuredImage = $post->media->where('category', 'featured_image')->first();
+@endphp
+                                                        @if ($featuredImage)
+                                                            <img src="{{ asset('storage/' . $featuredImage->path) }}"
+                                                                class="card-img-top" alt="{{ $post->title }}">
+                                                        @else
+                                                            <img src="{{ asset('images/default.png') }}"
+                                                                class="card-img-top" alt="Default Image">
+                                                        @endif
+                                                        <div class="card-body">
+                                                            <h5 class="card-title fw-bold">{{ $post->title }}</h5>
+                                                        </div>
+                                                    </div>
+                                                </a>
                                             </div>
-                                        </a>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <a href="{{ route('post') }}">
-                                            <div class="card">
-                                                <img src="https://www.kalbela.com/assets/news_photos/2025/08/18/image_214597_1755539947.webp"
-                                                    class="card-img-top" alt="...">
-                                                <div class="card-body">
-                                                    <h5 class="card-title fw-bold">এনসিপির কেন্দ্রীয় নেতা মাহিন সরকারকে বহিষ্কার</h5>
+                                            {{-- @endif --}}
+                                        @endforeach
+                                    @else
+                                        <div class="col-md-4">
+                                            <a href="{{ route('post') }}">
+                                                <div class="card">
+                                                    <img src="https://www.kalbela.com/assets/news_photos/2025/08/19/image_214696_1755563348.webp"
+                                                        class="card-img-top" alt="...">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title fw-bold">এনসিপির কেন্দ্রীয় নেতা মাহিন সরকারকে
+                                                            বহিষ্কার</h5>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <a href="{{ route('post') }}">
-                                            <div class="card">
-                                                <img src="https://www.kalbela.com/assets/news_photos/2025/08/19/image_214696_1755563348.webp"
-                                                    class="card-img-top" alt="...">
-                                                <div class="card-body">
-                                                    <h5 class="card-title fw-bold">এনসিপির কেন্দ্রীয় নেতা মাহিন সরকারকে বহিষ্কার</h5>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <a href="{{ route('post') }}">
+                                                <div class="card">
+                                                    <img src="https://www.kalbela.com/assets/news_photos/2025/08/18/image_214597_1755539947.webp"
+                                                        class="card-img-top" alt="...">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title fw-bold">এনসিপির কেন্দ্রীয় নেতা মাহিন সরকারকে
+                                                            বহিষ্কার</h5>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </a>
-                                    </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <a href="{{ route('post') }}">
+                                                <div class="card">
+                                                    <img src="https://www.kalbela.com/assets/news_photos/2025/08/19/image_214696_1755563348.webp"
+                                                        class="card-img-top" alt="...">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title fw-bold">এনসিপির কেন্দ্রীয় নেতা মাহিন সরকারকে
+                                                            বহিষ্কার</h5>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -108,7 +138,8 @@
                                             <img src="https://www.kalbela.com/assets/news_photos/2025/08/18/image_214597_1755539947.webp"
                                                 class="card-img-top" alt="...">
                                             <div class="card-body">
-                                                <h5 class="card-title fw-bold">এনসিপির কেন্দ্রীয় নেতা মাহিন সরকারকে বহিষ্কার</h5>
+                                                <h5 class="card-title fw-bold">এনসিপির কেন্দ্রীয় নেতা মাহিন সরকারকে বহিষ্কার
+                                                </h5>
                                             </div>
                                         </div>
                                     </a>
@@ -122,7 +153,8 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="card-body">
-                                                        <h5 class="card-title fw-bold">এক টাকাও খরচ করতে পারেনি ১২ মন্ত্রণালয় ও
+                                                        <h5 class="card-title fw-bold">এক টাকাও খরচ করতে পারেনি ১২
+                                                            মন্ত্রণালয় ও
                                                             বিভাগ
                                                         </h5>
 
@@ -141,7 +173,8 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="card-body">
-                                                        <h5 class="card-title fw-bold">এক টাকাও খরচ করতে পারেনি ১২ মন্ত্রণালয় ও
+                                                        <h5 class="card-title fw-bold">এক টাকাও খরচ করতে পারেনি ১২
+                                                            মন্ত্রণালয় ও
                                                             বিভাগ
                                                         </h5>
 
@@ -160,7 +193,8 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="card-body">
-                                                        <h5 class="card-title fw-bold">এক টাকাও খরচ করতে পারেনি ১২ মন্ত্রণালয় ও
+                                                        <h5 class="card-title fw-bold">এক টাকাও খরচ করতে পারেনি ১২
+                                                            মন্ত্রণালয় ও
                                                             বিভাগ
                                                         </h5>
 
@@ -275,7 +309,7 @@
                             src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
                             alt="">
                         <div class="p-2">
-                            <div class="fw-bold title" >মাত্র ২৭ টেস্ট পর শচিনের সর্বোচ্চ রানের রেকর্ড
+                            <div class="fw-bold title">মাত্র ২৭ টেস্ট পর শচিনের সর্বোচ্চ রানের রেকর্ড
                                 ভেঙে দেবেন রুট! ১</div>
                             <div class="text-muted" style="font-size: 16px;">
                                 ‘বাজবল ক্রিকেটে’র যুগ এখন। বিশেষ করে ইংল্যান্ড এই বাজবল ক্রিকেটকে সবচেয়ে বেশি ব্যবহার করছে।
@@ -289,7 +323,7 @@
                             src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
                             alt="">
                         <div class="p-2">
-                            <div class="fw-bold title" >মাত্র ২৭ টেস্ট পর শচিনের সর্বোচ্চ রানের রেকর্ড
+                            <div class="fw-bold title">মাত্র ২৭ টেস্ট পর শচিনের সর্বোচ্চ রানের রেকর্ড
                                 ভেঙে দেবেন রুট! ২</div>
 
                         </div>
@@ -299,7 +333,7 @@
                             src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
                             alt="">
                         <div class="p-2">
-                            <div class="fw-bold title" >মাত্র ২৭ টেস্ট পর শচিনের সর্বোচ্চ রানের রেকর্ড
+                            <div class="fw-bold title">মাত্র ২৭ টেস্ট পর শচিনের সর্বোচ্চ রানের রেকর্ড
                                 ভেঙে দেবেন রুট! ৩</div>
 
                         </div>
@@ -309,7 +343,7 @@
                             src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
                             alt="">
                         <div class="p-2">
-                            <div class="fw-bold title" >মাত্র ২৭ টেস্ট পর শচিনের সর্বোচ্চ রানের রেকর্ড
+                            <div class="fw-bold title">মাত্র ২৭ টেস্ট পর শচিনের সর্বোচ্চ রানের রেকর্ড
                                 ভেঙে দেবেন রুট! ৪</div>
                             <div class="text-muted" style="font-size: 1px;">
                                 <i class="fa-regular fa-clock"></i> ১:৫৫ মিনিট
@@ -321,7 +355,7 @@
                             src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
                             alt="">
                         <div class="p-2">
-                            <div class="fw-bold title" >মাত্র ২৭ টেস্ট পর শচিনের সর্বোচ্চ রানের রেকর্ড
+                            <div class="fw-bold title">মাত্র ২৭ টেস্ট পর শচিনের সর্বোচ্চ রানের রেকর্ড
                                 ভেঙে দেবেন রুট! ৫</div>
 
                         </div>
