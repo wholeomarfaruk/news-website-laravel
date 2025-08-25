@@ -14,11 +14,16 @@ class Post extends Model
         'status',
         'is_featured',
     ];
-    public function category(){
-        return $this->belongsTo(Category::class,'category_id');
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
     }
-     public function images()
+    public function media()
     {
         return $this->morphMany(Media::class, 'mediable');
+    }
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

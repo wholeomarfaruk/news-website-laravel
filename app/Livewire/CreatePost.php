@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Media;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use App\Models\Category;
@@ -56,14 +57,41 @@ class CreatePost extends Component
 
         ]);
         try {
-            Post::create([
-                'title' => $this->title,
-                'content' => $this->content,
-                'slug' => $this->slug,
-                'is_featured' => $this->isFeatured,
-                'category_id' => $this->category_id,
-                'status' => $this->status,
-            ]);
+
+            $post = new Post();
+            $post->title= $this->title;
+            $post->content = $this->content;
+            $post->slug=$this->slug;
+            $post->is_featured=$this->isFeatured;
+            $post->category_id=$this->category_id;
+            $post->status=$this->status;
+            $post->excerpt=$this->excerpt;
+            $post->save();
+            if ($this->featured_image) {
+                // Generate random filename
+                $filename = Str::random(20) . '.' . $this->featured_image->getClientOriginalExtension();
+
+                // Store file in 'public/media'
+                $path = $this->featured_image->storeAs('media', $filename, 'public');
+
+                // Save in media table
+                $media = new Media();
+                $media->filename = $filename;
+                $media->original_name = $this->featured_image->getClientOriginalName();
+                $media->mime_type = $this->featured_image->getMimeType();
+                $media->extension = $this->featured_image->getClientOriginalExtension();
+                $media->size = $this->featured_image->getSize();
+                $media->type = 'image';
+                $media->category = 'featured_image';
+                $media->disk = 'public';
+                $media->path = $path;
+                $media->mediable_id = $post->id;
+                $media->mediable_type = Post::class;
+                $media->user_id = auth()->id();
+                $media->save();
+
+            }
+
             return redirect()->route('admin.post.list')->with('success', 'Post Successfully Created.');
         } catch (\Throwable $th) {
             $this->dispatch('postCreateStatus', ['error' => $th]);

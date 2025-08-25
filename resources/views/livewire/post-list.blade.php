@@ -114,7 +114,8 @@
 
                                                     </p>
                                                     <div class="h-10 w-10 overflow-hidden rounded-lg">
-                                                        <img src="{{ asset('tailadmin/src/images/user/user-17.jpg') }}"
+
+                                                        <img src="{{ asset('storage/'.$post->media->where('category','featured_image')->first()?->path) }}"
                                                             alt="brand" />
                                                     </div> -
 

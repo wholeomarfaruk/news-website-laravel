@@ -9,17 +9,43 @@
 
                         <div class="row">
                             <div class="col-md-8">
+                                 @if($latestPost)
+                                <a href="{{ route('singlepost',$latestPost->first()->slug) }}">
+
+                                    <div class="card mb-3 p-2 rounded ">
+                                        <div class="row flex-column g-0">
+                                            <div class="col-auto">
+
+                                                <img style="height: 100%; "
+                                                    src="{{asset('storage/'.$latestPost->first()->media->where('category','featured_image')->first()->path)}}"
+                                                    class="img-fluid rounded-start" alt="...">
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="card-body">
+
+                                                    <h5 class="card-title fw-bold">{{$latestPost->first()->title}}
+                                                    </h5>
+                                                    <p class="card-text " style="font-size: 12px">
+                                                        {{$latestPost->first()->excerpt}}</p>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                @else
                                 <a href="{{ route('post') }}">
                                     <div class="card mb-3 p-2 rounded ">
-                                        <div class="row g-0">
-                                            <div class="col-md-6">
+                                        <div class="row flex-column g-0">
+                                            <div class="col-auto">
                                                 <img style="height: 100%; width: cover;"
                                                     src="https://www.kalbela.com/assets/news_photos/2025/08/18/image_214577_1755532555.webp"
                                                     class="img-fluid rounded-start" alt="...">
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-auto">
                                                 <div class="card-body">
-                                                    <h5 class="card-title">এক টাকাও খরচ করতে পারেনি ১২ মন্ত্রণালয় ও বিভাগ
+
+                                                    <h5 class="card-title fw-bold">এক টাকাও খরচ করতে পারেনি ১২ মন্ত্রণালয় ও বিভাগ
                                                     </h5>
                                                     <p class="card-text " style="font-size: 12px">
                                                         গত অর্থবছরের ধারবাহিকতায় চলতি অর্থবছরেও এডিপি বাস্তবায়নে বেহাল দশা
@@ -35,41 +61,9 @@
                                         </div>
                                     </div>
                                 </a>
+                                @endif
                                 <div class="row g-2">
-                                    <div class="col-md-4">
-                                        <a href="{{ route('post') }}">
-                                            <div class="card">
-                                                <img src="https://www.kalbela.com/assets/news_photos/2025/08/19/image_214696_1755563348.webp"
-                                                    class="card-img-top" alt="...">
-                                                <div class="card-body">
-                                                    <p class="card-text">এনসিপির কেন্দ্রীয় নেতা মাহিন সরকারকে বহিষ্কার</p>
-                                                </div>
-                                            </div>
-                                        </a>
 
-                                    </div>
-                                    <div class="col-md-4">
-                                        <a href="{{ route('post') }}">
-                                            <div class="card">
-                                                <img src="https://www.kalbela.com/assets/news_photos/2025/08/19/image_214599_1755543242.webp"
-                                                    class="card-img-top" alt="...">
-                                                <div class="card-body">
-                                                    <p class="card-text">এনসিপির কেন্দ্রীয় নেতা মাহিন সরকারকে বহিষ্কার</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <a href="{{ route('post') }}">
-                                            <div class="card">
-                                                <img src="https://www.kalbela.com/assets/news_photos/2025/08/19/image_214694_1755556160.webp"
-                                                    class="card-img-top" alt="...">
-                                                <div class="card-body">
-                                                    <p class="card-text">এনসিপির কেন্দ্রীয় নেতা মাহিন সরকারকে বহিষ্কার</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
 
                                     <div class="col-md-4">
                                         <a href="{{ route('post') }}">
@@ -77,7 +71,7 @@
                                                 <img src="https://www.kalbela.com/assets/news_photos/2025/08/19/image_214696_1755563348.webp"
                                                     class="card-img-top" alt="...">
                                                 <div class="card-body">
-                                                    <p class="card-text">এনসিপির কেন্দ্রীয় নেতা মাহিন সরকারকে বহিষ্কার</p>
+                                                    <h5 class="card-title fw-bold">এনসিপির কেন্দ্রীয় নেতা মাহিন সরকারকে বহিষ্কার</h5>
                                                 </div>
                                             </div>
                                         </a>
@@ -88,7 +82,7 @@
                                                 <img src="https://www.kalbela.com/assets/news_photos/2025/08/18/image_214597_1755539947.webp"
                                                     class="card-img-top" alt="...">
                                                 <div class="card-body">
-                                                    <p class="card-text">এনসিপির কেন্দ্রীয় নেতা মাহিন সরকারকে বহিষ্কার</p>
+                                                    <h5 class="card-title fw-bold">এনসিপির কেন্দ্রীয় নেতা মাহিন সরকারকে বহিষ্কার</h5>
                                                 </div>
                                             </div>
                                         </a>
@@ -99,7 +93,7 @@
                                                 <img src="https://www.kalbela.com/assets/news_photos/2025/08/19/image_214696_1755563348.webp"
                                                     class="card-img-top" alt="...">
                                                 <div class="card-body">
-                                                    <p class="card-text">এনসিপির কেন্দ্রীয় নেতা মাহিন সরকারকে বহিষ্কার</p>
+                                                    <h5 class="card-title fw-bold">এনসিপির কেন্দ্রীয় নেতা মাহিন সরকারকে বহিষ্কার</h5>
                                                 </div>
                                             </div>
                                         </a>
@@ -114,7 +108,7 @@
                                             <img src="https://www.kalbela.com/assets/news_photos/2025/08/18/image_214597_1755539947.webp"
                                                 class="card-img-top" alt="...">
                                             <div class="card-body">
-                                                <p class="card-text">এনসিপির কেন্দ্রীয় নেতা মাহিন সরকারকে বহিষ্কার</p>
+                                                <h5 class="card-title fw-bold">এনসিপির কেন্দ্রীয় নেতা মাহিন সরকারকে বহিষ্কার</h5>
                                             </div>
                                         </div>
                                     </a>
@@ -128,9 +122,9 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="card-body">
-                                                        <h6 class="card-title">এক টাকাও খরচ করতে পারেনি ১২ মন্ত্রণালয় ও
+                                                        <h5 class="card-title fw-bold">এক টাকাও খরচ করতে পারেনি ১২ মন্ত্রণালয় ও
                                                             বিভাগ
-                                                        </h6>
+                                                        </h5>
 
                                                     </div>
                                                 </div>
@@ -147,9 +141,9 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="card-body">
-                                                        <h6 class="card-title">এক টাকাও খরচ করতে পারেনি ১২ মন্ত্রণালয় ও
+                                                        <h5 class="card-title fw-bold">এক টাকাও খরচ করতে পারেনি ১২ মন্ত্রণালয় ও
                                                             বিভাগ
-                                                        </h6>
+                                                        </h5>
 
                                                     </div>
                                                 </div>
@@ -166,9 +160,9 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="card-body">
-                                                        <h6 class="card-title">এক টাকাও খরচ করতে পারেনি ১২ মন্ত্রণালয় ও
+                                                        <h5 class="card-title fw-bold">এক টাকাও খরচ করতে পারেনি ১২ মন্ত্রণালয় ও
                                                             বিভাগ
-                                                        </h6>
+                                                        </h5>
 
                                                     </div>
                                                 </div>

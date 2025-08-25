@@ -10,7 +10,9 @@ use App\Livewire\Roles;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class,'index']);
-Route::get('/single-post',[HomeController::class,'singlePost'])->name('post');
+Route::get('/single-post',[HomeController::class,'singlePostDemo'])->name('post');
+Route::get('/{slug}',[HomeController::class,'singlePost'])->name('singlepost');
+Route::get('/category',[HomeController::class,'category'])->name('category');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 Route::get('dashboard', function () {
     return redirect()->route('admin.dashboard'); // Redirect to the admin dashboard

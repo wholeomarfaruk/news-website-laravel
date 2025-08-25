@@ -82,16 +82,18 @@ input[type="search"] {
 }
 
 .btn {}
- .sticky {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        width: 100%;
-        z-index: 999;
 
-        animation: sticky 0.5s ease-in-out;
-      }
+.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 999;
+
+    animation: sticky 0.5s ease-in-out;
+}
+
 //start styling from here
 
 @keyframes sticky {
@@ -104,8 +106,7 @@ input[type="search"] {
     }
 }
 
-#header_area,
-.sticky_header {
+#header_area {
     width: 100%;
 
     .ad_area {
@@ -120,43 +121,35 @@ input[type="search"] {
         margin-top: 1rem;
         margin-bottom: 1rem;
 
-        @media (max-width:768px) {
+        @media (max-width:992px) {
             justify-content: center;
             width: 100%;
             margin-top: 0.3rem;
             margin-bottom: 0.3rem;
+
         }
 
-        & .date {
-            width: 30%;
 
-            @media (max-width:992px) {
-                display: none;
-            }
-
-            & p {
-                font-size: 1rem;
-            }
-        }
 
         & .logo {
 
             width: 40%;
-            text-align: center;
+            text-align: left;
 
             @media (max-width:992px) {
-                justify-content: center;
+                text-align: center;
                 width: 100%;
             }
 
+
             img {
-                max-width: 300px;
+                max-width: 350px;
 
             }
         }
 
         & .tools {
-            width: 30%;
+            width: fit-content;
             display: flex;
             justify-content: end;
             align-items: center;
@@ -164,6 +157,19 @@ input[type="search"] {
 
             @media (max-width:992px) {
                 display: none;
+            }
+
+            & .date {
+
+
+                @media (max-width:992px) {
+                    display: none;
+                }
+
+                & p {
+                    font-size: 1.2rem;
+                    font-weight: 600;
+                }
             }
 
             & .search-box {
@@ -222,6 +228,9 @@ input[type="search"] {
             }
 
             & .btn-group {
+                .btn{
+                    background-color: #f0adad !important;
+                }
                 & .menu-toggler {
                     background-color: #d4d4d4;
                     border: 1px solid #d4d4d4;
@@ -238,10 +247,15 @@ input[type="search"] {
     }
 
     .menu_bar {
+        background-color: #f0adad;
+
+        .logo {
+            max-width: 150px;
+        }
 
         .menu-area {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             gap: 16px;
             padding: 0 !important;
@@ -281,8 +295,13 @@ input[type="search"] {
                 }
 
                 & .nav-item {
+                    font-size: 1.2rem;
+                    font-weight: 600;
+
                     @media (max-width:992px) {
                         border-bottom: 1px solid #ddd;
+
+
 
                         &:nth-last-child(1) {
                             border-bottom: 0;
@@ -297,18 +316,22 @@ input[type="search"] {
 
             & .tools {
 
-                display: none;
+                display: flex;
 
 
                 justify-content: end;
                 align-items: center;
                 gap: 10px;
 
-                @media (max-width:992px) {
-                    display: flex;
-                }
+
 
                 & .search-box {
+                    display: none;
+
+                    @media (max-width:992px) {
+                        display: block;
+                    }
+
                     & form {
                         position: relative;
 
@@ -363,23 +386,28 @@ input[type="search"] {
 
                 }
 
-                & .btn-group {
-                    & .menu-toggler {
-                        background-color: #d4d4d4;
-                        border: 1px solid #d4d4d4;
-                        color: #9d9b9b;
+                & .langswitch-box {
+                    #lang-switcher {
+                        background-color: transparent !important;
 
-                        &:hover {
-                            color: #0f0f0f;
-                        }
                     }
+                }
+
+                & .btn-group {
+                    display: none;
+
+                    @media (max-width:992px) {
+                        display: block;
+                    }
+
+
                 }
             }
         }
 
         &.sticky {
-            background-color: #fff;
-            box-shadow: 0 0px 15px #ddd;
+
+            box-shadow: 0 0px 15px #4948488f;
             padding-bottom: 0.3rem;
 
             .menu-area {
@@ -394,10 +422,18 @@ input[type="search"] {
 
 
                 & .tools {
+                    & .search-box{
+                        display: block;
+                    }
+
+                    & .btn-group {
+                        display: block;
 
 
 
-                    display: flex;
+
+                    }
+
                 }
             }
 
@@ -405,7 +441,10 @@ input[type="search"] {
         }
     }
 
+
 }
+
+
 
 
 
@@ -445,6 +484,7 @@ input[type="search"] {
 
 
     }
+
     .featured {
         display: flex;
         justify-content: space-between;
@@ -495,7 +535,8 @@ input[type="search"] {
         justify-content: space-between;
         gap: 15px;
         padding-top: 16px;
- .footer-icon {
+
+        .footer-icon {
             width: 10px;
         }
     }
@@ -504,24 +545,28 @@ input[type="search"] {
 #main_area {}
 
 //sports area
-#sports_area{
-    .sports_container{
-        .grid-box{
+#sports_area {
+    .sports_container {
+        .grid-box {
             display: grid;
             grid-template-columns: auto auto auto auto;
             grid-gap: 10px;
-            @media (max-width:992px){
-            grid-template-columns: auto auto;
+
+            @media (max-width:992px) {
+                grid-template-columns: auto auto;
 
             }
-            .item{
-                .title{
+
+            .item {
+                .title {
                     font-size: 18px;
-                    @media (max-width:992px){
-                        font-size:16px;
+
+                    @media (max-width:992px) {
+                        font-size: 16px;
                     }
                 }
-                &:nth-child(1){
+
+                &:nth-child(1) {
                     grid-area: 2 span/2 span;
                 }
             }
