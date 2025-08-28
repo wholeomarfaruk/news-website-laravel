@@ -8,11 +8,13 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="breadcrum">
-                        <i class="fa-solid fa-home"></i> / <a class="fs-bold text-primary" href="#">{{$post->category->name}}</a>
+                        <i class="fa-solid fa-home"></i> / <a class="fs-bold text-primary"
+                            href="#">{{ $post->category->name }}</a>
                     </div>
                     <div class="rpt_info_section border-bottom mb-2 pb-2">
-                        <div class="rpt_name mt-2"><i class="fa-solid fa-circle-user me-2"></i>দি মেসেজ টু ডে
-                            প্রতিবেদক</div>
+                        <div class="rpt_name mt-2"><i class="fa-solid fa-circle-user me-2"></i> {{ $post?->author?->name }}
+                        </div>
+
                         <div class="entry_update mb-0"><span class="Layer_1" style="float: left"><svg id="Layer_1"
                                     data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13.95 16">
                                     <defs>
@@ -30,7 +32,7 @@
                                         transform="translate(-0.03 0)"></path>
                                 </svg></span>
                             <div style="display: inline-block; width: 90%; padding-left: 5px;"> প্রকাশ
-                                : ২১ আগস্ট ২০২৫, ০৯:৩৬ পিএম</div>
+                                : <span id="post_date"></span></div>
                         </div>
                         <div class="edition"><i class="fa-solid fa-square-pen me-2"></i>অনলাইন সংস্করণ
                         </div>
@@ -111,8 +113,9 @@
                                             <div class="flex-grow-1">
                                                 <!-- <h4 class="title"></h4> -->
                                                 <a class="_link" href="#">
-                                                    <h4 class="title">
-                                                        ধানের শীষের পক্ষে ঐক্যবদ্ধভাবে কাজ করার প্রতিশ্রুতি </h4>
+                                                    <h3 class="title">
+                                                        ধানের শীষের পক্ষে ঐক্যবদ্ধভাবে কাজ করার প্রতিশ্রুতি </h3>
+                                                        
                                                 </a>
                                             </div>
                                         </div>
@@ -193,29 +196,32 @@
                 </div>
                 <div class="col-md-6">
                     <div class="post-content">
-                        <h1 class="title mb-3 fs-1 fs-bolder">
-                           {{$post->title}}
-                        </h1>
+                        <h3 class="title mb-3 secondpost-title">
+                            {{ $post->title }}
+                        </h3>
+                        <div class="rpt_name mt-2 secondpost-title"><i class="fa-solid fa-circle-user me-2"></i>
+                            {{ $post?->author?->name }}</div>
                         <div class="short-info mb-3"></div>
                         <div class="featured-img mb-3">
-                            <img src="{{asset('storage/'.$post->media?->where('category','featured_image')->first()->path)}}" alt="">
+                            <img src="{{ $post->featured_image }}"
+                                alt="">
                         </div>
                         <div class="authore">
-                          
+
                         </div>
-                        <div id="content_area mb-3">
+                        <div id="content_area mb-3 ">
                             {!! $post->content !!}
 
                         </div>
-                        <div class="tags mb-3 mt-2">
+                        {{-- <div class="tags mb-3 mt-2">
                             <ul class="text-start ps-0">
-                     <a href="#" class="px-3 py-1 border border-secondary me-1 d-inline-block">tags</a>
-                     <a href="#" class="px-3 py-1 border border-secondary me-1 d-inline-block">tags</a>
-                     <a href="#" class="px-3 py-1 border border-secondary me-1 d-inline-block">tags</a>
+                                <a href="#" class="px-3 py-1 border border-secondary me-1 d-inline-block">tags</a>
+                                <a href="#" class="px-3 py-1 border border-secondary me-1 d-inline-block">tags</a>
+                                <a href="#" class="px-3 py-1 border border-secondary me-1 d-inline-block">tags</a>
 
                             </ul>
 
-                        </div>
+                        </div> --}}
 
                     </div>
                     <div class="ad bg-dark bg-opacity-50 d-flex justify-content-center align-items-center mb-3"
@@ -229,14 +235,37 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                     <div class="ad bg-dark bg-opacity-50 d-flex justify-content-center align-items-center mb-3" style="height: 400px">
-                <span class="text-danger fs-3">For Ad 1</span>
-            </div>
-             <div class="ad bg-dark bg-opacity-50 d-flex justify-content-center align-items-center mb-3" style="height: 400px">
-                <span class="text-danger fs-3">For Ad 2</span>
-            </div>
+                    <div class="ad bg-dark bg-opacity-50 d-flex justify-content-center align-items-center mb-3"
+                        style="height: 400px">
+                        <span class="text-danger fs-3">For Ad 1</span>
+                    </div>
+                    <div class="ad bg-dark bg-opacity-50 d-flex justify-content-center align-items-center mb-3"
+                        style="height: 400px">
+                        <span class="text-danger fs-3">For Ad 2</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        // Set locale to Bangla
+        $(function() {
+            let postdate = "{{ $post->created_at }}";
+            // লোকেল বাংলায় সেট করা হলো
+            moment.locale("bn-bd");
+
+            function updateDate() {
+                // শুধু ফুল ডেট ফরম্যাট (বার, তারিখ, মাস, সাল)
+                let bdDate = moment(postdate).format("LLL");
+
+
+                $("#post_date").text(bdDate);
+            }
+
+            updateDate();
+        });
+    </script>
+@endpush

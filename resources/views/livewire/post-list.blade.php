@@ -113,7 +113,7 @@
                                                     <p class="text-theme-sm text-gray-500 dark:text-gray-400">
 
                                                     </p>
-                                                    <div class="h-10 w-10 overflow-hidden rounded-lg">
+                                                    <div class="h-10 w-50 overflow-hidden rounded-lg">
 
                                                         <img src="{{ asset('uploads/'.$post->media->where('category','featured_image')->first()?->path) }}"
                                                             alt="brand" />
@@ -177,15 +177,15 @@
                                             <div class="flex items-center gap-2">
 
                                                 @if ($post->status === 'published')
-                                                    <button wire:click="openViewModal({{ $post->id }})"
+                                                    <a target="_blank"  href="{{route('singlepost',$post->slug)}}"
                                                         class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs ring-1 ring-gray-300 transition hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white">
                                                         Show
-                                                    </button>
+                                                    </a>
                                                 @elseif ($post->status === 'draft')
-                                                    <button wire:click="openViewModal({{ $post->id }})"
+                                                    {{-- <button wire:click="openViewModal({{ $post->id }})"
                                                         class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs ring-1 ring-gray-300 transition hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white">
                                                         Preview
-                                                    </button>
+                                                    </button> --}}
                                                 @endif
 
 

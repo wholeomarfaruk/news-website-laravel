@@ -44,14 +44,14 @@ class PostEdit extends Component
         $this->isFeatured = $post->is_featured;
         $this->publish_date = $post->updated_at;
   $media = $post->media()->where('category','featured_image')->first();
-    $this->featured_image_url = $media ? asset('storage/' . $media->path) : null;
+    $this->featured_image_url = $media ? asset('uploads/' . $media->path) : null;
 
     }
     public function generateSlug()
     {
 
         $this->validate([
-            'slug' => 'required|min:3|unique:posts,slug'
+             "slug"    => "required|unique:posts,slug," . $this->postId,
         ]);
 
         $this->slug = Str::slug($this->slug);
@@ -67,7 +67,7 @@ class PostEdit extends Component
     }
     public function updatePost()
     {
-        // dd($this->category_id);
+        // dd($this->slug);
 
         $this->validate([
             'title' => "string|min:3",
@@ -79,6 +79,7 @@ class PostEdit extends Component
             $this->dispatch('postUpdateStatus', ['error' => 'Post not found']);
 
         }
+
         try {
 
 
@@ -91,6 +92,7 @@ class PostEdit extends Component
             $post->category_id = $this->category_id;
             $post->status = $this->status;
             $post->excerpt = $this->excerpt;
+             $post->user_id= auth()->id();
             $post->save();
             if ($this->featured_image) {
                 // Generate random filename
@@ -124,20 +126,20 @@ class PostEdit extends Component
 
                 } else {
 
-                    $media = new Media();
-                    $media->filename = $filename;
-                    $media->original_name = $this->featured_image->getClientOriginalName();
-                    $media->mime_type = $this->featured_image->getMimeType();
-                    $media->extension = $this->featured_image->getClientOriginalExtension();
-                    $media->size = $this->featured_image->getSize();
-                    $media->type = 'image';
-                    $media->category = 'featured_image';
-                    $media->disk = 'public';
-                    $media->path = $path;
-                    $media->mediable_id = $post->id;
-                    $media->mediable_type = Post::class;
-                    $media->user_id = auth()->id();
-                    $media->save();
+                    // $media = new Media();
+                    // $media->filename = $filename;
+                    // $media->original_name = $this->featured_image->getClientOriginalName();
+                    // $media->mime_type = $this->featured_image->getMimeType();
+                    // $media->extension = $this->featured_image->getClientOriginalExtension();
+                    // $media->size = $this->featured_image->getSize();
+                    // $media->type = 'image';
+                    // $media->category = 'featured_image';
+                    // $media->disk = 'public';
+                    // $media->path = $path;
+                    // $media->mediable_id = $post->id;
+                    // $media->mediable_type = Post::class;
+                    // $media->user_id = auth()->id();
+                    // $media->save();
 
                 }
 

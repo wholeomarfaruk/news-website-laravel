@@ -64,11 +64,17 @@ class CreatePost extends Component
             $post = new Post();
             $post->title = $this->title;
             $post->content = $this->content;
-            $post->slug = $this->slug;
+            if(!$this->slug){
+
+                $post->slug = Str::slug($this->title);
+            }else {
+                 $post->slug = $this->slug;
+            }
             $post->is_featured = $this->isFeatured;
             $post->category_id = $this->category_id;
             $post->status = $this->status;
             $post->excerpt = $this->excerpt;
+            $post->user_id= auth()->id();
             $post->save();
 
             if ($this->featured_image) {

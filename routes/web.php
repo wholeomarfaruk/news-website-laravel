@@ -15,18 +15,20 @@ use Livewire\Volt\Volt;
 require __DIR__ . '/auth.php';
 
 
+// Home page
+Route::get('/', [HomeController::class,'index'])->name('home');
 
-Route::get('/', [HomeController::class,'index']);
-Route::get('/single-post',[HomeController::class,'singlePostDemo'])->name('post');
-Route::get('/{slug}',[HomeController::class,'singlePost'])->name('singlepost');
-Route::get('/category',[HomeController::class,'category'])->name('category');
+// Demo single post (example)
+Route::get('/single-post', [HomeController::class,'singlePostDemo'])->name('post');
+
+
 
 
 Route::get('/optimize', function () {
     // Simple security check with a secret key
-    if (request()->get('key') !== env('MAINTENANCE_KEY')) {
-        abort(403, 'Unauthorized');
-    }
+    // if (request()->get('key') !== env('MAINTENANCE_KEY')) {
+    //     abort(403, 'Unauthorized');
+    // }
 
     // Run optimization & clear caches
     Artisan::call('optimize');
@@ -83,3 +85,9 @@ route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')
         //user profile
         Route::get('/profile',[UserController::class,'profile'])->name('profile');
     });
+// Category page
+Route::get('/{category}', [HomeController::class,'categoryPost'])->name('category');
+// Post inside category
+Route::get('/{category}/{slug}', [HomeController::class,'postShow'])->name('post.show');
+Route::get('/{slug}', [HomeController::class,'singlePost'])->name('singlepost');
+

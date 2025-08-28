@@ -21,4 +21,18 @@
 
 .w-full {
   width: 100%;
+}
+
+.grid-box {
+  display: grid;
+}
+
+.g-col-lg-4 {
+  grid-template-columns: auto auto auto auto;
+}
+@media (max-width: 992px) {
+  .g-col-lg-4 {
+    grid-template-columns: auto;
+    grid-auto-rows: 1fr;
+  }
 }/*# sourceMappingURL=defined.css.map */

@@ -1,206 +1,249 @@
 @extends('layouts.website')
 @section('content')
+@if ($latestPost && $latestPost?->count()>0)
+
+
     <section id="featured_news" class="mt-4 mb-3">
         <div class="wrapper">
             <div class="row align-items-stretch">
                 <div class="col-md-9">
                     <div class="border p-3 rounded ">
-                        <div class="row">
+
+                        <div class="row g-3">
                             <div class="col-md-8">
-                                @if ($latestPost && $latestPost->count()>0)
+                                @php
+                                    $rajniti = $categories->find(9)?->posts()?->latest()?->first();
+                                @endphp
+                                @if($rajniti)
 
-                                    <a href="{{ route('singlepost', $latestPost?->first()?->slug) }}">
-                                        <div class="card mb-3 p-2 rounded ">
-                                            <div class="row flex-column g-0">
-                                                <div class="col-auto">
-                                                    <img style="height: 100%; width: cover;"
-                                                        src="{{ asset('uploads/'.$latestPost?->first()?->media?->where('category', 'featured_image')?->first()?->path) }}"
-                                                        class="img-fluid rounded-start" alt="...">
-                                                </div>
-                                                <div class="col-auto">
-                                                    <div class="card-body">
+                                <a
+                                    href="{{ route('post.show', ['category' => $rajniti->category->slug, 'slug' => $rajniti->slug]) }}">
+                                    <div class="card mb-3 p-2 rounded ">
+                                        <div class="row flex-column g-0">
+                                            <div class="col-auto">
+                                                <img style="height: 100%; width: cover;"
+                                                    src="{{ $rajniti->featured_image }}" class="img-fluid rounded-start"
+                                                    alt="...">
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="card-body">
 
-                                                        <h5 class="card-title fw-bold">{{ $latestPost->first()->title }}
-                                                        </h5>
-                                                        <p class="card-text " style="font-size: 12px">
-                                                            {{ $latestPost->first()?->excerpt }}
-                                                        </p>
-                                                    </div>
+                                                    <h1 class="card-title topnews-title">
+                                                        {{ $rajniti->title }}
+                                                    </h1>
+                                                    <p class="card-text topnews-short-text">
+                                                        {{ $rajniti->excerpt }}
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
-                                    </a>
-                                @else
-                                    <a href="{{ route('post') }}">
-                                        <div class="card mb-3 p-2 rounded ">
-                                            <div class="row flex-column g-0">
-                                                <div class="col-auto">
-                                                    <img style="height: 100%; width: cover;"
-                                                        src="https://www.kalbela.com/assets/news_photos/2025/08/18/image_214577_1755532555.webp"
-                                                        class="img-fluid rounded-start" alt="...">
-                                                </div>
-                                                <div class="col-auto">
-                                                    <div class="card-body">
+                                    </div>
+                                </a>
+@endif
+                                <div class="row  g-2">
+                                    @php
+                                        $hotnews = $categories->find(11)?->posts()?->latest()?->get();
+                                    @endphp
+                                    @if ($hotnews)
 
-                                                        <h5 class="card-title fw-bold">এক টাকাও খরচ করতে পারেনি ১২
-                                                            মন্ত্রণালয় ও বিভাগ
-                                                        </h5>
-                                                        <p class="card-text " style="font-size: 12px">
-                                                            গত অর্থবছরের ধারবাহিকতায় চলতি অর্থবছরেও এডিপি বাস্তবায়নে বেহাল
-                                                            দশা
-                                                            দেখা
-                                                            দিয়েছে। সদ্য শুরু হওয়া ২০২৫-২৬ অর্থবছরের এক মাস পেরিয়ে গেলেও সব
-                                                            মন্ত্রণালয় ও বিভাগ মিলে বরাদ্দের ১ শতাংশও বাস্তবায়ন করতে পারেনি।
-                                                            আর
-                                                            বার্ষিক উন্নয়ন কর্মসূচিতে (এডিপি) বরাদ্দ থাকলেও খরচের খাতা খুলতে
-                                                            পারেনি
-                                                            ১২টি মন্ত্রণালয় ও বিভাগ। বাকিরা খাতা খুললেও নাম </p>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                @endif
 
-                                <div class="row g-2">
-                                    @if ($latestPost->count() >0)
-                                        @foreach ($latestPost->slice(1,2) as $post)
-                                            {{-- @if ($index > 1 && $index < 3) --}}
-                                            <div class="col-md-4">
-                                                <a href="{{ route('singlepost', $post->slug) }}">
-                                                    <div class="card">
-                                                        @php
-    $featuredImage = $post->media->where('category', 'featured_image')->first();
-@endphp
-                                                        @if ($featuredImage)
-                                                            <img src="{{ asset('uploads/' . $featuredImage->path) }}"
-                                                                class="card-img-top" alt="{{ $post->title }}">
-                                                        @else
-                                                            <img src="{{ asset('images/default.png') }}"
-                                                                class="card-img-top" alt="Default Image">
-                                                        @endif
-                                                        <div class="card-body">
-                                                            <h5 class="card-title fw-bold">{{ $post->title }}</h5>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            {{-- @endif --}}
-                                        @endforeach
-                                    @else
-                                        <div class="col-md-4">
-                                            <a href="{{ route('post') }}">
-                                                <div class="card">
-                                                    <img src="https://www.kalbela.com/assets/news_photos/2025/08/19/image_214696_1755563348.webp"
-                                                        class="card-img-top" alt="...">
+                                    @foreach ($hotnews->slice(1, 3) as $post)
+                                        <div class="col-lg-4 col-6">
+
+                                            <a href="{{ route('post.show', ['category' => $post->category->slug, 'slug' => $post->slug]) }}">
+                                                <div class="card  h-100">
+
+
+                                                    <img src="{{ $post->featured_image }}" class="card-img-top"
+                                                        alt="{{ $post->title }}">
+
+
                                                     <div class="card-body">
-                                                        <h5 class="card-title fw-bold">এনসিপির কেন্দ্রীয় নেতা মাহিন সরকারকে
-                                                            বহিষ্কার</h5>
+                                                        <h3 class="card-title secondpost-title">{{ $post->title }}
+                                                        </h3>
                                                     </div>
                                                 </div>
                                             </a>
                                         </div>
-                                        <div class="col-md-4">
-                                            <a href="{{ route('post') }}">
-                                                <div class="card">
-                                                    <img src="https://www.kalbela.com/assets/news_photos/2025/08/18/image_214597_1755539947.webp"
-                                                        class="card-img-top" alt="...">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title fw-bold">এনসিপির কেন্দ্রীয় নেতা মাহিন সরকারকে
-                                                            বহিষ্কার</h5>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <a href="{{ route('post') }}">
-                                                <div class="card">
-                                                    <img src="https://www.kalbela.com/assets/news_photos/2025/08/19/image_214696_1755563348.webp"
-                                                        class="card-img-top" alt="...">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title fw-bold">এনসিপির কেন্দ্রীয় নেতা মাহিন সরকারকে
-                                                            বহিষ্কার</h5>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    @endif
+                                    @endforeach
+ @endif
                                 </div>
                             </div>
                             <div class="col-md-4">
 
-                                <div class=" ">
-                                    <a href="{{ route('post') }}">
-                                        <div class="card mb-3">
-                                            <img src="https://www.kalbela.com/assets/news_photos/2025/08/18/image_214597_1755539947.webp"
-                                                class="card-img-top" alt="...">
-                                            <div class="card-body">
-                                                <h5 class="card-title fw-bold">এনসিপির কেন্দ্রীয় নেতা মাহিন সরকারকে বহিষ্কার
-                                                </h5>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a href="{{ route('post') }}">
-                                        <div class="card mb-3">
-                                            <div class="row g-0">
-                                                <div class="col-md-4">
-                                                    <img style="height: 100%; width: cover;"
-                                                        src="https://www.kalbela.com/assets/news_photos/2025/08/18/image_214577_1755532555.webp"
-                                                        class="img-fluid rounded-start" alt="...">
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title fw-bold">এক টাকাও খরচ করতে পারেনি ১২
-                                                            মন্ত্রণালয় ও
-                                                            বিভাগ
-                                                        </h5>
+                                <div class="row g-2">
+                                    @php
+                                        $sporthotnews = $categories
+                                            ->where('slug', 'khela')
+                                            ->first()
+                                            ->posts()
+                                            ->latest()
+                                            ->first();
+                                    @endphp
 
+                                    <div class="col-lg-12 col-6">
+
+                                        <div class="card">
+                                            <a href="{{ route('post.show', ['category' => $sporthotnews->category->slug, 'slug' => $sporthotnews->slug]) }}">
+                                                <img src="{{ $sporthotnews->featured_image }}" class="card-img-top"
+                                                    alt="...">
+                                                <div class="card-body">
+                                                    <h3 class="card-title  secondpost-title">{{ $sporthotnews->title }}
+                                                    </h3>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    @php
+                                        $binodonnews = $categories->find(4)->posts()->latest()->first();
+                                    @endphp
+                                    <div class="col-lg-12 col-6">
+
+                                        <div class="card">
+                                            <a href="{{ route('post.show', ['category' => $binodonnews->category->slug, 'slug' => $binodonnews->slug]) }}">
+                                                <div class="row g-0 align-items-center">
+                                                    <div class="col-md-5">
+                                                        <img style="object-fit: cover;"
+                                                            src="{{ $binodonnews->featured_image }}"
+                                                            class="img-fluid rounded-start" alt="...">
+                                                    </div>
+                                                    <div class="col-md-7 m-0 p-0">
+                                                        <div class="card-body m-0 p-0">
+                                                            <h3 class="card-title secondpost-title ms-3">
+                                                                {{ $binodonnews->title }}
+                                                            </h3>
+
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </a>
                                         </div>
-                                    </a>
-                                    <a href="{{ route('post') }}">
-                                        <div class="card mb-3">
-                                            <div class="row g-0">
-                                                <div class="col-md-4">
-                                                    <img style="height: 100%; width: cover;"
-                                                        src="https://www.kalbela.com/assets/news_photos/2025/08/18/image_214577_1755532555.webp"
-                                                        class="img-fluid rounded-start" alt="...">
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title fw-bold">এক টাকাও খরচ করতে পারেনি ১২
-                                                            মন্ত্রণালয় ও
-                                                            বিভাগ
-                                                        </h5>
+                                    </div>
+                                    <div class="col-lg-12 col-6">
+                                        @php
+                                            $shikkha = $categories->find(10)->posts()->latest()->first();
+                                        @endphp
+                                        <div class="card">
+                                            <a href="{{ route('post.show', ['category' => $shikkha->category->slug, 'slug' => $shikkha->slug]) }}">
+                                                <div class="row g-0 align-items-center">
+                                                    <div class="col-md-5">
+                                                        <img style="object-fit: cover;"
+                                                            src="{{ $shikkha->featured_image }}"
+                                                            class="img-fluid rounded-start" alt="...">
+                                                    </div>
+                                                    <div class="col-md-7 m-0 p-0">
+                                                        <div class="card-body m-0 p-0">
+                                                            <h3 class="card-title secondpost-title ms-3">
+                                                                {{ $shikkha->title }}
+                                                            </h3>
 
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </a>
                                         </div>
-                                    </a>
-                                    <a href="{{ route('post') }}">
-                                        <div class="card mb-3">
-                                            <div class="row g-0">
-                                                <div class="col-md-4">
-                                                    <img style="height: 100%; width: cover;"
-                                                        src="https://www.kalbela.com/assets/news_photos/2025/08/18/image_214577_1755532555.webp"
-                                                        class="img-fluid rounded-start" alt="...">
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title fw-bold">এক টাকাও খরচ করতে পারেনি ১২
-                                                            মন্ত্রণালয় ও
-                                                            বিভাগ
-                                                        </h5>
+                                    </div>
+                                    <div class="col-lg-12 col-6">
+                                        @php
+                                            $motamot = $categories->find(2)->posts()->latest()->first();
+                                        @endphp
+                                        <div class="card">
+                                            <a href="{{ route('post.show', ['category' => $motamot->category->slug, 'slug' => $motamot->slug]) }}">
+                                                <div class="row g-0 align-items-center">
+                                                    <div class="col-md-5">
+                                                        <img style="object-fit: cover;"
+                                                            src="{{ $motamot->featured_image }}"
+                                                            class="img-fluid rounded-start" alt="...">
+                                                    </div>
+                                                    <div class="col-md-7 m-0 p-0">
+                                                        <div class="card-body m-0 p-0">
+                                                            <h3 class="card-title secondpost-title ms-3">
+                                                                {{ $motamot->title }}
+                                                            </h3>
 
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </a>
                                         </div>
-                                    </a>
+                                    </div>
+                                    <div class="col-lg-12 col-6">
+                                        @php
+                                            $jatio = $categories->find(7)->posts()->latest()->first();
+                                        @endphp
+                                        <div class="card">
+                                            <a href="{{ route('post.show', ['category' => $jatio->category->slug, 'slug' => $jatio->slug]) }}">
+                                                <div class="row g-0 align-items-center">
+                                                    <div class="col-md-5">
+                                                        <img style="object-fit: cover;" src="{{ $jatio->featured_image }}"
+                                                            class="img-fluid rounded-start" alt="...">
+                                                    </div>
+                                                    <div class="col-md-7 m-0 p-0">
+                                                        <div class="card-body m-0 p-0">
+                                                            <h3 class="card-title secondpost-title ms-3">
+                                                                {{ $jatio->title }}
+                                                            </h3>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-6">
+                                        @php
+                                            $internationalnews = $categories->find(6)->posts()->latest()->first();
+                                        @endphp
+                                        <div class="card">
+                                            <a href="{{ route('post.show', ['category' => $internationalnews->category->slug, 'slug' => $internationalnews->slug]) }}">
+                                                <div class="row g-0 align-items-center">
+                                                    <div class="col-md-5">
+                                                        <img style="object-fit: cover;"
+                                                            src="{{ $internationalnews->featured_image }}"
+                                                            class="img-fluid rounded-start" alt="...">
+                                                    </div>
+                                                    <div class="col-md-7 m-0 p-0">
+                                                        <div class="card-body m-0 p-0">
+                                                            <h3 class="card-title secondpost-title ms-3">
+                                                                {{ $internationalnews->title }}
+                                                            </h3>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-6">
+                                        @php
+                                            $banijjo = $categories->find(8)->posts()->latest()->first();
+                                        @endphp
+                                        <div class="card">
+                                            <a href="{{ route('post.show', ['category' => $banijjo->category->slug, 'slug' => $banijjo->slug]) }}">
+                                                <div class="row g-0 align-items-center">
+                                                    <div class="col-md-5">
+                                                        <img style="object-fit: cover;"
+                                                            src="{{ $banijjo->featured_image }}"
+                                                            class="img-fluid rounded-start" alt="...">
+                                                    </div>
+                                                    <div class="col-md-7 m-0 p-0">
+                                                        <div class="card-body m-0 p-0">
+                                                            <h3 class="card-title secondpost-title ms-3">
+                                                                {{ $banijjo->title }}
+                                                            </h3>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+
+
+
+
+
                                 </div>
 
                             </div>
@@ -210,7 +253,37 @@
                 </div>
                 <div class="col-md-3 h-100">
 
+
+
                     <div class="border p-3 rounded ">
+                        <div class="follow-us row mb-3 mx-2 py-3 rounded shadow-sm text-center align-items-center">
+                            <p class="fw-bold  col-5" style="font-size: 18px;">Follow Us</p>
+                            <div class=" col-7 d-flex justify-content-center gap-3 align-items-center">
+                                <!-- Facebook -->
+                                <a href="https://www.facebook.com/yourpage" target="_blank" class="btn-hover-effect-1 social-icon facebook">
+                                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48"
+                                        viewBox="0 0 48 48">
+                                        <path fill="#3F51B5"
+                                            d="M42,37c0,2.762-2.238,5-5,5H11c-2.761,0-5-2.238-5-5V11c0-2.762,2.239-5,5-5h26c2.762,0,5,2.238,5,5V37z">
+                                        </path>
+                                        <path fill="#FFF"
+                                            d="M34.368,25H31v13h-5V25h-3v-4h3v-2.41c0.002-3.508,1.459-5.59,5.592-5.59H35v4h-2.287C31.104,17,31,17.6,31,18.723V21h4L34.368,25z">
+                                        </path>
+                                    </svg>
+                                </a>
+                                <!-- YouTube -->
+                                <a href="https://www.youtube.com/yourchannel" target="_blank"
+                                    class="btn-hover-effect-1 social-icon youtube">
+                                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48"
+                                        viewBox="0 0 48 48">
+                                        <path fill="#FF3D00"
+                                            d="M43.2,33.9c-0.4,2.1-2.1,3.7-4.2,4c-3.3,0.5-8.8,1.1-15,1.1c-6.1,0-11.6-0.6-15-1.1c-2.1-0.3-3.8-1.9-4.2-4C4.4,31.6,4,28.2,4,24c0-4.2,0.4-7.6,0.8-9.9c0.4-2.1,2.1-3.7,4.2-4C12.3,9.6,17.8,9,24,9c6.2,0,11.6,0.6,15,1.1c2.1,0.3,3.8,1.9,4.2,4c0.4,2.3,0.9,5.7,0.9,9.9C44,28.2,43.6,31.6,43.2,33.9z">
+                                        </path>
+                                        <path fill="#FFF" d="M20 31L20 17 32 24z"></path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
                         <div class="ad bg-dark bg-opacity-50 d-flex justify-content-center align-items-center mb-2"
                             style="height: 80px">
                             <span class="text-danger fs-3">For Ad</span>
@@ -227,6 +300,7 @@
             </div>
         </div>
     </section>
+    @endif
     <section id="video_area" class="mb-3">
         <div class="wrapper">
             <div class="video-container border p-3 rounded ">
@@ -241,7 +315,7 @@
                         <img src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
                             alt="">
                         <div class="p-2">
-                            <div class="fw-bold" style="font-size: 18px;">ভিডিও শিরোনাম ১</div>
+                            <h3 class="fw-bold">ভিডিও শিরোনাম ১</h3>
                             <div class="text-muted" style="font-size: 13px;">
                                 <i class="fa-regular fa-clock"></i> ৩:১৫ মিনিট
                             </div>
@@ -291,6 +365,11 @@
             </div>
         </div>
     </section>
+ @php
+                        $sports = $categories->find(3);
+                        $sportsPosts = $sports ? $sports->posts()->latest()->get() : collect();
+                    @endphp
+                    @if ($sportsPosts && $sportsPosts?->count()>0)
 
     <section id="sports_area" class="mb-3">
         <div class="wrapper">
@@ -302,36 +381,38 @@
                     </a>
                 </div>
                 <div class="grid-box">
-                    <div class="item">
-                        <img class="rounded"
-                            src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
-                            alt="">
-                        <div class="p-2">
-                            <div class="fw-bold title">মাত্র ২৭ টেস্ট পর শচিনের সর্বোচ্চ রানের রেকর্ড
-                                ভেঙে দেবেন রুট! ১</div>
-                            <div class="text-muted" style="font-size: 16px;">
-                                ‘বাজবল ক্রিকেটে’র যুগ এখন। বিশেষ করে ইংল্যান্ড এই বাজবল ক্রিকেটকে সবচেয়ে বেশি ব্যবহার করছে।
-                                ক্রিকেটের নতুন ফরমেশনের যুগে একজন ব্যাটার তরতর করে শচিন টেন্ডুলকারের রেকর্ড ভাঙার দিকে এগিয়ে
-                                যাচ্ছে...
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <img class="rounded"
-                            src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
-                            alt="">
-                        <div class="p-2">
-                            <div class="fw-bold title">মাত্র ২৭ টেস্ট পর শচিনের সর্বোচ্চ রানের রেকর্ড
-                                ভেঙে দেবেন রুট! ২</div>
 
-                        </div>
-                    </div>
+
                     <div class="item">
+                        <a href="{{ route('post.show', ['category' => $sportsPosts->first()->category->slug, 'slug' => $sportsPosts->first()->slug]) }}">
+                        <img class="rounded" src="{{ $sportsPosts->first()->featured_image }}" alt="">
+                        <div class="p-2">
+                            <h3 class=" topnews-title">{{ $sportsPosts->first()->title }}</h3>
+                            <p class="hotnews-short-text ">{{ $sportsPosts->first()->excerpt }}
+                            </p>
+                        </div>
+                    </a>
+                    </div>
+
+
+                    @foreach ($sportsPosts as $post)
+                        <div class="item">
+                                                    <a href="{{ route('post.show', ['category' => $post->category->slug, 'slug' => $post->slug]) }}">
+
+                            <img class="rounded" src="{{ $post->featured_image }}" alt="">
+                            <div class="p-2">
+                                <h3 class=" secondpost-title">{{ $post->title }}</h3>
+
+                            </div>
+                                                    </a>
+                        </div>
+                    @endforeach
+                    {{-- <div class="item">
                         <img class="rounded"
                             src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
                             alt="">
                         <div class="p-2">
-                            <div class="fw-bold title">মাত্র ২৭ টেস্ট পর শচিনের সর্বোচ্চ রানের রেকর্ড
+                            <div class=" title">মাত্র ২৭ টেস্ট পর শচিনের সর্বোচ্চ রানের রেকর্ড
                                 ভেঙে দেবেন রুট! ৩</div>
 
                         </div>
@@ -341,7 +422,7 @@
                             src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
                             alt="">
                         <div class="p-2">
-                            <div class="fw-bold title">মাত্র ২৭ টেস্ট পর শচিনের সর্বোচ্চ রানের রেকর্ড
+                            <div class=" title">মাত্র ২৭ টেস্ট পর শচিনের সর্বোচ্চ রানের রেকর্ড
                                 ভেঙে দেবেন রুট! ৪</div>
                             <div class="text-muted" style="font-size: 1px;">
                                 <i class="fa-regular fa-clock"></i> ১:৫৫ মিনিট
@@ -357,242 +438,276 @@
                                 ভেঙে দেবেন রুট! ৫</div>
 
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
     </section>
+    @endif
+@php
+    $nationals = $categories->find(7);
+    $nationalPosts = $nationals ? $nationals->posts()->latest()->get() : collect();
+@endphp
+                    @if ($nationalPosts && $nationalPosts?->count()>0)
+
     <section id="national_area" class="mb-3">
         <div class="wrapper">
-            <div class="row">
-                <div class="col-md-9">
+            {{-- <div class="row">
+                <div class="col-md-9"> --}}
 
 
-                    <div class="national_container border p-3 rounded ">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div class="header"><i class="fa-solid fa-newspaper"></i> জাতীয়</div>
-                            <a href="#" class="text-decoration-none fw-bold">
-                                জাতীয় সব নিউজ <i class="fa-solid fa-chevron-right"></i>
-                            </a>
-                        </div>
+            <div class="national_container border p-3 rounded ">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="header"><i class="fa-solid fa-newspaper"></i> জাতীয়</div>
+                    <a href="#" class="text-decoration-none fw-bold">
+                        জাতীয় সব নিউজ <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                </div>
 
-                        <div class="national-box">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="item mb-2 ">
-                                        <img class="rounded"
-                                            src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
-                                            alt="">
-                                        <div class="p-2">
-                                            <div class="fw-bold" style="font-size: 18px;">মাত্র ২৭ টেস্ট পর শচিনের
-                                                সর্বোচ্চ রানের
-                                                রেকর্ড
-                                                ভেঙে দেবেন রুট! ১</div>
-                                            <div class="text-muted" style="font-size: 16px;">
-                                                ‘বাজবল ক্রিকেটে’র যুগ এখন। বিশেষ করে ইংল্যান্ড এই বাজবল ক্রিকেটকে সবচেয়ে
-                                                বেশি
-                                                ব্যবহার করছে।
-                                                ক্রিকেটের নতুন ফরমেশনের যুগে একজন ব্যাটার তরতর করে শচিন টেন্ডুলকারের রেকর্ড
-                                                ভাঙার
-                                                দিকে এগিয়ে
-                                                যাচ্ছে...
-                                            </div>
-                                        </div>
+                <div class="national-box">
+                    <div class="row">
+
+
+                        <div class="col-md-4">
+                            <div class="item mb-2 ">
+                                                        <a href="{{ route('post.show', ['category' => $nationalPosts->first()->category->slug, 'slug' => $nationalPosts->first()->slug]) }}">
+
+                                <img class="rounded" src="{{ $nationalPosts->first()->featured_image }}" alt="">
+                                <div class="p-2">
+                                    <h3 class="topnews-title">{{ $nationalPosts->first()->title }}
+                                    </h3>
+                                    <div class="hotnews-short-text">
+                                        {{ $nationalPosts->first()->excerpt }}
                                     </div>
-
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="item mb-2">
-                                        <div class="row">
-                                            <div class="col-4">
-                                                <img class="rounded"
-                                                    src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
-                                                    alt="">
-                                            </div>
-                                            <div class="col-8">
-                                                <div class="">
-                                                    <div class="fw-bold" style="font-size: 16px;">মাত্র ২৭ টেস্ট পর শচিনের
-                                                        সর্বোচ্চ রানের
-                                                        রেকর্ড
-                                                        ভেঙে দেবেন রুট! ১</div>
-                                                    <div class="text-muted" style="font-size: 13px;">
-                                                        <i class="fa-regular fa-clock"></i> ১৫ মিনিট আগে
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-                                    <div class="item mb-2">
-                                        <div class="row">
-                                            <div class="col-4">
-                                                <img class="rounded"
-                                                    src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
-                                                    alt="">
-                                            </div>
-                                            <div class="col-8">
-                                                <div class="">
-                                                    <div class="fw-bold" style="font-size: 16px;">মাত্র ২৭ টেস্ট পর শচিনের
-                                                        সর্বোচ্চ রানের
-                                                        রেকর্ড
-                                                        ভেঙে দেবেন রুট! ১</div>
-                                                    <div class="text-muted" style="font-size: 13px;">
-                                                        <i class="fa-regular fa-clock"></i> ১৫ মিনিট আগে
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-                                    <div class="item mb-2">
-                                        <div class="row">
-                                            <div class="col-4">
-                                                <img class="rounded"
-                                                    src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
-                                                    alt="">
-                                            </div>
-                                            <div class="col-8">
-                                                <div class="">
-                                                    <div class="fw-bold" style="font-size: 16px;">মাত্র ২৭ টেস্ট পর শচিনের
-                                                        সর্বোচ্চ রানের
-                                                        রেকর্ড
-                                                        ভেঙে দেবেন রুট! ১</div>
-                                                    <div class="text-muted" style="font-size: 13px;">
-                                                        <i class="fa-regular fa-clock"></i> ১৫ মিনিট আগে
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-                                    <div class="item mb-2">
-                                        <div class="row">
-                                            <div class="col-4">
-                                                <img class="rounded"
-                                                    src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
-                                                    alt="">
-                                            </div>
-                                            <div class="col-8">
-                                                <div class="">
-                                                    <div class="fw-bold" style="font-size: 16px;">মাত্র ২৭ টেস্ট পর শচিনের
-                                                        সর্বোচ্চ রানের
-                                                        রেকর্ড
-                                                        ভেঙে দেবেন রুট! ১</div>
-                                                    <div class="text-muted" style="font-size: 13px;">
-                                                        <i class="fa-regular fa-clock"></i> ১৫ মিনিট আগে
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="item mb-2">
-                                        <div class="row">
-                                            <div class="col-4">
-                                                <img class="rounded"
-                                                    src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
-                                                    alt="">
-                                            </div>
-                                            <div class="col-8">
-                                                <div class="">
-                                                    <div class="fw-bold" style="font-size: 16px;">মাত্র ২৭ টেস্ট পর শচিনের
-                                                        সর্বোচ্চ রানের
-                                                        রেকর্ড
-                                                        ভেঙে দেবেন রুট! ১</div>
-                                                    <div class="text-muted" style="font-size: 13px;">
-                                                        <i class="fa-regular fa-clock"></i> ১৫ মিনিট আগে
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-                                    <div class="item mb-2">
-                                        <div class="row">
-                                            <div class="col-4">
-                                                <img class="rounded"
-                                                    src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
-                                                    alt="">
-                                            </div>
-                                            <div class="col-8">
-                                                <div class="">
-                                                    <div class="fw-bold" style="font-size: 16px;">মাত্র ২৭ টেস্ট পর শচিনের
-                                                        সর্বোচ্চ রানের
-                                                        রেকর্ড
-                                                        ভেঙে দেবেন রুট! ১</div>
-                                                    <div class="text-muted" style="font-size: 13px;">
-                                                        <i class="fa-regular fa-clock"></i> ১৫ মিনিট আগে
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-                                    <div class="item mb-2">
-                                        <div class="row">
-                                            <div class="col-4">
-                                                <img class="rounded"
-                                                    src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
-                                                    alt="">
-                                            </div>
-                                            <div class="col-8">
-                                                <div class="">
-                                                    <div class="fw-bold" style="font-size: 16px;">মাত্র ২৭ টেস্ট পর শচিনের
-                                                        সর্বোচ্চ রানের
-                                                        রেকর্ড
-                                                        ভেঙে দেবেন রুট! ১</div>
-                                                    <div class="text-muted" style="font-size: 13px;">
-                                                        <i class="fa-regular fa-clock"></i> ১৫ মিনিট আগে
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-                                    <div class="item mb-2">
-                                        <div class="row">
-                                            <div class="col-4">
-                                                <img class="rounded"
-                                                    src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
-                                                    alt="">
-                                            </div>
-                                            <div class="col-8">
-                                                <div class="">
-                                                    <div class="fw-bold" style="font-size: 16px;">মাত্র ২৭ টেস্ট পর শচিনের
-                                                        সর্বোচ্চ রানের
-                                                        রেকর্ড
-                                                        ভেঙে দেবেন রুট! ১</div>
-                                                    <div class="text-muted" style="font-size: 13px;">
-                                                        <i class="fa-regular fa-clock"></i> ১৫ মিনিট আগে
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-
-                                </div>
-
+                                </a>
                             </div>
+
+                        </div>
+                        <div class="col-md-4">
+                            @foreach ($nationalPosts->slice(1, 4) as $post)
+                                <div class="item mb-2">
+                                                            <a href="{{ route('post.show', ['category' => $post->category->slug, 'slug' => $post->slug]) }}">
+
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <img class="rounded" src="{{ $post->featured_image }}" lazy alt="">
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="">
+                                                <div class="secondpost-title">{{ $post->title }}</div>
+                                                <div class="text-muted" style="font-size: 13px;">
+                                                    <i class="fa-regular fa-clock"></i> Last updated
+                                                    {{ $post->updated_at->diffForHumans() }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </a>
+
+
+                                </div>
+                            @endforeach
+                            {{-- <div class="item mb-2">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <img class="rounded"
+                                                    src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
+                                                    alt="">
+                                            </div>
+                                            <div class="col-8">
+                                                <div class="">
+                                                    <div class="fw-bold" style="font-size: 16px;">মাত্র ২৭ টেস্ট পর শচিনের
+                                                        সর্বোচ্চ রানের
+                                                        রেকর্ড
+                                                        ভেঙে দেবেন রুট! ১</div>
+                                                    <div class="text-muted" style="font-size: 13px;">
+                                                        <i class="fa-regular fa-clock"></i> ১৫ মিনিট আগে
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="item mb-2">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <img class="rounded"
+                                                    src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
+                                                    alt="">
+                                            </div>
+                                            <div class="col-8">
+                                                <div class="">
+                                                    <div class="fw-bold" style="font-size: 16px;">মাত্র ২৭ টেস্ট পর শচিনের
+                                                        সর্বোচ্চ রানের
+                                                        রেকর্ড
+                                                        ভেঙে দেবেন রুট! ১</div>
+                                                    <div class="text-muted" style="font-size: 13px;">
+                                                        <i class="fa-regular fa-clock"></i> ১৫ মিনিট আগে
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="item mb-2">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <img class="rounded"
+                                                    src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
+                                                    alt="">
+                                            </div>
+                                            <div class="col-8">
+                                                <div class="">
+                                                    <div class="fw-bold" style="font-size: 16px;">মাত্র ২৭ টেস্ট পর শচিনের
+                                                        সর্বোচ্চ রানের
+                                                        রেকর্ড
+                                                        ভেঙে দেবেন রুট! ১</div>
+                                                    <div class="text-muted" style="font-size: 13px;">
+                                                        <i class="fa-regular fa-clock"></i> ১৫ মিনিট আগে
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div> --}}
+
+                        </div>
+                        <div class="col-md-4">
+                            @foreach ($nationalPosts->slice(4, 4) as $post)
+                                <div class="item mb-2">
+                                                            <a href="{{ route('post.show', ['category' => $post->category->slug, 'slug' => $post->slug]) }}">
+
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <img class="rounded" src="{{ $post->featured_image }}" lazy alt="">
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="">
+                                                <div class="secondpost-title">{{ $post->title }}</div>
+                                                <div class="text-muted" style="font-size: 13px;">
+                                                    <i class="fa-regular fa-clock"></i> Last updated
+                                                    {{ $post->updated_at->diffForHumans() }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+</a>
+
+                                </div>
+                            @endforeach
+                            {{-- <div class="item mb-2">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <img class="rounded"
+                                                    src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
+                                                    alt="">
+                                            </div>
+                                            <div class="col-8">
+                                                <div class="">
+                                                    <div class="fw-bold" style="font-size: 16px;">মাত্র ২৭ টেস্ট পর শচিনের
+                                                        সর্বোচ্চ রানের
+                                                        রেকর্ড
+                                                        ভেঙে দেবেন রুট! ১</div>
+                                                    <div class="text-muted" style="font-size: 13px;">
+                                                        <i class="fa-regular fa-clock"></i> ১৫ মিনিট আগে
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="item mb-2">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <img class="rounded"
+                                                    src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
+                                                    alt="">
+                                            </div>
+                                            <div class="col-8">
+                                                <div class="">
+                                                    <div class="fw-bold" style="font-size: 16px;">মাত্র ২৭ টেস্ট পর শচিনের
+                                                        সর্বোচ্চ রানের
+                                                        রেকর্ড
+                                                        ভেঙে দেবেন রুট! ১</div>
+                                                    <div class="text-muted" style="font-size: 13px;">
+                                                        <i class="fa-regular fa-clock"></i> ১৫ মিনিট আগে
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="item mb-2">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <img class="rounded"
+                                                    src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
+                                                    alt="">
+                                            </div>
+                                            <div class="col-8">
+                                                <div class="">
+                                                    <div class="fw-bold" style="font-size: 16px;">মাত্র ২৭ টেস্ট পর শচিনের
+                                                        সর্বোচ্চ রানের
+                                                        রেকর্ড
+                                                        ভেঙে দেবেন রুট! ১</div>
+                                                    <div class="text-muted" style="font-size: 13px;">
+                                                        <i class="fa-regular fa-clock"></i> ১৫ মিনিট আগে
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="item mb-2">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <img class="rounded"
+                                                    src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
+                                                    alt="">
+                                            </div>
+                                            <div class="col-8">
+                                                <div class="">
+                                                    <div class="fw-bold" style="font-size: 16px;">মাত্র ২৭ টেস্ট পর শচিনের
+                                                        সর্বোচ্চ রানের
+                                                        রেকর্ড
+                                                        ভেঙে দেবেন রুট! ১</div>
+                                                    <div class="text-muted" style="font-size: 13px;">
+                                                        <i class="fa-regular fa-clock"></i> ১৫ মিনিট আগে
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div> --}}
+
                         </div>
 
                     </div>
                 </div>
-                <div class="col-md-3"></div>
+
             </div>
         </div>
+        {{-- <div class="col-md-3"></div>
+            </div> --}}
+        </div>
     </section>
+
+    @endif
+    @php
+                        $international = $categories->find(6);
+                        $internationalPosts = $international ? $international->posts()->latest()->get() : collect();
+
+                    @endphp
+                    @if ($internationalPosts && $internationalPosts?->count()>0)
+
     <section id="international_area" class="mb-3">
         <div class="wrapper">
             <div class="international_container border p-3 rounded ">
@@ -603,29 +718,36 @@
                     </a>
                 </div>
                 <div class="international-box">
+                    @php
+                        $international = $categories->find(6);
+                        $internationalPosts = $international ? $international->posts()->latest()->get() : collect();
 
+                    @endphp
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="item mb-3">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <img class="rounded"
-                                            src="https://cdn.jagonews24.com/media/imgAllNew/SM/2023March/boeing-20250821201815.jpg"
-                                            alt="">
-                                    </div>
-                                    <div class="col-8">
-                                        <div class="">
-                                            <div class="fw-bold" style="font-size: 18px;">জেলেনস্কির টার্গেট তুরস্ক,
-                                                অস্ট্রিয়া ও সুইজারল্যান্ড
-                                            </div>
 
+                        <div class="col-md-4">
+                            @foreach ($internationalPosts->slice(1, 4) as $post)
+
+                                <div class="item mb-3">
+                                                    <a href="{{ route('post.show', ['category' => $post->category->slug, 'slug' => $post->slug]) }}">
+
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <img class="rounded" src="{{ $post->featured_image }}" alt="">
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="">
+                                                <h3 class="secondpost-title">{{ $post->title }}
+                                                </h3>
+
+                                            </div>
                                         </div>
                                     </div>
+                                    </a>
+
                                 </div>
-
-
-                            </div>
-                            <div class="item mb-3">
+                            @endforeach
+                            {{-- <div class="item mb-3">
                                 <div class="row">
                                     <div class="col-4">
                                         <img class="rounded"
@@ -681,29 +803,47 @@
                                 </div>
 
 
-                            </div>
+                            </div> --}}
 
                         </div>
                         <div class="col-md-4">
                             <div class="item">
-                                <img class="rounded"
-                                    src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/trump-uganda-20250821215756.jpg"
+                                                    <a href="{{ route('post.show', ['category' => $internationalPosts->first()->category->slug, 'slug' => $internationalPosts->first()->slug]) }}">
+
+                                <img class="rounded" src="{{ $internationalPosts->first()->featured_image }}"
                                     alt="">
                                 <div class="p-2">
-                                    <div class="fw-bold" style="font-size: 18px;">যুক্তরাষ্ট্র থেকে বিতাড়িত
-                                        আশ্রয়প্রার্থীদের নিতে রাজি উগান্ডা</div>
-                                    <div class="text-muted" style="font-size: 16px;">
-                                        শর্ত হিসেবে বলা হয়েছে, এসব আশ্রয়প্রার্থীদের যেন কোনো অপরাধমূলক রেকর্ড না থাকে ও তারা
-                                        যেন একা আসা শিশু না হয়। মন্ত্রণালয় আরও জানায়, চুক্তির বিস্তারিত কার্যপ্রণালি এখনো
-                                        নির্ধারণের পর্যায়ে রয়েছে...
+                                    <h3 class="secondpost-title">{{ $internationalPosts->first()->title }}</h3>
+                                    <div class="hotnews-short-text">{{ $internationalPosts->first()->excerpt }}
                                     </div>
                                 </div>
+                                                    </a>
                             </div>
 
                         </div>
 
                         <div class="col-md-4">
-                            <div class="item mb-3">
+                            @foreach ($internationalPosts->slice(4, 4) as $post)
+                                <div class="item mb-3">
+                                                    <a href="{{ route('post.show', ['category' => $post->category->slug, 'slug' => $post->slug]) }}">
+
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <img class="rounded" src="{{ $post->featured_image }}" alt="">
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="">
+                                                <h3 class="secondpost-title">{{ $post->title }}
+                                                </h3>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                                    </a>
+
+                                </div>
+                            @endforeach
+                            {{-- <div class="item mb-3">
                                 <div class="row">
                                     <div class="col-4">
                                         <img class="rounded"
@@ -776,7 +916,7 @@
                                 </div>
 
 
-                            </div>
+                            </div> --}}
 
                         </div>
 
@@ -786,12 +926,21 @@
             </div>
         </div>
     </section>
+    @endif
+    @php
+                $entertainment = $categories->find(4);
+                $entertainmentPosts = $entertainment ? $entertainment->posts()->latest()->get() : collect();
+
+            @endphp
+                    @if ($entertainmentPosts && $entertainmentPosts?->count()>0)
+
     <section id="entertainment_area" class="mb-3">
         <div class="wrapper">
+
             <div class="entertainment_container border p-3 rounded ">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <div class="header"><i class="fa-solid fa-newspaper"></i> বিনোদন</div>
-                    <a href="#" class="text-decoration-none fw-bold">
+                    <a href="#" class="text-decoration-none bold">
                         বিনোদন সব নিউজ <i class="fa-solid fa-chevron-right"></i>
                     </a>
                 </div>
@@ -799,25 +948,26 @@
 
                     <div class="row ">
                         <div class="col-md-3">
-                            <div class="item py-3 border-bottom border-light-subtle ">
+                            @foreach ($entertainmentPosts->slice(1, 2) as $post)
+                                <div class="item py-3 border-bottom border-light-subtle ">
+                                                    <a href="{{ route('post.show', ['category' => $post->category->slug, 'slug' => $post->slug]) }}">
 
 
-                                <img class=" w-100"
-                                    src="https://cdn.jagonews24.com/media/imgAllNew/SM/2023March/boeing-20250821201815.jpg"
-                                    alt="">
+                                    <img class=" w-100" src="{{ $post->featured_image }}" alt="">
 
 
-                                <div class="">
-                                    <div class="fw-bold" style="font-size: 18px;">জেলেনস্কির টার্গেট তুরস্ক,
-                                        অস্ট্রিয়া ও সুইজারল্যান্ড
+                                    <div class="">
+                                        <h3 class=" secondpost-title">{{ $post->title }}
+                                        </h3>
+
                                     </div>
+                                                    </a>
+
+
 
                                 </div>
-
-
-
-                            </div>
-                            <div class="item py-3 border-bottom border-light-subtle ">
+                            @endforeach
+                            {{-- <div class="item py-3 border-bottom border-light-subtle ">
 
                                 <img class="rounded w-100"
                                     src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/trump-uganda-20250821215756.jpg"
@@ -831,29 +981,46 @@
                                 </div>
 
 
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="col-md-6">
                             <div class="item  py-3 border-bottom border-light-subtle">
-                                <img class="rounded"
-                                    src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/trump-uganda-20250821215756.jpg"
+                                                    <a href="{{ route('post.show', ['category' => $entertainmentPosts->first()->category->slug, 'slug' => $entertainmentPosts->first()->slug]) }}">
+
+                                <img class="rounded" src="{{ $entertainmentPosts->first()->featured_image }}"
                                     alt="">
                                 <div class="p-2">
-                                    <div class="fw-bold" style="font-size: 18px;">যুক্তরাষ্ট্র থেকে বিতাড়িত
-                                        আশ্রয়প্রার্থীদের নিতে রাজি উগান্ডা</div>
-                                    <div class="text-muted" style="font-size: 16px;">
-                                        শর্ত হিসেবে বলা হয়েছে, এসব আশ্রয়প্রার্থীদের যেন কোনো অপরাধমূলক রেকর্ড না থাকে ও তারা
-                                        যেন একা আসা শিশু না হয়। মন্ত্রণালয় আরও জানায়, চুক্তির বিস্তারিত কার্যপ্রণালি এখনো
-                                        নির্ধারণের পর্যায়ে রয়েছে...
+                                    <h3 class=" secondpost-title">{{ $entertainmentPosts->first()->title }}</h3>
+                                    <div class="hotnews-short-description">{{ $entertainmentPosts->first()->excerpt }}
                                     </div>
                                 </div>
+                                                    </a>
                             </div>
 
                         </div>
 
                         <div class="col-md-3">
+                            @foreach ($entertainmentPosts->slice(3, 2) as $post)
 
-                            <div class="item py-3 border-bottom border-light-subtle ">
+                                <div class="item py-3 border-bottom border-light-subtle ">
+                                                                                <a href="{{ route('post.show', ['category' => $post->category->slug, 'slug' => $post->slug]) }}">
+
+
+                                    <img class=" w-100" src="{{ $post->featured_image }}" alt="">
+
+
+                                    <div class="">
+                                        <h3 class="secondpost-title">{{ $post->title }}
+                                        </h3>
+
+                                    </div>
+                                                                                </a>
+
+
+
+                                </div>
+                            @endforeach
+                            {{-- <div class="item py-3 border-bottom border-light-subtle ">
 
                                 <img class=" w-100"
                                     src="https://cdn.jagonews24.com/media/imgAllNew/SM/2023March/boeing-20250821201815.jpg"
@@ -884,30 +1051,30 @@
 
 
 
-                            </div>
+                            </div> --}}
 
                         </div>
                         <div class="col-12">
                             <div class="row">
-                                <div class="col-6 col-lg-3 item py-3 border-bottom border-light-subtle ">
+                                @foreach ($entertainmentPosts->slice(5, 4) as $post)
+                                    <div class="col-6 col-lg-3 item py-3 border-bottom border-light-subtle ">
+                                                                                <a href="{{ route('post.show', ['category' => $post->category->slug, 'slug' => $post->slug]) }}">
 
 
-                                    <img class=" w-100"
-                                        src="https://cdn.jagonews24.com/media/imgAllNew/SM/2023March/boeing-20250821201815.jpg"
-                                        alt="">
+                                        <img class=" w-100" src="{{ $post->featured_image }}" alt="">
 
 
-                                    <div class="">
-                                        <div class="fw-bold" style="font-size: 18px;">জেলেনস্কির টার্গেট তুরস্ক,
-                                            অস্ট্রিয়া ও সুইজারল্যান্ড
+                                        <div class="">
+                                            <h3 class="secondpost-title">{{ $post->title }}
+                                            </h3>
+
                                         </div>
+                                                                                </a>
+
 
                                     </div>
-
-
-
-                                </div>
-                                <div class="col-6 col-lg-3 item py-3 border-bottom border-light-subtle ">
+                                @endforeach
+                                {{-- <div class="col-6 col-lg-3 item py-3 border-bottom border-light-subtle ">
 
                                     <img class=" w-100"
                                         src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/trump-uganda-20250821215756.jpg"
@@ -953,7 +1120,7 @@
 
 
 
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -962,6 +1129,7 @@
             </div>
         </div>
     </section>
+    @endif
 @endsection
 @push('scripts')
     <script>

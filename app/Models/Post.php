@@ -26,4 +26,18 @@ class Post extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+// Post.php model
+public function getFeaturedImageAttribute()
+{
+    $media = $this->media?->where('category', 'featured_image')->first();
+
+    if ($media && file_exists(public_path('uploads/'.$media->path))) {
+        return asset('uploads/'.$media->path);
+    }
+
+    return asset('website/img/thumbnails/featured_img.jpg');
+}
+
+
+
 }

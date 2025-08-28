@@ -17,24 +17,32 @@ class PostList extends Component
 
     public function render()
     {
-        if(!empty($this->search)) {
+        if (!empty($this->search)) {
             $posts = Post::where('title', 'like', '%' . $this->search . '%')
                 ->latest()->paginate(10);
         } else {
-              $posts = Post::latest()->paginate(10); 
+            $posts = Post::latest()->paginate(10);
         }
 
         return view('livewire.post-list', [
             'posts' => $posts,
         ]);
     }
-    public function deletePost($id){
+    public function deletePost($id)
+    {
         $post = Post::find($id);
-        if(!$post){
-            $this->dispatch('deletePost',['error'=>true]);
+        if (!$post) {
+            $this->dispatch('deletePost', ['error' => true]);
             return;
         }
+        $media = $post->media->where('category', 'featured_image')->first();
+        if ($media) {
+            if (file_exists(public_path('uploads/' . $media->path))) {
+
+                unlink(public_path('uploads/' . $media->path));
+            }
+        }
         $post->delete();
-        $this->dispatch('deletePost',['success'=>true]);
+        $this->dispatch('deletePost', ['success' => true]);
     }
 }
