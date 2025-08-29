@@ -15,10 +15,10 @@ class HomeController extends Controller
     {
         $latestPost = Post::latest()->take(10)->get();
         $categories = Category::all();
-        return view('website.home.index', compact('latestPost','categories'));
+        return view('website.home.index', compact('latestPost', 'categories'));
 
     }
-    public function postShow($category,$slug)
+    public function postShow($category, $slug)
     {
         $post = Post::where('slug', $slug)->first();
 
@@ -48,12 +48,13 @@ class HomeController extends Controller
     }
     public function categoryPost($category)
     {
-      $category = Category::where('slug', $category)->firstOrFail();
-$posts = $category->posts()->latest()->get();
+        $category = Category::where('slug', $category)->firstOrFail();
+        $posts = $category->posts()->latest()->get();
+        $category_id= $category->id;
 
-        if(!$posts){
+        if (!$posts) {
             abort(404);
         }
-        return view('website.archive.category',compact('posts'));
+        return view('website.archive.category', compact('posts','category_id'));
     }
 }

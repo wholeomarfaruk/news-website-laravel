@@ -6,7 +6,7 @@
 
             <div class="row mt-4">
                 <div class="col-md-9">
-                     @livewire('category-post')
+                     @livewire('category-post',['category_id'=>$category_id])
 
 
                 </div>

@@ -33,9 +33,11 @@
     @endif
 
     {{-- Load More Button --}}
+           @if($loaded < $total)
+
 
         <div class="col-12 text-center py-3">
-            <button wire:click="loadMore" type="button" class="btn btn-outline-secondary rounded-0">Load More - totaI={{$posts->count()}}</button>
+            <button wire:click="loadMore" type="button" class="btn btn-outline-secondary rounded-0">Load More</button>
         </div>
-
+   @endif
 </div>
