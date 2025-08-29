@@ -4,21 +4,24 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-     <title>The Message Today – Latest Breaking News & Headlines</title>
-  <meta name="description" content="Get the latest breaking news, sports updates, politics, and trending stories on Favourite Range News. Stay informed with real-time headlines.">
+    <title>The Message Today – Latest Breaking News & Headlines</title>
+    <meta name="description"
+        content="Get the latest breaking news, sports updates, politics, and trending stories on Favourite Range News. Stay informed with real-time headlines.">
 
-  <!-- Open Graph for Facebook, WhatsApp, LinkedIn -->
-  <meta property="og:title" content="The Message Today– Latest Breaking News & Headlines">
-  <meta property="og:description" content="Get the latest breaking news, sports updates, politics, and trending stories on Favourite Range News.">
-  <meta property="og:image" content="{{asset('website/img/logo/logo.jpeg')}}">
-  <meta property="og:url" content="https://themessage2day/">
-  <meta property="og:type" content="website">
+    <!-- Open Graph for Facebook, WhatsApp, LinkedIn -->
+    <meta property="og:title" content="The Message Today– Latest Breaking News & Headlines">
+    <meta property="og:description"
+        content="Get the latest breaking news, sports updates, politics, and trending stories on Favourite Range News.">
+    <meta property="og:image" content="{{ asset('website/img/logo/logo.jpeg') }}">
+    <meta property="og:url" content="https://themessage2day/">
+    <meta property="og:type" content="website">
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="The Message Today– Latest Breaking News & Headlines">
-  <meta name="twitter:description" content="Get the latest breaking news, sports updates, politics, and trending stories on Favourite Range News.">
-  <meta name="twitter:image" content="{{asset('website/img/logo/logo.jpeg')}}">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Message Today– Latest Breaking News & Headlines">
+    <meta name="twitter:description"
+        content="Get the latest breaking news, sports updates, politics, and trending stories on Favourite Range News.">
+    <meta name="twitter:image" content="{{ asset('website/img/logo/logo.jpeg') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
     <!-- Font Awesome -->
@@ -87,32 +90,38 @@
             <nav class="navbar navbar-expand-lg navbar-light p-0">
                 <div class="container-fluid menu-area">
                     <!-- Brand -->
+                    <div class="logo">
+                        <a href="/">
+                            <img src="{{ asset('website/img/logo/logo-transparent.png') }}" alt="">
+                        </a>
+                    </div>
+                    <div class="e-paper">
 
-
+                        <a href="#" class="btn border border-light-subtle"> <i class="fa-solid fa-newspaper"></i>
+                            ই-পেপার
+                        </a>
+                    </div>
                     <!-- Toggler -->
-                    <button class="navbar-toggler ms-3" type="button" data-bs-toggle="collapse"
+
+                    {{-- <button class="navbar-toggler ms-3" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
-                    </button>
+                    </button> --}}
 
                     <!-- Navbar links -->
                     <div class="px-3 nav collapse navbar-collapse" id="navbarSupportedContent">
-                        <div class="logo">
-                            <a href="/">
-                                <img src="{{ asset('website/img/logo/logo-transparent.png') }}" alt="">
-                            </a>
-                        </div>
+
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                             <!-- Normal link -->
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa-solid fa-home"></i></a>
+                                <a class="nav-link" href="/"><i class="fa-solid fa-home"></i></a>
                             </li>
                             @php
                                 $categories = \App\Models\Category::latest()->get();
                             @endphp
-                            @foreach ($categories as $category)
+                            @foreach ($categories->where('parent_id','') as $category)
                                 <li class="nav-item">
                                     <a class="nav-link"
                                         href="{{ route('category', ['category' => $category->slug]) }}">{{ $category->name }}</a>
@@ -163,7 +172,7 @@
 
                         </ul>
                     </div>
-                    <div class="tools pe-3">
+                    <div class="tools">
                         <div class="langswitch-box">
                             <form action="">
                                 <fieldset>
@@ -176,9 +185,9 @@
                         </div>
                         <div class="btn-group">
 
-                            <a href="#" class="btn border border-light-subtle"> <i
+                            {{-- <a href="#" class="btn border border-light-subtle"> <i
                                     class="fa-solid fa-newspaper"></i> ই-পেপার
-                            </a>
+                            </a> --}}
                         </div>
                         <div class="search-box">
                             <form class="d-flex">
@@ -190,6 +199,14 @@
                                     </button>
                                 </div>
                             </form>
+                        </div>
+                        <div class="menu-hamburger">
+
+                            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+
 
                         </div>
                     </div>
@@ -207,6 +224,64 @@
                         <li><button class="dropdown-item" type="button">Something else here</button></li>
                     </div>
                 </div> --}}
+
+        </div>
+    </div>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample"
+        aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Menu</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+
+            <nav id="sidebar-menu">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-" href="#">Home</a></li>
+@foreach ($categories->where('parent_id','') as $category)
+        <li class="nav-item dropdown border-bottom w-100">
+            <a class="nav-link d-flex justify-content-between align-items-center
+                      {{ $category->children && $category->children->count() ? 'dropdown-toggle' : '' }}"
+               href="{{ route('category', ['category' => $category->slug]) }}"
+               id="navbarDropdown{{ $category->id }}"
+               @if ($category->children && $category->children->count())
+                   role="button" data-bs-toggle="dropdown" aria-expanded="false"
+               @endif>
+                <span>{{ $category->name }}</span>
+            </a>
+
+            @if ($category->children && $category->children->count())
+                <ul class="dropdown-menu w-100" aria-labelledby="navbarDropdown{{ $category->id }}">
+                    @foreach ($category->children as $child)
+                        <li class="dropdown-submenu w-100">
+                            <a class="dropdown-item d-flex justify-content-between align-items-center
+                                      {{ $child->children && $child->children->count() ? 'dropdown-toggle' : '' }}"
+                               href="{{ route('category', ['category' => $child->slug]) }}"
+                               @if ($child->children && $child->children->count())
+                                   role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                               @endif>
+                                <span>{{ $child->name }}</span>
+                            </a>
+                            @if ($child->children && $child->children->count())
+                                <ul class="dropdown-menu">
+                                    @foreach ($child->children as $grandchild)
+                                        <li>
+                                            <a class="dropdown-item"
+                                               href="{{ route('category', ['category' => $grandchild->slug]) }}">
+                                                {{ $grandchild->name }}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </li>
+                    @endforeach
+                </ul>
+            @endif
+        </li>
+    @endforeach
+                </ul>
+            </nav>
 
         </div>
     </div>
@@ -229,7 +304,9 @@
             <div class="social">
                 {{-- <h6>সোশ্যাল মিডিয়া</h6> --}}
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" target="_blank" href="https://www.facebook.com/profile.php?id=61579636472370"> <i class="fa-brands fa-facebook"></i>
+                    <li class="nav-item"><a class="nav-link" target="_blank"
+                            href="https://www.facebook.com/profile.php?id=61579636472370"> <i
+                                class="fa-brands fa-facebook"></i>
                         </a></li>
                     <li class="nav-item"><a class="nav-link" href="#"> <i class="fa-brands fa-instagram"></i>
                         </a></li>

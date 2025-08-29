@@ -252,9 +252,6 @@
                     </div>
                 </div>
                 <div class="col-md-3 h-100">
-
-
-
                     <div class="border p-3 rounded ">
                         <div class="follow-us row mb-3 mx-2 py-3 rounded shadow-sm text-center align-items-center">
                             <p class="fw-bold  col-5" style="font-size: 18px;">Follow Us</p>

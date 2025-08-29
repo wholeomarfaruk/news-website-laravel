@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 use App\Models\Category as CategoryList;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class Category extends Component
@@ -26,7 +27,7 @@ class Category extends Component
     public function render()
     {
         if($this->search) {
-            
+
             $this->categories = CategoryList::where('name', 'like', '%' . $this->search . '%')
                 ->orWhereHas('children', function ($query) {
                     $query->where('name', 'like', '%' . $this->search . '%');
@@ -47,6 +48,7 @@ class Category extends Component
         $category = new CategoryList();
         $category->name = $this->name;
         $category->parent_id = $this->parent_id;
+        $category->slug = Str::slug($this->name);
         $category->save();
         $this->createModal = false;
         $this->dispatch('categoryCreated');
@@ -91,6 +93,7 @@ class Category extends Component
         $category = CategoryList::find($this->editCategoryId);
         if ($category) {
             $category->name = $this->editCategoryName;
+            $category->slug = Str::slug($this->name);
             $category->parent_id = $this->selectedCategory_parent_id;
             $category->save();
             $this->editModal = false;
