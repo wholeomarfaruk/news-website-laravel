@@ -64,17 +64,24 @@ class CreatePost extends Component
             $post = new Post();
             $post->title = $this->title;
             $post->content = $this->content;
-            if(!$this->slug){
+            if (!$this->slug) {
 
-                $post->slug = Str::slug($this->title);
-            }else {
-                 $post->slug = $this->slug;
+                $this->slug = Str::slug($this->title);
+                  if(Post::where('slug',$this->slug)->exists()){
+                $this->slug= $this->slug."-";;
+                }
+            } else {
+                if(Post::where('slug',$this->slug)->exists()){
+                $this->slug= $this->slug."-";;
+                }
+
             }
+            $post->slug = $this->slug;
             $post->is_featured = $this->isFeatured;
             $post->category_id = $this->category_id;
             $post->status = $this->status;
             $post->excerpt = $this->excerpt;
-            $post->user_id= auth()->id();
+            $post->user_id = auth()->id();
             $post->save();
 
             if ($this->featured_image) {
@@ -97,8 +104,8 @@ class CreatePost extends Component
                 $media->mediable_type = Post::class;
                 $media->user_id = auth()->id();
                 $media->save();
-            }else{
-                 abort(403);
+            } else {
+                abort(403);
             }
 
             DB::commit(); // commit transaction
@@ -124,6 +131,13 @@ class CreatePost extends Component
         ]);
         $category = new Category();
         $category->name = $this->name;
+        $slug  = Str::slug($this->name);
+        if(Category::where('slug',$slug)->exists())
+        {
+            $slug = $slug."-";
+        }
+        $category->slug = $slug;
+
         $category->parent_id = $this->parent_id;
         $category->save();
         $this->createModal = false;
@@ -136,7 +150,11 @@ class CreatePost extends Component
         $this->reset(['name', 'parent_id']);
         $this->createModal = true;
     }
-
+    public function updatedTitle($value)
+    {
+        $this->slug = Str::slug($value);
+        $this->generateSlug();
+    }
     /**
      * Store uploaded file in public/media and return path
      *
@@ -154,7 +172,7 @@ class CreatePost extends Component
         }
 
         // Move uploaded file
-        $file->storeAs('media',$filename);
+        $file->storeAs('media', $filename);
 
         // Return relative path for database
         return 'media/' . $filename;

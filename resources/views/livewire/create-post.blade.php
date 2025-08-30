@@ -34,7 +34,7 @@
                         <label for="title" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                             Title
                         </label>
-                        <input id="title" wire:model="title" type="text" placeholder="Enter post title"
+                        <input id="title" wire:model.blur="title" type="text" placeholder="Enter post title"
                             class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
                         @error('title')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -58,7 +58,7 @@
                 </div>
                 <div
                     class="flex flex-col rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-white/[0.03] xl:w-1/5">
-                    <div x-data="{ switcherToggle: false }">
+                    {{-- <div x-data="{ switcherToggle: false }">
                         <label for="slug" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                             Is Featured?
                         </label>
@@ -77,7 +77,7 @@
 
                             Yes
                         </label>
-                    </div>
+                    </div> --}}
 
                     <div class="mt-2">
                         <label for="slug" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
@@ -314,5 +314,23 @@
                     alert('test slug');
                 });
             });
+        </script>
+        <script>
+
+                console.log("test")
+                $('#title').on('input', function() {
+                    var title = $(this).val();
+                    console.log(title)
+
+                    // Slug generation
+                    var slug = title.toLowerCase() // Lowercase
+                        .trim() // Remove leading/trailing spaces
+                        .replace(/[^\w\s-]/g, '') // Remove special chars
+                        .replace(/\s+/g, '-') // Replace spaces with dash
+                        .replace(/--+/g, '-'); // Replace multiple dashes
+
+                    $('#slug').val(slug);
+                });
+
         </script>
     @endpush

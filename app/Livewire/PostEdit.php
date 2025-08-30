@@ -41,17 +41,17 @@ class PostEdit extends Component
         $this->excerpt = $post->excerpt;
         $this->status = $post->status;
         $this->url = $this->url = url('/') . "/" . $post->slug;
-        $this->isFeatured = $post->is_featured;
+  $this->isFeatured = $this->post->is_featured;
         $this->publish_date = $post->updated_at;
-  $media = $post->media()->where('category','featured_image')->first();
-    $this->featured_image_url = $media ? asset('uploads/' . $media->path) : null;
+        $media = $post->media()->where('category', 'featured_image')->first();
+        $this->featured_image_url = $media ? asset('uploads/' . $media->path) : null;
 
     }
     public function generateSlug()
     {
 
         $this->validate([
-             "slug"    => "required|unique:posts,slug," . $this->postId,
+            "slug" => "required|unique:posts,slug," . $this->postId,
         ]);
 
         $this->slug = Str::slug($this->slug);
@@ -92,7 +92,7 @@ class PostEdit extends Component
             $post->category_id = $this->category_id;
             $post->status = $this->status;
             $post->excerpt = $this->excerpt;
-             $post->user_id= auth()->id();
+            $post->user_id = auth()->id();
             $post->save();
             if ($this->featured_image) {
                 // Generate random filename
@@ -106,9 +106,9 @@ class PostEdit extends Component
                 // Save in media table
                 $media = $post->media->where('category', 'featured_image')->first();
                 if ($media) {
-                    if(file_exists(public_path('uploads/'.$media->path))){
+                    if (file_exists(public_path('uploads/' . $media->path))) {
 
-                        unlink(public_path('uploads/'.$media->path));
+                        unlink(public_path('uploads/' . $media->path));
                     }
                     $media->filename = $filename;
                     $media->original_name = $this->featured_image->getClientOriginalName();
@@ -197,7 +197,7 @@ class PostEdit extends Component
         $this->reset(['name', 'parent_id']);
         $this->createModal = true;
     }
-   protected function storeFeaturedImage($file)
+    protected function storeFeaturedImage($file)
     {
         $filename = Str::random(20) . '.' . $file->getClientOriginalExtension();
         $destinationPath = public_path('uploads/media');
@@ -208,9 +208,36 @@ class PostEdit extends Component
         }
 
         // Move uploaded file
-        $file->storeAs('media',$filename);
+        $file->storeAs('media', $filename);
 
         // Return relative path for database
         return 'media/' . $filename;
     }
+    public function updatedIsFeatured($value)
+    {
+        if ($this->isFeatured) {
+            // প্রথমে সব post থেকে featured=false set করুন
+            Post::query()->update(['is_featured' => false]);
+
+            // তারপর current post কে featured=true করুন
+            $this->post->update([
+                'is_featured' => true,
+            ]);
+            $this->isFeatured = true;
+                    $this->dispatch('banner_post', ['success' => 'Banner post successfully added']);
+
+        } else {
+            // যদি toggle off করা হয়, current post false করুন
+            $this->post->update([
+                'is_featured' => false,
+            ]);
+            $this->isFeatured = false;
+                    $this->dispatch('banner_post', ['success' => 'Banner post successfully removed']);
+        }
+
+
+
+
+    }
+
 }

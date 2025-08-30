@@ -62,7 +62,7 @@
                     <p id="localdate">২০শে আগস্ট, ২০২৫</p>
                 </div>
                 <div class="btn-group">
-                    <a href="#" class="btn "> <i class="fa-solid fa-newspaper"></i> ই-পেপার </a>
+                    <a href="#" class="btn e-paper"> <i class="fa-solid fa-newspaper"></i> ই-পেপার </a>
 
                 </div>
                 <div class="search-box">
@@ -85,148 +85,189 @@
 
         </div>
     </div>
-    <div class=" border-top border-light-subtle">
-        <div id="menubar" class="menu_bar  pt-1 pb-2">
-            <nav class="navbar navbar-expand-lg navbar-light p-0">
-                <div class="container-fluid menu-area">
-                    <!-- Brand -->
-                    <div class="logo">
-                        <a href="/">
-                            <img src="{{ asset('website/img/logo/logo-transparent.png') }}" alt="">
-                        </a>
-                    </div>
-                    <div class="e-paper">
 
-                        <a href="#" class="btn border border-light-subtle"> <i class="fa-solid fa-newspaper"></i>
-                            ই-পেপার
-                        </a>
-                    </div>
-                    <!-- Toggler -->
+    <div id="menubar" class="menu_bar  pt-1 pb-2">
+        <nav class="navbar navbar-expand-lg navbar-light p-0">
+            <div class="container-fluid menu-area">
+                <!-- Brand -->
+                <div class="logo">
+                    <a href="/">
+                        <img src="{{ asset('website/img/logo/logo-transparent.png') }}" alt="">
+                    </a>
+                </div>
+                <div class="e-paper">
 
-                    {{-- <button class="navbar-toggler ms-3" type="button" data-bs-toggle="collapse"
+                    <a href="#" class="btn border border-light-subtle"> <i class="fa-solid fa-newspaper"></i>
+                        ই-পেপার
+                    </a>
+                </div>
+                <!-- Toggler -->
+
+                {{-- <button class="navbar-toggler ms-3" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button> --}}
 
-                    <!-- Navbar links -->
-                    <div class="px-3 nav collapse navbar-collapse" id="navbarSupportedContent">
+                @php
+                    $categories = \App\Models\Category::all();
+                @endphp
+                <!-- Navbar links -->
+                <div class="px-3 nav collapse navbar-collapse" id="navbarSupportedContent">
 
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-                            <!-- Normal link -->
+                        <!-- Normal link -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/"><i class="fa-solid fa-home"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('recent.post.list') }}">সর্বশেষ</a>
+                        </li>
+                        @if ($categories->find('7'))
                             <li class="nav-item">
-                                <a class="nav-link" href="/"><i class="fa-solid fa-home"></i></a>
+                                <a class="nav-link"
+                                    href="{{ route('category', $categories->find('7')->slug) }}">জাতীয়</a>
                             </li>
-                            @php
-                                $categories = \App\Models\Category::latest()->get();
-                            @endphp
-                            @foreach ($categories->where('parent_id','') as $category)
-                                <li class="nav-item">
-                                    <a class="nav-link"
-                                        href="{{ route('category', ['category' => $category->slug]) }}">{{ $category->name }}</a>
-                                </li>
-                            @endforeach
+                        @endif
+                        @if ($categories->find('9'))
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                    href="{{ route('category', $categories->find('9')->slug) }}">রাজনীতি</a>
+                            </li>
+                        @endif
+                        @if ($categories->find('8'))
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                    href="{{ route('category', $categories->find('8')->slug) }}">বাণিজ্য</a>
+                            </li>
+                        @endif
+                        @if ($categories->find('5'))
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                    href="{{ route('category', $categories->find('5')->slug) }}">সারাদেশ</a>
+                            </li>
+                        @endif
+                        @if ($categories->find('6'))
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                    href="{{ route('category', $categories->find('6')->slug) }}">আন্তর্জাতিক</a>
+                            </li>
+                        @endif
+                        @if ($categories->find('3'))
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                    href="{{ route('category', $categories->find('3')->slug) }}">খেলা</a>
+                            </li>
+                        @endif
+                        @if ($categories->find('4'))
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                    href="{{ route('category', $categories->find('4')->slug) }}">বিনোদন</a>
+                            </li>
+                        @endif
+                        @if ($categories->find('10'))
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                    href="{{ route('category', $categories->find('10')->slug) }}">শিক্ষা</a>
+                            </li>
+                        @endif
+                        @if ($categories->find('2'))
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                    href="{{ route('category', $categories->find('2')->slug) }}">মতামত</a>
+                            </li>
+                        @endif
 
 
 
-                            <!-- Mega menu dropdown -->
-                            <li class="nav-item dropdown position-static">
-                                <a class="nav-link dropdown-toggle" href="#" id="megaMenuDropdown" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    অন্যান্য
-                                </a>
-                                <div class="dropdown-menu w-100 mt-0 border-0 shadow"
-                                    aria-labelledby="megaMenuDropdown">
-                                    <div class="container">
-                                        <div class="row py-4">
 
-                                            <!-- Column 1 -->
-                                            <div class="col-lg-4 col-md-6 mb-3">
-                                                <h6 class="text-uppercase">Category 1</h6>
-                                                <a href="#" class="dropdown-item">Link 1</a>
-                                                <a href="#" class="dropdown-item">Link 2</a>
-                                                <a href="#" class="dropdown-item">Link 3</a>
-                                            </div>
 
-                                            <!-- Column 2 -->
-                                            <div class="col-lg-4 col-md-6 mb-3">
-                                                <h6 class="text-uppercase">Category 2</h6>
-                                                <a href="#" class="dropdown-item">Link 4</a>
-                                                <a href="#" class="dropdown-item">Link 5</a>
-                                                <a href="#" class="dropdown-item">Link 6</a>
-                                            </div>
 
-                                            <!-- Column 3 -->
-                                            <div class="col-lg-4 col-md-6 mb-3">
-                                                <h6 class="text-uppercase">Category 3</h6>
-                                                <a href="#" class="dropdown-item">Link 7</a>
-                                                <a href="#" class="dropdown-item">Link 8</a>
-                                                <a href="#" class="dropdown-item">Link 9</a>
-                                            </div>
+                        <!-- Mega menu dropdown -->
+                        <li class="nav-item dropdown position-static">
+                            <a class="nav-link dropdown-toggle" href="#" id="megaMenuDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                অন্যান্য
+                            </a>
+                            <div class="dropdown-menu w-100 mt-0 border-0 shadow" aria-labelledby="megaMenuDropdown">
+                                <div class="container">
+                                    <div class="row py-4">
 
+                                        <!-- Column 1 -->
+                                        <div class="col-lg-4 col-md-6 mb-3">
+                                            <h6 class="text-uppercase">Category 1</h6>
+                                            <a href="#" class="dropdown-item">Link 1</a>
+                                            <a href="#" class="dropdown-item">Link 2</a>
+                                            <a href="#" class="dropdown-item">Link 3</a>
                                         </div>
+
+                                        <!-- Column 2 -->
+                                        <div class="col-lg-4 col-md-6 mb-3">
+                                            <h6 class="text-uppercase">Category 2</h6>
+                                            <a href="#" class="dropdown-item">Link 4</a>
+                                            <a href="#" class="dropdown-item">Link 5</a>
+                                            <a href="#" class="dropdown-item">Link 6</a>
+                                        </div>
+
+                                        <!-- Column 3 -->
+                                        <div class="col-lg-4 col-md-6 mb-3">
+                                            <h6 class="text-uppercase">Category 3</h6>
+                                            <a href="#" class="dropdown-item">Link 7</a>
+                                            <a href="#" class="dropdown-item">Link 8</a>
+                                            <a href="#" class="dropdown-item">Link 9</a>
+                                        </div>
+
                                     </div>
                                 </div>
-                            </li>
+                            </div>
+                        </li>
 
-                        </ul>
+                    </ul>
+                </div>
+                <div class="tools">
+                    <div class="search-box">
+                        <form class="d-flex">
+                            <div class="input-group">
+                                <input class="form-control form-control-lg" type="search" placeholder="Search"
+                                    aria-label="Search">
+                                <button class="btn btn-primary px-4" type="submit">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="tools">
-                        <div class="langswitch-box">
-                            <form action="">
-                                <fieldset>
-                                    <select class="form-control " name="" id="lang-switcher">
-                                        <option value="bn">BN</option>
-                                        <option value="en">EN</option>
-                                    </select>
-                                </fieldset>
-                            </form>
-                        </div>
-                        <div class="btn-group">
+                    <div class="langswitch-box">
+                        <form action="">
+                            <fieldset>
+                                <select class="form-control " name="" id="lang-switcher">
+                                    <option value="bn">BN</option>
+                                    <option value="en">EN</option>
+                                </select>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="btn-group">
 
-                            {{-- <a href="#" class="btn border border-light-subtle"> <i
+                        {{-- <a href="#" class="btn border border-light-subtle"> <i
                                     class="fa-solid fa-newspaper"></i> ই-পেপার
                             </a> --}}
-                        </div>
-                        <div class="search-box">
-                            <form class="d-flex">
-                                <div class="input-group">
-                                    <input class="form-control form-control-lg" type="search" placeholder="Search"
-                                        aria-label="Search">
-                                    <button class="btn btn-primary px-4" type="submit">
-                                        <i class="bi bi-search"></i>
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="menu-hamburger">
+                    </div>
+                    <div class="menu-hamburger">
 
-                            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
 
 
-                        </div>
                     </div>
                 </div>
-            </nav>
+            </div>
+        </nav>
 
-            {{-- <div class="hamburger">
-                    <button type="button" class="btn btn-secondary " data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        <i class="fa-solid fa-bars"></i>
-                    </button>
-                    <div class="mega-menu dropdown-menu dropdown-menu-end">
-                        <li><button class="dropdown-item" type="button">Action</button></li>
-                        <li><button class="dropdown-item" type="button">Another action</button></li>
-                        <li><button class="dropdown-item" type="button">Something else here</button></li>
-                    </div>
-                </div> --}}
-
-        </div>
     </div>
+
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample"
         aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
@@ -238,48 +279,156 @@
             <nav id="sidebar-menu">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-" href="#">Home</a></li>
-@foreach ($categories->where('parent_id','') as $category)
-        <li class="nav-item dropdown border-bottom w-100">
-            <a class="nav-link d-flex justify-content-between align-items-center
-                      {{ $category->children && $category->children->count() ? 'dropdown-toggle' : '' }}"
-               href="{{ route('category', ['category' => $category->slug]) }}"
-               id="navbarDropdown{{ $category->id }}"
-               @if ($category->children && $category->children->count())
-                   role="button" data-bs-toggle="dropdown" aria-expanded="false"
-               @endif>
-                <span>{{ $category->name }}</span>
-            </a>
 
-            @if ($category->children && $category->children->count())
-                <ul class="dropdown-menu w-100" aria-labelledby="navbarDropdown{{ $category->id }}">
-                    @foreach ($category->children as $child)
-                        <li class="dropdown-submenu w-100">
-                            <a class="dropdown-item d-flex justify-content-between align-items-center
-                                      {{ $child->children && $child->children->count() ? 'dropdown-toggle' : '' }}"
-                               href="{{ route('category', ['category' => $child->slug]) }}"
-                               @if ($child->children && $child->children->count())
-                                   role="button" data-bs-toggle="dropdown" aria-expanded="false"
-                               @endif>
-                                <span>{{ $child->name }}</span>
+
+                    <li class="nav-item dropdown border-bottom w-100">
+                        <a class="nav-link d-flex justify-content-between align-items-center"
+                            href="{{ route('recent.post.list') }}">
+                            <span>সর্বশেষ</span>
+                        </a>
+
+                    </li>
+
+
+
+
+
+                    @if ($categories->find('7'))
+                        <li class="nav-item dropdown border-bottom w-100">
+                            <a class="nav-link d-flex justify-content-between align-items-center"
+                                href="{{ route('category', $categories->find('7')->slug) }}">
+                                <span>জাতীয়</span>
                             </a>
-                            @if ($child->children && $child->children->count())
-                                <ul class="dropdown-menu">
-                                    @foreach ($child->children as $grandchild)
-                                        <li>
-                                            <a class="dropdown-item"
-                                               href="{{ route('category', ['category' => $grandchild->slug]) }}">
-                                                {{ $grandchild->name }}
+
+                        </li>
+                    @endif
+
+                    @if ($categories->find('9'))
+                        <li class="nav-item dropdown border-bottom w-100">
+                            <a class="nav-link d-flex justify-content-between align-items-center"
+                                href="{{ route('category', $categories->find('9')->slug) }}">
+                                <span>রাজনীতি</span>
+                            </a>
+
+                        </li>
+                    @endif
+                    @if ($categories->find('8'))
+                        <li class="nav-item dropdown border-bottom w-100">
+                            <a class="nav-link d-flex justify-content-between align-items-center"
+                                href="{{ route('category', $categories->find('8')->slug) }}">
+                                <span> <span>বাণিজ্য</span>
+                                </span>
+                            </a>
+
+                        </li>
+                    @endif
+                    @if ($categories->find('5'))
+                        <li class="nav-item dropdown border-bottom w-100">
+                            <a class="nav-link d-flex justify-content-between align-items-center"
+                                href="{{ route('category', $categories->find('5')->slug) }}">
+                                <span> <span>সারাদেশ</span>
+                                </span>
+                            </a>
+
+                        </li>
+                    @endif
+                    @if ($categories->find('6'))
+                        <li class="nav-item dropdown border-bottom w-100">
+                            <a class="nav-link d-flex justify-content-between align-items-center"
+                                href="{{ route('category', $categories->find('6')->slug) }}">
+                                <span> <span>আন্তর্জাতিক</span>
+                                </span>
+                            </a>
+
+                        </li>
+                    @endif
+                    @if ($categories->find('3'))
+                        <li class="nav-item dropdown border-bottom w-100">
+                            <a class="nav-link d-flex justify-content-between align-items-center"
+                                href="{{ route('category', $categories->find('3')->slug) }}">
+                                <span> <span>খেলা</span>
+                                </span>
+                            </a>
+
+                        </li>
+                    @endif
+                    @if ($categories->find('4'))
+                        <li class="nav-item dropdown border-bottom w-100">
+                            <a class="nav-link d-flex justify-content-between align-items-center"
+                                href="{{ route('category', $categories->find('4')->slug) }}">
+                                <span> <span>বিনোদন</span>
+                                </span>
+                            </a>
+
+                        </li>
+                    @endif
+
+                    @if ($categories->find('10'))
+                        <li class="nav-item dropdown border-bottom w-100">
+                            <a class="nav-link d-flex justify-content-between align-items-center"
+                                href="{{ route('category', $categories->find('10')->slug) }}">
+                                <span> <span>শিক্ষা</span>
+                                </span>
+                            </a>
+
+                        </li>
+                    @endif
+                    @if ($categories->find('2'))
+                        <li class="nav-item dropdown border-bottom w-100">
+                            <a class="nav-link d-flex justify-content-between align-items-center"
+                                href="{{ route('category', $categories->find('2')->slug) }}">
+                                <span> <span>মতামত</span>
+                                </span>
+                            </a>
+
+                        </li>
+                    @endif
+
+
+
+
+
+                    {{-- @foreach ($categories as $category)
+                        <li class="nav-item dropdown border-bottom w-100">
+                            <a class="nav-link d-flex justify-content-between align-items-center"
+                                href="/category/motamot">
+                                <span>$category</span>
+                            </a>
+                        </li>
+                        @endforeach --}}
+                    {{-- <a class="nav-link d-flex justify-content-between align-items-center dropdown-toggle"
+                                href="/category/shorboshesh"
+
+                               role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                                <span>সর্বশেষ</span>
+                            </a> --}}
+                    {{-- @if ($category->children && $category->children->count())
+                                <ul class="dropdown-menu w-100" aria-labelledby="navbarDropdown{{ $category->id }}">
+                                    @foreach ($category->children as $child)
+                                        <li class="dropdown-submenu w-100">
+                                            <a class="dropdown-item d-flex justify-content-between align-items-center
+                                      {{ $child->children && $child->children->count() ? 'dropdown-toggle' : '' }}"
+                                                href="{{ route('category', ['category' => $child->slug]) }}"
+                                                @if ($child->children && $child->children->count()) role="button" data-bs-toggle="dropdown" aria-expanded="false" @endif>
+                                                <span>{{ $child->name }}</span>
                                             </a>
+                                            @if ($child->children && $child->children->count())
+                                                <ul class="dropdown-menu">
+                                                    @foreach ($child->children as $grandchild)
+                                                        <li>
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('category', ['category' => $grandchild->slug]) }}">
+                                                                {{ $grandchild->name }}
+                                                            </a>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            @endif
                                         </li>
                                     @endforeach
                                 </ul>
-                            @endif
-                        </li>
-                    @endforeach
-                </ul>
-            @endif
-        </li>
-    @endforeach
+                            @endif --}}
+
                 </ul>
             </nav>
 
@@ -366,12 +515,11 @@
 
     <div class="copyright  bg-secondary bg-opacity-25  py-3 ">
         <div class="wrapper">
-            <div class="row justify-content-between w-100 align-items-center">
+            <div class="row g-3 justify-content-between w-100 align-items-center">
                 <div class="col-sm-7">
                     <p class="small text-muted">
                         <span>Editor (in charge): Sristy Talukdar<br>© 2025 All Rights Reserved |
-                            TheMessage2Day.com,
-                            a concern of AKC Private Limited</span><br>
+                            TheMessage2Day.com</span><br>
                         <svg class="footer-icon" aria-hidden="true" focusable="false" data-prefix="fas"
                             data-icon="map-marker-alt" role="img" xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 384 512">
@@ -404,13 +552,13 @@
                         </span>
                     </p>
                 </div>
-                <div class="col-sm-5 footer-top hidden-print">
-                    <ul class="footer-menu text-end">
+                <div class="col-sm-5 hidden-print pe-0">
+                    <ul class="footer-menu text-lg-end ps-0 pe-0">
                         <li class="d-inline me-2"><a class="border border-secondary p-2" href="#">About
                                 Us</a></li>
                         <li class="d-inline me-2"><a class="border border-secondary p-2" href="#">Contact</a>
                         </li>
-                        <li class="d-inline me-2"><a class="border border-secondary p-2" href="#"
+                        <li class="d-inline "><a class="border border-secondary p-2" href="#"
                                 target="_blank">Privacy Policy</a></li>
                     </ul>
                 </div>

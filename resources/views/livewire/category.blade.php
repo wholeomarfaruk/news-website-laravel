@@ -80,7 +80,7 @@
                                                     </button>
 
                                                     <!-- Delete Button -->
-                                                    <button wire:click="delete({{ $category->id }})" type="button"
+                                                    {{-- <button wire:click="delete({{ $category->id }})" type="button"
                                                         class="hidden group-hover:inline-flex items-center px-2 py-1 border border-red-300 rounded-lg text-sm font-medium text-red-700 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3"
                                                             viewBox="0 0 20 20" fill="currentColor">
@@ -88,7 +88,7 @@
                                                                 d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 10-1.553.894L9 4zm3 1a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 1a1 1 0 000 2v1a1 1 0 11-2 0V6z"
                                                                 clip-rule="evenodd" />
                                                         </svg>
-                                                    </button>
+                                                    </button> --}}
                                                 </div>
 
                                                 @if ($category->children->count() > 0)
@@ -134,7 +134,7 @@
                                                                     </button>
 
                                                                     <!-- Delete Button -->
-                                                                    <button wire:click="delete({{ $child->id }})" type="button"
+                                                                    {{-- <button wire:click="delete({{ $child->id }})" type="button"
                                                                         class="hidden group-hover:inline-flex items-center px-2 py-1 border border-red-300 rounded-lg text-sm font-medium text-red-700 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3"
                                                                             viewBox="0 0 20 20" fill="currentColor">
@@ -142,7 +142,7 @@
                                                                                 d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 10-1.553.894L9 4zm3 1a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 1a1 1 0 000 2v1a1 1 0 11-2 0V6z"
                                                                                 clip-rule="evenodd" />
                                                                         </svg>
-                                                                    </button>
+                                                                    </button> --}}
                                                                 </div>
 
                                                                 @if ($child->children->count() > 0)
@@ -186,7 +186,7 @@
                                                                                     </button>
 
                                                                                     <!-- Delete Button -->
-                                                                                    <button wire:click="delete({{ $child2->id }})"
+                                                                                    {{-- <button wire:click="delete({{ $child2->id }})"
                                                                                         type="button"
                                                                                         class="hidden group-hover:inline-flex items-center px-2 py-1 border border-red-300 rounded-lg text-sm font-medium text-red-700 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
                                                                                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -196,7 +196,7 @@
                                                                                                 d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 10-1.553.894L9 4zm3 1a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 1a1 1 0 000 2v1a1 1 0 11-2 0V6z"
                                                                                                 clip-rule="evenodd" />
                                                                                         </svg>
-                                                                                    </button>
+                                                                                    </button> --}}
                                                                                 </div>
 
 

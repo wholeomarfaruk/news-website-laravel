@@ -15,7 +15,9 @@ class HomeController extends Controller
     {
         $latestPost = Post::latest()->take(10)->get();
         $categories = Category::all();
-        return view('website.home.index', compact('latestPost', 'categories'));
+        $featuredPost= Post::where('is_featured',true)
+        ->where('status','published')->latest()->first();
+        return view('website.home.index', compact('latestPost', 'categories','featuredPost'));
 
     }
     public function postShow($category, $slug)
@@ -25,10 +27,18 @@ class HomeController extends Controller
         if (!$post) {
             abort(404); // or return an error view/message
         }
-
+$relatedPosts = Post::where('category_id', $post->category_id) // same category
+                    ->where('id', '!=', $post->id)           // exclude current post
+                    ->latest()                               // order by created_at desc
+                    ->take(5)                                // take 5 posts
+                    ->get();
+        // continue with $post
+$recentPosts = Post::latest()  // order by created_at DESC
+                   ->take(10)   // take only 5
+                   ->get();
         // continue with $post
 
-        return view('website.post.index', compact('post'));
+        return view('website.post.index', compact('post','relatedPosts','recentPosts'));
     }
     public function singlePost($slug)
     {
@@ -37,10 +47,17 @@ class HomeController extends Controller
         if (!$post) {
             abort(404); // or return an error view/message
         }
-
+// Assuming current post is $post
+$relatedPosts = Post::where('category_id', $post->category_id) // same category
+                    ->where('id', '!=', $post->id)           // exclude current post
+                    ->latest()                               // order by created_at desc
+                    ->take(5)                                // take 5 posts
+                    ->get();
         // continue with $post
-
-        return view('website.post.index', compact('post'));
+$recentPosts = Post::latest()  // order by created_at DESC
+                   ->take(10)   // take only 5
+                   ->get();
+        return view('website.post.index', compact('post','relatedPosts'));
     }
     public function singlePostDemo()
     {
@@ -52,9 +69,12 @@ class HomeController extends Controller
         $posts = $category->posts()->latest()->get();
         $category_id= $category->id;
 
-        if (!$posts) {
-            abort(404);
-        }
+
+
         return view('website.archive.category', compact('posts','category_id'));
+    }
+    public function recentPosts(){
+
+        return view('website.archive.recent-posts');
     }
 }

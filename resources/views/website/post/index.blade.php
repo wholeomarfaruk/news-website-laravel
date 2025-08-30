@@ -92,104 +92,39 @@
                         </style>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="dtl_tags_news_title"><a href="/"> এ সম্পর্কিত আরও খবর</a></div>
+                                <div class="dtl_tags_news_title"><a href="#"> এ সম্পর্কিত আরও খবর</a></div>
                                 <div class="border-bottom mb-2"></div>
                             </div>
                         </div>
-                        <div class="common-border-box">
+                        <div class="common-border-box col-md-10">
                             <div class="selected-news ">
+                                @foreach ($relatedPosts as $post)
+
+
                                 <div class="sub-news mb-3">
                                     <div class="news-separator-horizontal-border"></div>
                                     <div class="flex-content position-relative" id="flex-left-image">
                                         <div class="d-flex">
                                             <div class="flex-shrink-0 me-2">
-                                                <a class="_link" href="#">
+                                                <a class="_link" href="{{ route('post.show', ['category' => $post->category->slug, 'slug' => $post->slug]) }}">
                                                     <div class="img-content position-relative text-center"><span
                                                             class="imgWrep"><img class="images img-fluid news_img detailImg"
-                                                                src="https://www.kalbela.com/assets/news_photos/2025/08/22/image_215592_1755803929.webp"
-                                                                title="" alt=""></span></div>
+                                                                src="{{$post->featured_image}}"
+                                                                title="{{$post->title}}" alt="{{$post->title}}"></span></div>
                                                 </a>
                                             </div>
                                             <div class="flex-grow-1">
                                                 <!-- <h4 class="title"></h4> -->
-                                                <a class="_link" href="#">
-                                                    <h3 class="title">
-                                                        ধানের শীষের পক্ষে ঐক্যবদ্ধভাবে কাজ করার প্রতিশ্রুতি </h3>
-                                                        
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="sub-news mb-3">
-                                    <div class="news-separator-horizontal-border"></div>
-                                    <div class="flex-content position-relative" id="flex-left-image">
-                                        <div class="d-flex">
-                                            <div class="flex-shrink-0 me-2">
-                                                <a class="_link" href="">
-                                                    <div class="img-content position-relative text-center"><span
-                                                            class="imgWrep"><img class="images img-fluid news_img detailImg"
-                                                                src="https://www.kalbela.com/assets/news_photos/2025/08/22/image_215590_1755802824.webp"
-                                                                title="" alt=""></span></div>
-                                                </a>
-                                            </div>
-                                            <div class="flex-grow-1">
-                                                <!-- <h4 class="title"></h4> -->
-                                                <a class="_link" href="#">
+                                                <a class="_link" href="{{ route('post.show', ['category' => $post->category->slug, 'slug' => $post->slug]) }}">
                                                     <h4 class="title">
-                                                        তারেক রহমান শিগগিরই দেশে ফিরবেন, নির্বাচনের পর প্রধানমন্ত্রীও হবেন :
-                                                        এ্যানি </h4>
+                                                        {{$post->title}}</h4>
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="sub-news mb-3">
-                                    <div class="news-separator-horizontal-border"></div>
-                                    <div class="flex-content position-relative" id="flex-left-image">
-                                        <div class="d-flex">
-                                            <div class="flex-shrink-0 me-2">
-                                                <a class="_link" href="#">
-                                                    <div class="img-content position-relative text-center"><span
-                                                            class="imgWrep"><img class="images img-fluid news_img detailImg"
-                                                                src="https://www.kalbela.com/assets/news_photos/2025/08/21/image_215543_1755787524.webp"
-                                                                title="" alt=""></span></div>
-                                                </a>
-                                            </div>
-                                            <div class="flex-grow-1">
-                                                <!-- <h4 class="title"></h4> -->
-                                                <a class="_link" href="#">
-                                                    <h4 class="title">
-                                                        মানুষ ভাত পাচ্ছে না আর উপদেষ্টারা হাঁসের মাংস খুঁজতে বের হচ্ছেন :
-                                                        আলাল </h4>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="sub-news mb-3">
-                                    <div class="news-separator-horizontal-border"></div>
-                                    <div class="flex-content position-relative" id="flex-left-image">
-                                        <div class="d-flex">
-                                            <div class="flex-shrink-0 me-2">
-                                                <a class="_link" href="#">
-                                                    <div class="img-content position-relative text-center"><span
-                                                            class="imgWrep"><img
-                                                                class="images img-fluid news_img detailImg"
-                                                                src="https://www.kalbela.com/assets/news_photos/2025/08/21/image_215536_1755785257.webp"
-                                                                title="" alt=""></span></div>
-                                                </a>
-                                            </div>
-                                            <div class="flex-grow-1">
-                                                <!-- <h4 class="title"></h4> -->
-                                                <a class="_link" href="#">
-                                                    <h4 class="title">
-                                                        একাত্তরকে ভুলিয়ে দেওয়ার ষড়যন্ত্র চলছে : মির্জা ফখরুল </h4>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                 @endforeach
+
                             </div>
                         </div>
                     </div>
@@ -203,8 +138,7 @@
                             {{ $post?->author?->name }}</div>
                         <div class="short-info mb-3"></div>
                         <div class="featured-img mb-3">
-                            <img src="{{ $post->featured_image }}"
-                                alt="">
+                            <img src="{{ $post->featured_image }}" alt="">
                         </div>
                         <div class="authore">
 

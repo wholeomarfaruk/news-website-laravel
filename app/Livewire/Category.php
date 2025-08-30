@@ -26,7 +26,7 @@ class Category extends Component
 
     public function render()
     {
-        if($this->search) {
+        if ($this->search) {
 
             $this->categories = CategoryList::where('name', 'like', '%' . $this->search . '%')
                 ->orWhereHas('children', function ($query) {
@@ -48,7 +48,12 @@ class Category extends Component
         $category = new CategoryList();
         $category->name = $this->name;
         $category->parent_id = $this->parent_id;
-        $category->slug = Str::slug($this->name);
+        $slug = Str::slug($this->name);
+        if (CategoryList::where('slug', $slug)->exists()) {
+            $slug = $slug . "-";
+        }
+        $category->slug = $slug;
+
         $category->save();
         $this->createModal = false;
         $this->dispatch('categoryCreated');
@@ -57,7 +62,7 @@ class Category extends Component
     }
     public function openCreateModal()
     {
-      $this->reset(['name', 'parent_id']);
+        $this->reset(['name', 'parent_id']);
         $this->createModal = true;
     }
     public function delete($categoryId)
@@ -93,7 +98,16 @@ class Category extends Component
         $category = CategoryList::find($this->editCategoryId);
         if ($category) {
             $category->name = $this->editCategoryName;
-            $category->slug = Str::slug($this->name);
+            $slug = Str::slug($this->name);
+
+            // Check if slug exists in other categories (excluding current one)
+            if (CategoryList::where('slug', $slug)->where('id', '!=', $this->editCategoryId)->exists()) {
+                // Slug already taken by another category
+                // Append something to make it unique
+                $slug = $slug . '-' . time(); // or some other unique identifier
+            }
+
+            $category->slug = $slug;
             $category->parent_id = $this->selectedCategory_parent_id;
             $category->save();
             $this->editModal = false;

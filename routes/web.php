@@ -86,8 +86,10 @@ route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')
         Route::get('/profile',[UserController::class,'profile'])->name('profile');
     });
 // Category page
-Route::get('/{category}', [HomeController::class,'categoryPost'])->name('category');
-// Post inside category
-Route::get('/{category}/{slug}', [HomeController::class,'postShow'])->name('post.show');
-Route::get('/{slug}', [HomeController::class,'singlePost'])->name('singlepost');
+Route::get('/posts/recent',[HomeController::class,'recentPosts'])->name('recent.post.list');
 
+// Post inside category
+Route::get('/category/{category}/{slug}', [HomeController::class,'postShow'])->name('post.show');
+// Route::get('/{slug}', [HomeController::class,'singlePost'])->name('singlepost');
+
+Route::get('/category/{category}', [HomeController::class,'categoryPost'])->name('category');
