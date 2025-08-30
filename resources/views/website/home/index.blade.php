@@ -15,7 +15,7 @@
 
                                     @if ($featuredPost)
                                         <a
-                                            href="{{ route('post.show', ['category' => $featuredPost->category->slug, 'slug' => $featuredPost->slug]) }}">
+                                            href="{{ route('post.show', ['category' => $featuredPost?->category?->slug, 'slug' => $featuredPost?->slug]) }}">
                                             <div class="card mb-3 p-2 rounded ">
                                                 <div class="row flex-column g-0">
                                                     <div class="col-auto">
