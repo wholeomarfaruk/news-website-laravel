@@ -11,7 +11,7 @@
 
                             <div class="row g-3">
                                 <div class="col-md-8">
-                                    
+
 
                                     @if (!$featuredPost)
 <a
@@ -65,25 +65,25 @@
                                     @endif
                                     <div class="row  g-2">
                                         @php
-                                            $hotnews = $categories->find(11)?->posts()?->latest()?->get();
+                                            $saradesh = $categories->find(11)?->posts()?->latest()?->first();
                                         @endphp
-                                        @if ($hotnews)
-                                            @foreach ($hotnews->slice(1, 2) as $post)
+                                        @if ($saradesh)
+
                                                 <div class="col-lg-6 col-6">
 
                                                     <div class="card">
                                                         <a
-                                                            href="{{ route('post.show', ['category' => $post->category->slug, 'slug' => $post->slug]) }}">
+                                                            href="{{ route('post.show', ['category' => $saradesh->category->slug, 'slug' => $saradesh->slug]) }}">
                                                             <div class="row g-0 align-items-center">
                                                                 <div class="col-md-5">
                                                                     <img style="object-fit: cover;"
-                                                                        src="{{ $post->featured_image }}"
+                                                                        src="{{ $saradesh->featured_image }}"
                                                                         class="img-fluid rounded-start" alt="...">
                                                                 </div>
                                                                 <div class="col-md-7 m-0 p-0">
                                                                     <div class="card-body m-0 p-0">
                                                                         <h3 class="card-title secondpost-title px-3 ">
-                                                                            {{ $post->title }}
+                                                                            {{ $saradesh->title }}
                                                                         </h3>
 
                                                                     </div>
@@ -109,7 +109,54 @@
                                                 </div>
                                             </a>
                                         </div> --}}
-                                            @endforeach
+
+                                        @endif
+                                        @php
+                                            $banijjo = $categories->find(8)?->posts()?->latest()?->first();
+                                        @endphp
+                                        @if ($banijjo)
+
+                                                <div class="col-lg-6 col-6">
+
+                                                    <div class="card">
+                                                        <a
+                                                            href="{{ route('post.show', ['category' => $saradesh->category->slug, 'slug' => $saradesh->slug]) }}">
+                                                            <div class="row g-0 align-items-center">
+                                                                <div class="col-md-5">
+                                                                    <img style="object-fit: cover;"
+                                                                        src="{{ $saradesh->featured_image }}"
+                                                                        class="img-fluid rounded-start" alt="...">
+                                                                </div>
+                                                                <div class="col-md-7 m-0 p-0">
+                                                                    <div class="card-body m-0 p-0">
+                                                                        <h3 class="card-title secondpost-title px-3 ">
+                                                                            {{ $saradesh->title }}
+                                                                        </h3>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                {{-- <div class="col-lg-6 col-6">
+
+                                            <a href="{{ route('post.show', ['category' => $post->category->slug, 'slug' => $post->slug]) }}">
+                                                <div class="card  h-100">
+
+
+                                                    <img src="{{ $post->featured_image }}" class="card-img-top"
+                                                        alt="{{ $post->title }}">
+
+
+                                                    <div class="card-body">
+                                                        <h3 class="card-title secondpost-title">{{ $post->title }}
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div> --}}
+
                                         @endif
                                     </div>
                                 </div>
