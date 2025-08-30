@@ -98,7 +98,7 @@
                         </div>
                         <div class="common-border-box col-md-10">
                             <div class="selected-news ">
-                                @foreach ($relatedPosts as $post)
+                                @foreach ($relatedPosts as $relatedpost)
 
 
                                 <div class="sub-news mb-3">
@@ -106,18 +106,18 @@
                                     <div class="flex-content position-relative" id="flex-left-image">
                                         <div class="d-flex">
                                             <div class="flex-shrink-0 me-2">
-                                                <a class="_link" href="{{ route('post.show', ['category' => $post->category->slug, 'slug' => $post->slug]) }}">
+                                                <a class="_link" href="{{ route('post.show', ['category' => $relatedpost->category->slug, 'slug' => $relatedpost->slug]) }}">
                                                     <div class="img-content position-relative text-center"><span
                                                             class="imgWrep"><img class="images img-fluid news_img detailImg"
-                                                                src="{{$post->featured_image}}"
-                                                                title="{{$post->title}}" alt="{{$post->title}}"></span></div>
+                                                                src="{{$relatedpost->featured_image}}"
+                                                                title="{{$relatedpost->title}}" alt="{{$relatedpost->title}}"></span></div>
                                                 </a>
                                             </div>
                                             <div class="flex-grow-1">
                                                 <!-- <h4 class="title"></h4> -->
-                                                <a class="_link" href="{{ route('post.show', ['category' => $post->category->slug, 'slug' => $post->slug]) }}">
+                                                <a class="_link" href="{{ route('post.show', ['category' => $relatedpost->category->slug, 'slug' => $relatedpost->slug]) }}">
                                                     <h4 class="title">
-                                                        {{$post->title}}</h4>
+                                                        {{$relatedpost->title}}</h4>
                                                 </a>
                                             </div>
                                         </div>
