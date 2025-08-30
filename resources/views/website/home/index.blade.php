@@ -120,17 +120,17 @@
 
                                                     <div class="card">
                                                         <a
-                                                            href="{{ route('post.show', ['category' => $saradesh->category->slug, 'slug' => $saradesh->slug]) ?? '#' }}">
+                                                            href="{{ route('post.show', ['category' => $banijjo->category->slug, 'slug' => $banijjo->slug]) ?? '#' }}">
                                                             <div class="row g-0 align-items-center">
                                                                 <div class="col-md-5">
                                                                     <img style="object-fit: cover;"
-                                                                        src="{{ $saradesh->featured_image }}"
+                                                                        src="{{ $banijjo->featured_image }}"
                                                                         class="img-fluid rounded-start" alt="...">
                                                                 </div>
                                                                 <div class="col-md-7 m-0 p-0">
                                                                     <div class="card-body m-0 p-0">
                                                                         <h3 class="card-title secondpost-title px-3 ">
-                                                                            {{ $saradesh->title }}
+                                                                            {{ $banijjo->title }}
                                                                         </h3>
 
                                                                     </div>
