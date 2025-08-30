@@ -129,7 +129,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 order-md-2 order-1">
                     <div class="post-content">
                         <h3 class="title mb-3 secondpost-title">
                             {{ $post->title }}
