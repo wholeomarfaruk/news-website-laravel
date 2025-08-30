@@ -13,32 +13,8 @@
                                 <div class="col-md-8">
 
 
-                                    @if ($featuredPost)
-                                        <a
-                                            href="{{ route('post.show', ['category' => $featuredPost?->category?->slug, 'slug' => $featuredPost?->slug]) }}">
-                                            <div class="card mb-3 p-2 rounded ">
-                                                <div class="row flex-column g-0">
-                                                    <div class="col-auto">
-                                                        <img style="height: 100%; width: cover;"
-                                                            src="{{ $featuredPost->featured_image }}"
-                                                            class="img-fluid rounded-start" alt="...">
-                                                    </div>
-                                                    <div class="col-auto">
-                                                        <div class="card-body">
-
-                                                            <h1 class="card-title topnews-title">
-                                                                {{ $featuredPost->title }}
-                                                            </h1>
-                                                            <p class="card-text topnews-short-text">
-                                                                {{ $featuredPost->excerpt }}
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    @else
-                                        <a
+                                    @if ($featuredPost->isEmpty())
+<a
                                             href="#">
                                             <div class="card mb-3 p-2 rounded ">
                                                 <div class="row flex-column g-0">
@@ -61,6 +37,31 @@
                                                 </div>
                                             </div>
                                         </a>
+                                    @else
+                                    <a
+                                            href="{{ route('post.show', ['category' => $featuredPost?->category?->slug, 'slug' => $featuredPost?->slug]) }}">
+                                            <div class="card mb-3 p-2 rounded ">
+                                                <div class="row flex-column g-0">
+                                                    <div class="col-auto">
+                                                        <img style="height: 100%; width: cover;"
+                                                            src="{{ $featuredPost->featured_image }}"
+                                                            class="img-fluid rounded-start" alt="...">
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <div class="card-body">
+
+                                                            <h1 class="card-title topnews-title">
+                                                                {{ $featuredPost->title }}
+                                                            </h1>
+                                                            <p class="card-text topnews-short-text">
+                                                                {{ $featuredPost->excerpt }}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+
                                     @endif
                                     <div class="row  g-2">
                                         @php
