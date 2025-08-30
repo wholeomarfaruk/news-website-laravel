@@ -5,7 +5,7 @@
 
         {{-- Big Post --}}
         <div class="col-12 mb-3">
-            <a href="#">
+            <a href="{{ route('post.show', ['category' => $bigPost->category->slug, 'slug' => $bigPost->slug]) }}">
                 <div class="post-item position-relative rounded overflow-hidden">
                     <img src="{{ $bigPost->featured_image }}" loading="lazy" alt="">
                     <div class="details d-flex align-items-start justify-content-end position-absolute z-index-1 bottom-0 start-0 end-0 top-0 flex-column"
@@ -20,6 +20,7 @@
         {{-- Other posts --}}
         @foreach ($posts->skip(1) as $post)
             <div class="col-md-4 col-6">
+                <a href="{{ route('post.show', ['category' => $post->category->slug, 'slug' => $post->slug]) }}">
                 <div class="card mb-3">
                     <img src="{{ $post->featured_image }}" class="img-fluid rounded-start" alt="...">
                     <div class="card-body">
@@ -28,6 +29,7 @@
                         <p class="card-text"><small class="text-body-secondary">Last updated {{ $post->updated_at->diffForHumans() }}</small></p>
                     </div>
                 </div>
+                </a>
             </div>
         @endforeach
     @endif
