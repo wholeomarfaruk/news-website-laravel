@@ -11,9 +11,9 @@
 
                             <div class="row g-3">
                                 <div class="col-md-8">
+                                    @dd($featuredPost)
 
-
-                                    @if ($featuredPost->isEmpty())
+                                    @if (!$featuredPost)
 <a
                                             href="#">
                                             <div class="card mb-3 p-2 rounded ">
