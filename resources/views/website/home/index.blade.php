@@ -11,7 +11,7 @@
 
                             <div class="row g-3">
                                 <div class="col-md-8">
-                                    @dd($featuredPost)
+                                    @dd($featuredPost->category->slug)
 
                                     @if (!$featuredPost)
 <a
