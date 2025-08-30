@@ -120,7 +120,7 @@
 
                                                     <div class="card">
                                                         <a
-                                                            href="{{ route('post.show', ['category' => $saradesh->category->slug, 'slug' => $saradesh->slug]) }}">
+                                                            href="{{ route('post.show', ['category' => $saradesh->category->slug, 'slug' => $saradesh->slug]) ?? '#' }}">
                                                             <div class="row g-0 align-items-center">
                                                                 <div class="col-md-5">
                                                                     <img style="object-fit: cover;"
