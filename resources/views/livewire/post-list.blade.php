@@ -66,6 +66,13 @@
                                 <th class="px-5 py-3 sm:px-6">
                                     <div class="flex items-center">
                                         <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">
+                                            Visits
+                                        </p>
+                                    </div>
+                                </th>
+                                <th class="px-5 py-3 sm:px-6">
+                                    <div class="flex items-center">
+                                        <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">
                                             Created At
                                         </p>
                                     </div>
@@ -150,7 +157,14 @@
                                         <td class="px-5 py-4 sm:px-6">
                                             <div class="flex items-center">
                                                 <p class="text-theme-sm text-gray-500 dark:text-gray-400">
-                                                    {{ $post->created_at }}
+                                                    {{ $post->views }}
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td class="px-5 py-4 sm:px-6">
+                                            <div class="flex items-center">
+                                                <p class="text-theme-sm text-gray-500 dark:text-gray-400">
+                                                    {{ $post->views }}
                                                 </p>
                                             </div>
                                         </td>
