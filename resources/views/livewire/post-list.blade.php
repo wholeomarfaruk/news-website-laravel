@@ -164,7 +164,7 @@
                                         <td class="px-5 py-4 sm:px-6">
                                             <div class="flex items-center">
                                                 <p class="text-theme-sm text-gray-500 dark:text-gray-400">
-                                                    {{ $post->views }}
+                                                    {{ $post->created_at }}
                                                 </p>
                                             </div>
                                         </td>
