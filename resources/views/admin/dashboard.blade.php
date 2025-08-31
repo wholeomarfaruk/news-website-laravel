@@ -457,7 +457,7 @@
                         <!-- table header end -->
 
                         <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
-                            @foreach ($latestPost as $latestFivePost)
+                            @foreach ($latestPosts as $latestPost)
 
 
                             <tr>
@@ -465,11 +465,11 @@
                                     <div class="flex items-center">
                                         <div class="flex items-center gap-3">
                                             <div class="h-[50px] w-[50px] overflow-hidden rounded-md">
-                                                <img src="{{$latestFivePost->featured_image}}" alt="{{$latestFivePost->title}}" />
+                                                <img src="{{$latestPost->featured_image}}" alt="{{$latestPost->title}}" />
                                             </div>
                                             <div>
                                                 <p class="font-medium text-gray-800 text-theme-sm dark:text-white/90">
-                                                    {{$latestFivePost->title}}
+                                                    {{$latestPost->title}}
                                                 </p>
                                                 <span class="text-gray-500 text-theme-xs dark:text-gray-400">
 
@@ -482,7 +482,7 @@
                                 <td class="py-3">
                                     <div class="flex items-center">
                                         <p class="text-gray-500 text-theme-sm dark:text-gray-400">
-                                            {{$latestFivePost->category->name}}
+                                            {{$latestPost->category->name}}
                                         </p>
                                     </div>
                                 </td>
@@ -490,13 +490,13 @@
                                 <td class="py-3">
                                     <div class="flex items-center">
                                         <p class="text-gray-500 text-theme-sm dark:text-gray-400">
-                                            {{$latestFivePost->views}}
+                                            {{$latestPost->views}}
                                         </p>
                                     </div>
                                 </td>
                                 <td class="py-3">
                                     <div class="flex items-center">
-                                        @if ($latestFivePost->status=='success')
+                                        @if ($latestPost->status=='success')
 <p
                                             class="rounded-full bg-success-50 px-2 py-0.5 text-theme-xs font-medium text-success-600 dark:bg-success-500/15 dark:text-success-500">
                                             Published
