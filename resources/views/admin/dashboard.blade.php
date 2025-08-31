@@ -496,7 +496,7 @@
                                 </td>
                                 <td class="py-3">
                                     <div class="flex items-center">
-                                        @if ($latestPost->status=='success')
+                                        @if ($latestPost->status=='published')
 <p
                                             class="rounded-full bg-success-50 px-2 py-0.5 text-theme-xs font-medium text-success-600 dark:bg-success-500/15 dark:text-success-500">
                                             Published
@@ -513,7 +513,7 @@
                             </tr>
                              @endforeach
                             <!-- table item -->
-                            <tr>
+                            {{-- <tr>
                                 <td class="py-3">
                                     <div class="flex items-center">
                                         <div class="flex items-center gap-3">
@@ -682,7 +682,7 @@
                                         </p>
                                     </div>
                                 </td>
-                            </tr>
+                            </tr> --}}
                             <!-- table body end -->
                         </tbody>
                     </table>
