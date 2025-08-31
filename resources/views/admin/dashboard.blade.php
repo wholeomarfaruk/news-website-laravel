@@ -441,7 +441,7 @@
                                 <th class="py-3">
                                     <div class="flex items-center">
                                         <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
-                                            Price
+                                            Views
                                         </p>
                                     </div>
                                 </th>
