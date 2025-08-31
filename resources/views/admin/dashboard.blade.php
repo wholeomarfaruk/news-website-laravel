@@ -21,7 +21,7 @@
                         <div>
                             <span class="text-sm text-gray-500 dark:text-gray-400">Life Time Views</span>
                             <h4 class="mt-2 text-title-sm font-bold text-gray-800 dark:text-white/90">
-                                {{$post->totalVisit}}
+                                {{$totalVisit ?? ''}}
                             </h4>
                         </div>
 
