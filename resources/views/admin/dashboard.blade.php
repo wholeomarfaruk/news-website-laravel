@@ -501,12 +501,12 @@
                                             class="rounded-full bg-success-50 px-2 py-0.5 text-theme-xs font-medium text-success-600 dark:bg-success-500/15 dark:text-success-500">
                                             Published
                                         </p>
-                                        @else{
+                                        @else
 <p
                                             class="rounded-full bg-warning-50 px-2 py-0.5 text-theme-xs font-medium text-warning-600 dark:bg-warning-500/15 dark:text-orange-400">
                                             Draft
                                         </p>
-                                        }
+                                        @endif
 
                                     </div>
                                 </td>
