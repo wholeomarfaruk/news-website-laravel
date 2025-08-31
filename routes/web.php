@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\UserController;
@@ -55,9 +56,7 @@ Route::view('profile', 'profile')
 
 route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')
     ->group(function () {
-        Route::get('/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('dashboard');
+        Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
         Route::get('/roles', function () {
             return view('admin.roles');
         })->name('roles');
