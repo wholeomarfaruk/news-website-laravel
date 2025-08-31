@@ -56,7 +56,7 @@
                         <div>
                             <span class="text-sm text-gray-500 dark:text-gray-400">Orders</span>
                             <h4 class="mt-2 text-title-sm font-bold text-gray-800 dark:text-white/90">
-                                5,359
+                                 {{$totalPost ?? ''}}
                             </h4>
                         </div>
 
