@@ -19,9 +19,9 @@
 
                     <div class="mt-5 flex items-end justify-between">
                         <div>
-                            <span class="text-sm text-gray-500 dark:text-gray-400">Customers</span>
+                            <span class="text-sm text-gray-500 dark:text-gray-400">Life Time Views</span>
                             <h4 class="mt-2 text-title-sm font-bold text-gray-800 dark:text-white/90">
-                                3,782
+                                {{$post->totalVisit}}
                             </h4>
                         </div>
 
