@@ -457,47 +457,61 @@
                         <!-- table header end -->
 
                         <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
+                            @foreach ($latestPost as $latestFivePost)
+
+
                             <tr>
                                 <td class="py-3">
                                     <div class="flex items-center">
                                         <div class="flex items-center gap-3">
                                             <div class="h-[50px] w-[50px] overflow-hidden rounded-md">
-                                                <img src="{{asset('tailadmin/src/images/product/product-01.jpg')}}" alt="Product" />
+                                                <img src="{{$latestFivePost->featured_image}}" alt="{{$latestFivePost->title}}" />
                                             </div>
                                             <div>
                                                 <p class="font-medium text-gray-800 text-theme-sm dark:text-white/90">
-                                                    Macbook pro 13”
+                                                    {{$latestFivePost->title}}
                                                 </p>
                                                 <span class="text-gray-500 text-theme-xs dark:text-gray-400">
-                                                    2 Variants
+
                                                 </span>
                                             </div>
                                         </div>
                                     </div>
                                 </td>
+
                                 <td class="py-3">
                                     <div class="flex items-center">
                                         <p class="text-gray-500 text-theme-sm dark:text-gray-400">
-                                            Laptop
+                                            {{$latestFivePost->category->name}}
+                                        </p>
+                                    </div>
+                                </td>
+
+                                <td class="py-3">
+                                    <div class="flex items-center">
+                                        <p class="text-gray-500 text-theme-sm dark:text-gray-400">
+                                            {{$latestFivePost->views}}
                                         </p>
                                     </div>
                                 </td>
                                 <td class="py-3">
                                     <div class="flex items-center">
-                                        <p class="text-gray-500 text-theme-sm dark:text-gray-400">
-                                            $2399.00
-                                        </p>
-                                    </div>
-                                </td>
-                                <td class="py-3">
-                                    <div class="flex items-center">
-                                        <p
+                                        @if ($latestFivePost->status=='success')
+<p
                                             class="rounded-full bg-success-50 px-2 py-0.5 text-theme-xs font-medium text-success-600 dark:bg-success-500/15 dark:text-success-500">
-                                            Delivered
+                                            Published
                                         </p>
+                                        @else{
+<p
+                                            class="rounded-full bg-warning-50 px-2 py-0.5 text-theme-xs font-medium text-warning-600 dark:bg-warning-500/15 dark:text-orange-400">
+                                            Draft
+                                        </p>
+                                        }
+
                                     </div>
                                 </td>
                             </tr>
+                             @endforeach
                             <!-- table item -->
                             <tr>
                                 <td class="py-3">
