@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     public function index(){
+        $totalPost=Post::count();
         $totalVisit=Post::sum('views');
         return view('admin.dashboard',compact('totalVisit'));
     }

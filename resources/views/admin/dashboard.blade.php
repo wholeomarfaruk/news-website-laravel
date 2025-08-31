@@ -25,7 +25,7 @@
                             </h4>
                         </div>
 
-                        <span
+                        {{-- <span
                             class="flex items-center gap-1 rounded-full bg-success-50 py-0.5 pl-2 pr-2.5 text-sm font-medium text-success-600 dark:bg-success-500/15 dark:text-success-500">
                             <svg class="fill-current" width="12" height="12" viewBox="0 0 12 12" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -35,7 +35,7 @@
                             </svg>
 
                             11.01%
-                        </span>
+                        </span> --}}
                     </div>
                 </div>
                 <!-- Metric Item End -->
@@ -60,7 +60,7 @@
                             </h4>
                         </div>
 
-                        <span
+                        {{-- <span
                             class="flex items-center gap-1 rounded-full bg-error-50 py-0.5 pl-2 pr-2.5 text-sm font-medium text-error-600 dark:bg-error-500/15 dark:text-error-500">
                             <svg class="fill-current" width="12" height="12" viewBox="0 0 12 12" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -70,7 +70,7 @@
                             </svg>
 
                             9.05%
-                        </span>
+                        </span> --}}
                     </div>
                 </div>
                 <!-- Metric Item End -->
