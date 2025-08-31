@@ -35,7 +35,7 @@ class HomeController extends Controller
             ->take(10)   // take only 5
             ->get();
         // continue with $post
-        $post->increment('views');
+    
         return view('website.post.index', compact('post', 'relatedPosts', 'recentPosts'));
     }
     public function singlePost($slug)
