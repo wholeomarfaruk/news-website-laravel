@@ -12,6 +12,6 @@ class DashboardController extends Controller
         $totalPost=Post::count();
         $totalVisit=Post::sum('views');
         $latestPosts=Post::latest()->take(5)->get();
-        return view('admin.dashboard',compact('totalVisit','totalPost','lalatestPoststestPost'));
+        return view('admin.dashboard',compact('totalVisit','totalPost','latestPosts'));
     }
 }
