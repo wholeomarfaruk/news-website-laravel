@@ -54,7 +54,7 @@
 
                     <div class="mt-5 flex items-end justify-between">
                         <div>
-                            <span class="text-sm text-gray-500 dark:text-gray-400">Orders</span>
+                            <span class="text-sm text-gray-500 dark:text-gray-400">Total Posts</span>
                             <h4 class="mt-2 text-title-sm font-bold text-gray-800 dark:text-white/90">
                                  {{$totalPost ?? ''}}
                             </h4>
