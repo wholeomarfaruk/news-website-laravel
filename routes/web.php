@@ -16,10 +16,10 @@ require __DIR__ . '/auth.php';
 
 
 // Home page
-Route::get('/', [HomeController::class,'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Demo single post (example)
-Route::get('/single-post', [HomeController::class,'singlePostDemo'])->name('post');
+Route::get('/single-post', [HomeController::class, 'singlePostDemo'])->name('post');
 
 
 
@@ -75,7 +75,7 @@ route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')
         Route::get('/categories', [CategoryController::class, 'categoryList'])->name('category.list');
 
         //Posts
-        Route::get('/posts',[PostController::class, 'postList'])->name('post.list');
+        Route::get('/posts', [PostController::class, 'postList'])->name('post.list');
         Route::get('/posts/create', [PostController::class, 'createPostForm'])->name('post.create');
         Route::post('/posts/store', [PostController::class, 'createPost'])->name('post.store');
         Route::get('/posts/edit/{id}', [PostController::class, 'editPost'])->name('post.edit');
@@ -83,13 +83,27 @@ route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')
         Route::delete('/posts/delete/{id}', [PostController::class, 'deletePost'])->name('post.delete');
 
         //user profile
-        Route::get('/profile',[UserController::class,'profile'])->name('profile');
+        Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+        Route::get('/optimize', function () {
+            Artisan::call('optimize');
+            return "Application optimized successfully!";
+        });
+
+        Route::get('/clear-cache', function () {
+            Artisan::call('optimize:clear');
+            return "Cache cleared successfully!";
+        });
+
+        Route::get('/migrate', function () {
+            Artisan::call('migrate', ['--force' => true]);
+            return "Migration completed successfully!";
+        });
     });
 // Category page
-Route::get('/posts/recent',[HomeController::class,'recentPosts'])->name('recent.post.list');
+Route::get('/posts/recent', [HomeController::class, 'recentPosts'])->name('recent.post.list');
 
 // Post inside category
-Route::get('/category/{category}/{slug}', [HomeController::class,'postShow'])->name('post.show');
+Route::get('/category/{category}/{slug}', [HomeController::class, 'postShow'])->name('post.show');
 // Route::get('/{slug}', [HomeController::class,'singlePost'])->name('singlepost');
 
-Route::get('/category/{category}', [HomeController::class,'categoryPost'])->name('category');
+Route::get('/category/{category}', [HomeController::class, 'categoryPost'])->name('category');
