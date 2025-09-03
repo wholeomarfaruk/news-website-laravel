@@ -468,7 +468,7 @@
                         </div>
 
 
-                        @foreach ($sportsPosts as $post)
+                        @foreach ($sportsPosts->take(8) as $post)
                             <div class="item">
                                 <a
                                     href="{{ route('post.show', ['category' => $post->category->slug, 'slug' => $post->slug]) }}">
