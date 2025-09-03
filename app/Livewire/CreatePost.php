@@ -60,6 +60,7 @@ class CreatePost extends Component
 
 
         try {
+            $uncategorized_id = Category::where('slug', 'uncategorized')->value('id');
 
             $post = new Post();
             $post->title = $this->title;
@@ -67,18 +68,20 @@ class CreatePost extends Component
             if (!$this->slug) {
 
                 $this->slug = Str::slug($this->title);
-                  if(Post::where('slug',$this->slug)->exists()){
-                $this->slug= $this->slug."-";;
+                if (Post::where('slug', $this->slug)->exists()) {
+                    $this->slug = $this->slug . "-";
+                    ;
                 }
             } else {
-                if(Post::where('slug',$this->slug)->exists()){
-                $this->slug= $this->slug."-";;
+                if (Post::where('slug', $this->slug)->exists()) {
+                    $this->slug = $this->slug . "-";
+                    ;
                 }
 
             }
             $post->slug = $this->slug;
             $post->is_featured = $this->isFeatured;
-            $post->category_id = $this->category_id;
+            $post->category_id = $this->category_id ?? $uncategorized_id;
             $post->status = $this->status;
             $post->excerpt = $this->excerpt;
             $post->user_id = auth()->id();
@@ -131,10 +134,9 @@ class CreatePost extends Component
         ]);
         $category = new Category();
         $category->name = $this->name;
-        $slug  = Str::slug($this->name);
-        if(Category::where('slug',$slug)->exists())
-        {
-            $slug = $slug."-";
+        $slug = Str::slug($this->name);
+        if (Category::where('slug', $slug)->exists()) {
+            $slug = $slug . "-";
         }
         $category->slug = $slug;
 
