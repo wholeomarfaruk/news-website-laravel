@@ -78,7 +78,7 @@
             <!-- Metric Group One -->
 
             <!-- ====== Chart One Start -->
-            <div
+            {{-- <div
                 class="overflow-hidden rounded-2xl border border-gray-200 bg-white px-5 pt-5 dark:border-gray-800 dark:bg-white/[0.03] sm:px-6 sm:pt-6">
                 <div class="flex items-center justify-between">
                     <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">
@@ -114,7 +114,7 @@
                         <div id="chartOne" class="-ml-5 h-full min-w-[650px] pl-2 xl:min-w-full"></div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <!-- ====== Chart One End -->
         </div>
         <div class="col-span-12 xl:col-span-5">
@@ -482,7 +482,7 @@
                                 <td class="py-3">
                                     <div class="flex items-center">
                                         <p class="text-gray-500 text-theme-sm dark:text-gray-400">
-                                            {{$latestPost->category->name}}
+                                            {{$latestPost?->category?->name ?? 'N/A'}}
                                         </p>
                                     </div>
                                 </td>
