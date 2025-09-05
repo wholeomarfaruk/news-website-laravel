@@ -13,7 +13,7 @@ class postSection extends Component
      */
     public $newsPosts;
     public $style;
-    public function __construct($newsPosts,$style='')
+    public function __construct($newsPosts,$style='5')
     {
         $this->newsPosts=$newsPosts;
         $this->style=$style;

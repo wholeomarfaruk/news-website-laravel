@@ -301,6 +301,102 @@
             </section>
         @break
 
+        @case(5)
+            <section class="mb-3">
+                <div class="wrapper">
+                    <div class="border p-3 rounded ">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="header"><i class="fa-solid fa-newspaper"></i>
+                                {{ $newsPosts->first()->category->name }}
+                            </div>
+                            <a href="{{ route('category', $newsPosts->first()->category->slug) }}"
+                                class="text-decoration-none fw-bold">
+                                {{ $newsPosts->first()->category->name }} সব নিউজ <i class="fa-solid fa-chevron-right"></i>
+                            </a>
+                        </div>
+                        <div class="international-box">
+
+                            <div class="row">
+
+                                <div class="col-md-4">
+                                    @foreach ($newsPosts->slice(1, 4) as $post)
+                                        <div class="item mb-3">
+                                            <a
+                                                href="{{ route('post.show', ['category' => $post->category->slug, 'slug' => $post->slug]) }}">
+
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <img class="rounded" src="{{ $post->featured_image }}"
+                                                            alt="">
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <div class="">
+                                                            <h3 class="secondpost-title">{{ $post->title }}
+                                                            </h3>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+
+                                        </div>
+                                    @endforeach
+
+
+
+
+
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="item">
+                                        <a
+                                            href="{{ route('post.show', ['category' => $newsPosts->first()->category->slug, 'slug' => $newsPosts->first()->slug]) }}">
+
+                                            <img class="rounded" src="{{ $newsPosts->first()->featured_image }}"
+                                                alt="">
+                                            <div class="p-2">
+                                                <h3 class="secondpost-title">{{ $newsPosts->first()->title }}</h3>
+                                                <div class="hotnews-short-text">{{ $newsPosts->first()->excerpt }}
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-4">
+                                    @foreach ($newsPosts->slice(4, 4) as $post)
+                                        <div class="item mb-3">
+                                            <a
+                                                href="{{ route('post.show', ['category' => $post->category->slug, 'slug' => $post->slug]) }}">
+
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <img class="rounded" src="{{ $post->featured_image }}"
+                                                            alt="">
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <div class="">
+                                                            <h3 class="secondpost-title">{{ $post->title }}
+                                                            </h3>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+
+                                        </div>
+                                    @endforeach
+
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
         @default
             <section class="mb-3">
                 <div class="wrapper">

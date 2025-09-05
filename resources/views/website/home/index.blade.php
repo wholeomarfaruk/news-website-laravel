@@ -343,14 +343,14 @@
             <x-post-section :newsPosts="$categories->find(8)->posts()->latest()->get() ?? collect()" :style="3" />
         @endif
         @if ($categories->find(5)->posts()->latest()->get())
-            <x-post-section :newsPosts="$categories->find(5)->posts()->latest()->get() ?? collect()" />
+            <x-post-section :newsPosts="$categories->find(5)->posts()->latest()->get() ?? collect()" style="5" />
         @endif
         @if ($categories->find(3)->posts()->latest()->get())
             <x-post-section :newsPosts="$categories->find(3)->posts()->latest()->get() ?? collect()" :style="1" />
         @endif
         <x-video-section-carousel />
         @if ($categories->find(10)->posts()->latest()->get())
-            <x-post-section :newsPosts="$categories->find(10)->posts()->latest()->get() ?? collect()" />
+            <x-post-section :newsPosts="$categories->find(10)->posts()->latest()->get() ?? collect()" style="5" />
         @endif
         @if ($categories->find(4)->posts()->latest()->get())
             <x-post-section :newsPosts="$categories->find(4)->posts()->latest()->get() ?? collect()" :style="3" />
