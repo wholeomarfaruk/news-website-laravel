@@ -10,7 +10,7 @@ class PostController extends Controller
 {
     public function postList()
     {
-          if(!auth()->user()->can('role.view')) {
+          if(!auth()->user()->can('post.view')) {
             return abort(403, 'You don’t have permission to access this page.');
         }
         // Logic to retrieve and return the list of posts
