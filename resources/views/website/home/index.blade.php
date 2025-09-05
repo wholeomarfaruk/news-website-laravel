@@ -315,13 +315,15 @@
                                 style="height: 80px">
                                 <span class="text-danger fs-3">For Ad</span>
                             </div>
-                            <div class="e-paper mb-2">
+                            {{-- <div class="e-paper mb-2">
                                 <img src="{{ asset('website/img/others/e-newspaper.jpg') }}" alt="">
-                            </div>
+                            </div> --}}
+                            @livewire('latest-news-tab')
                             <div class="ad bg-dark bg-opacity-50 d-flex justify-content-center align-items-center mb-2"
                                 style="height: 80px">
                                 <span class="text-danger fs-3">For Ad</span>
                             </div>
+
                         </div>
                     </div>
                 </div>

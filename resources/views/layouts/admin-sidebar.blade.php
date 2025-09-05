@@ -91,7 +91,7 @@
                         </li>
                     @endcan
                     <!-- Menu Item Calendar -->
-                    @can('role.view')
+                    @can('category.view')
                         <li>
 
                             <a href="{{ route('admin.category.list') }}"

@@ -10,6 +10,9 @@ class PostController extends Controller
 {
     public function postList()
     {
+          if(!auth()->user()->can('role.view')) {
+            return abort(403, 'You don’t have permission to access this page.');
+        }
         // Logic to retrieve and return the list of posts
 
         return view('admin.post-list');
@@ -17,6 +20,9 @@ class PostController extends Controller
 
     public function createPostForm()
     {
+          if(!auth()->user()->can('post.create')) {
+            return abort(403, 'You don’t have permission to access this page.');
+        }
         // Logic to show the form for creating a new post
         return view('admin.post-create');
     }
@@ -29,6 +35,9 @@ class PostController extends Controller
 
     public function editPost($id)
     {
+          if(!auth()->user()->can('post.edit')) {
+            return abort(403, 'You don’t have permission to access this page.');
+        }
         $post = Post::find($id);
         if(!$post){
             return redirect()->back()->with('error','Post not found');

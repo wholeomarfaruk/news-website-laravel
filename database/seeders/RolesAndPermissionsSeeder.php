@@ -24,8 +24,9 @@ class RolesAndPermissionsSeeder extends Seeder
             'post.publish', 'post.unpublish', 'post.feature',
 
             // Category & Tag
-            'category.create', 'category.edit', 'category.delete',
+            'category.view','category.create', 'category.edit', 'category.delete',
             'tag.create', 'tag.edit', 'tag.delete',
+
 
             // Media
             'media.upload', 'media.delete', 'media.access',

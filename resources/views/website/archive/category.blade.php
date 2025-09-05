@@ -10,7 +10,9 @@
 
 
                 </div>
-                <div class="col-md-3"></div>
+                <div class="col-md-3">
+                      @livewire('latest-news-tab')
+                </div>
             </div>
         </div>
     </section>

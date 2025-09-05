@@ -3,13 +3,13 @@
         <div class="px-5 py-4 sm:px-6 sm:py-5">
             <div class="flex items-center justify-between">
                 <div >
-
+                    @can('post.create')
                     <!-- Modal -->
                     <a href="{{ route('admin.post.create') }}"
                         class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs ring-1 ring-gray-300 transition hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03]">
                         Create New Post
                     </a>
-
+                    @endcan
 
                     <!-- End Modal -->
                 </div>
@@ -203,13 +203,13 @@
                                                 @endif
 
 
-                                                @can('user.edit')
+                                                @can('post.edit')
                                                     <a href="{{ route('admin.post.edit', $post->id) }}"
                                                         class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs ring-1 ring-gray-300 transition hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white">
                                                         Edit
                                                     </a>
                                                 @endcan
-                                                @can('user.delete')
+                                                @can('post.delete')
                                                     <button wire:click="deletePost({{ $post->id }})"
                                                         class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs ring-1 ring-gray-300 transition hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white">
                                                         Delete

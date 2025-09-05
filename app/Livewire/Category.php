@@ -67,6 +67,7 @@ class Category extends Component
     }
     public function delete($categoryId)
     {
+        
         $category = CategoryList::find($categoryId);
         if ($category) {
             $category->delete();

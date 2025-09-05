@@ -169,10 +169,12 @@
                     </div>
                 </div>
                 <div class="col-md-3">
+                      @livewire('latest-news-tab')
                     <div class="ad bg-dark bg-opacity-50 d-flex justify-content-center align-items-center mb-3"
                         style="height: 400px">
                         <span class="text-danger fs-3">For Ad 1</span>
                     </div>
+
                     <div class="ad bg-dark bg-opacity-50 d-flex justify-content-center align-items-center mb-3"
                         style="height: 400px">
                         <span class="text-danger fs-3">For Ad 2</span>

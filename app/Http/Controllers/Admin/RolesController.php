@@ -13,7 +13,7 @@ class RolesController extends Controller
     public function editRole($id)
     {
         if(!auth()->user()->can('role.edit')) {
-            return abort(403, 'Unauthorized action.');
+            return abort(403, 'You don’t have permission to access this page.');
         }
         $role = Role::with('permissions')->where('id', $id)->first();
         $permissions = Permission::all();
@@ -27,7 +27,7 @@ class RolesController extends Controller
     public function updateRole(Request $request, $id)
     {
         if(!auth()->user()->can('role.edit')) {
-            return abort(403, 'Unauthorized action.');
+            return abort(403, 'You don’t have permission to access this page.');
         }
         // return $request->all(); // Debugging line to check the request data
         $request->validate([
@@ -58,7 +58,7 @@ class RolesController extends Controller
     public function createRoleForm()
     {
         if(!auth()->user()->can('role.create')) {
-            return abort(403, 'Unauthorized action.');
+            return abort(403, 'You don’t have permission to access this page.');
         }
         $permissions = Permission::all();
         return view('admin.role-create', compact('permissions'));
@@ -66,7 +66,7 @@ class RolesController extends Controller
     public function createRole(Request $request)
     {
         if(!auth()->user()->can('role.create')) {
-            return abort(403, 'Unauthorized action.');
+            return abort(403, 'You don’t have permission to access this page.');
         }
         // return $request->all(); // Debugging line to check the request data
         $request->validate([
