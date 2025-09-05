@@ -226,7 +226,7 @@
 
 
                                 </div>
-                                <div class="col-md-4">
+<div class="col-md-4">
                                     @foreach ($newsPosts->slice(4, 4) as $post)
                                         <div class="item mb-2">
                                             <a
@@ -253,7 +253,7 @@
                                     @endforeach
 
 
-                                </div>
+                                                                </div>
 
                             </div>
                         </div>

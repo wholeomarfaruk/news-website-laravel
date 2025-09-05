@@ -18,6 +18,7 @@ class PostController extends Controller
         return view('admin.post-list');
     }
 
+
     public function createPostForm()
     {
           if(!auth()->user()->can('post.create')) {
