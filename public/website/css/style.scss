@@ -710,8 +710,8 @@ input[type="search"] {
 #main_area {}
 
 //sports area
-#sports_area {
-    .sports_container {
+.pss-two {
+    .pss-two-container {
         .grid-box {
             display: grid;
             grid-template-columns: auto auto auto auto;
@@ -738,7 +738,6 @@ input[type="search"] {
         }
     }
 }
-
 #grid-hero-sec {
     display: grid;
     grid-template-columns: repeat(8, 1fr);

@@ -4,24 +4,42 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>The Message Today – Latest Breaking News & Headlines</title>
-    <meta name="description"
-        content="Get the latest breaking news, sports updates, politics, and trending stories on Favourite Range News. Stay informed with real-time headlines.">
 
+{{-- Default meta --}}
+    <title>@yield('meta_title', 'The Message Today – Latest Breaking News & Headlines') </title>
+    <meta name="description"
+        content="">
     <!-- Open Graph for Facebook, WhatsApp, LinkedIn -->
-    <meta property="og:title" content="The Message Today– Latest Breaking News & Headlines">
+    <meta property="og:title" content="">
     <meta property="og:description"
-        content="Get the latest breaking news, sports updates, politics, and trending stories on Favourite Range News.">
-    <meta property="og:image" content="{{ asset('website/img/logo/logo.jpeg') }}">
+        content="">
+    <meta property="og:image" content="">
     <meta property="og:url" content="https://themessage2day/">
     <meta property="og:type" content="website">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="The Message Today– Latest Breaking News & Headlines">
+    <meta name="twitter:title" content="">
     <meta name="twitter:description"
         content="Get the latest breaking news, sports updates, politics, and trending stories on Favourite Range News.">
     <meta name="twitter:image" content="{{ asset('website/img/logo/logo.jpeg') }}">
+
+    <link rel="canonical" href="{{ url()->current() }}">
+{{-- Default meta --}}
+    <title></title>
+    <meta name="description" content="@yield('meta_description', 'Get the latest breaking news, sports updates, politics, and trending stories on The Message Today. Stay informed with real-time headlines.')">
+    <meta property="og:title" content="@yield('meta_og_title', 'The Message Today– Latest Breaking News & Headlines')">
+    <meta property="og:description" content="@yield('meta_og_description', 'Get the latest breaking news, sports updates, politics, and trending stories on The Message Today.')">
+    <meta property="og:image" content="@yield('meta_og_image', asset('website/img/logo/logo.jpeg') )">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="@yield('meta_twitter_title', 'The Message Today– Latest Breaking News & Headlines')">
+    <meta name="twitter:description" content="@yield('meta_twitter_description', 'Get the latest breaking news, sports updates, politics, and trending stories on The Message Today.')">
+    <meta name="twitter:image" content="@yield('meta_twitter_image', asset('website/img/logo/logo.jpeg'))">
+    <link rel="canonical" href="@yield('meta_canonical', url()->current())">
+
+
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
     <!-- Font Awesome -->
