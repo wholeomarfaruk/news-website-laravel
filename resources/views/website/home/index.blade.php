@@ -1,8 +1,6 @@
 @extends('layouts.website')
 @section('content')
     @if ($latestPost && $latestPost?->count() > 0)
-
-
         <section id="featured_news" class="mt-4 mb-3">
             <div class="wrapper">
                 <div class="row align-items-stretch">
@@ -14,13 +12,12 @@
 
 
                                     @if (!$featuredPost)
-<a
-                                            href="#">
+                                        <a href="#">
                                             <div class="card mb-3 p-2 rounded ">
                                                 <div class="row flex-column g-0">
                                                     <div class="col-auto">
                                                         <img style="height: 100%; width: cover;"
-                                                            src="{{asset('website/img/thumbnails/featured_img.jpg')}}"
+                                                            src="{{ asset('website/img/thumbnails/featured_img.jpg') }}"
                                                             class="img-fluid rounded-start" alt="...">
                                                     </div>
                                                     <div class="col-auto">
@@ -38,7 +35,7 @@
                                             </div>
                                         </a>
                                     @else
-                                    <a
+                                        <a
                                             href="{{ route('post.show', ['category' => $featuredPost?->category?->slug, 'slug' => $featuredPost?->slug]) }}">
                                             <div class="card mb-3 p-2 rounded ">
                                                 <div class="row flex-column g-0">
@@ -61,102 +58,69 @@
                                                 </div>
                                             </div>
                                         </a>
-
                                     @endif
                                     <div class="row  g-2">
                                         @php
-                                            $saradesh = $categories->find(11)?->posts()?->latest()?->first();
+                                            $rajniti = $categories->find(9)?->posts()?->latest()?->first();
                                         @endphp
-                                        @if ($saradesh)
+                                        @if ($rajniti)
+                                            <div class="col-lg-6 col-6">
+                                                <a
+                                                    href="{{ route('post.show', ['category' => $rajniti?->category?->slug, 'slug' => $rajniti?->slug]) }}">
+                                                    <div class="card mb-3 p-2 rounded h-100">
+                                                        <div class="row flex-column g-0">
+                                                            <div class="col-auto">
+                                                                <img style="height: 100%; width: cover;"
+                                                                    src="{{ $rajniti->featured_image }}"
+                                                                    class="img-fluid rounded-start" alt="...">
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <div class="card-body">
 
-                                                <div class="col-lg-6 col-6">
-
-                                                    <div class="card">
-                                                        <a
-                                                            href="{{ route('post.show', ['category' => $saradesh->category->slug, 'slug' => $saradesh->slug]) }}">
-                                                            <div class="row g-0 align-items-center">
-                                                                <div class="col-md-5">
-                                                                    <img style="object-fit: cover;"
-                                                                        src="{{ $saradesh->featured_image }}"
-                                                                        class="img-fluid rounded-start" alt="...">
-                                                                </div>
-                                                                <div class="col-md-7 m-0 p-0">
-                                                                    <div class="card-body m-0 p-0">
-                                                                        <h3 class="card-title secondpost-title px-3 ">
-                                                                            {{ $saradesh->title }}
-                                                                        </h3>
-
-                                                                    </div>
+                                                                    <h3 class="card-title secondpost-title">
+                                                                        {{ $rajniti->title }}
+                                                                    </h3>
+                                                                    {{-- <p class="card-text topnews-short-text">
+                                                                {{ $saradesh->excerpt }}
+                                                            </p> --}}
                                                                 </div>
                                                             </div>
-                                                        </a>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                {{-- <div class="col-lg-6 col-6">
-
-                                            <a href="{{ route('post.show', ['category' => $post->category->slug, 'slug' => $post->slug]) }}">
-                                                <div class="card  h-100">
+                                                </a>
 
 
-                                                    <img src="{{ $post->featured_image }}" class="card-img-top"
-                                                        alt="{{ $post->title }}">
 
-
-                                                    <div class="card-body">
-                                                        <h3 class="card-title secondpost-title">{{ $post->title }}
-                                                        </h3>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div> --}}
-
+                                            </div>
                                         @endif
                                         @php
                                             $banijjo = $categories->find(8)?->posts()?->latest()?->first();
                                         @endphp
                                         @if ($banijjo)
+                                            <div class="col-lg-6 col-6">
+                                                <a
+                                                    href="{{ route('post.show', ['category' => $banijjo?->category?->slug, 'slug' => $banijjo?->slug]) }}">
+                                                    <div class="card mb-3 p-2 rounded h-100">
+                                                        <div class="row flex-column g-0">
+                                                            <div class="col-auto">
+                                                                <img style="height: 100%; width: cover;"
+                                                                    src="{{ $banijjo->featured_image }}"
+                                                                    class="img-fluid rounded-start" alt="...">
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <div class="card-body">
 
-                                                <div class="col-lg-6 col-6">
+                                                                    <h3 class="card-title secondpost-title">
+                                                                        {{ $banijjo->title }}
+                                                                    </h3>
 
-                                                    <div class="card">
-                                                        <a
-                                                            href="{{ route('post.show', ['category' => $banijjo->category->slug, 'slug' => $banijjo->slug]) ?? '#' }}">
-                                                            <div class="row g-0 align-items-center">
-                                                                <div class="col-md-5">
-                                                                    <img style="object-fit: cover;"
-                                                                        src="{{ $banijjo->featured_image }}"
-                                                                        class="img-fluid rounded-start" alt="...">
-                                                                </div>
-                                                                <div class="col-md-7 m-0 p-0">
-                                                                    <div class="card-body m-0 p-0">
-                                                                        <h3 class="card-title secondpost-title px-3 ">
-                                                                            {{ $banijjo->title }}
-                                                                        </h3>
-
-                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </a>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                {{-- <div class="col-lg-6 col-6">
+                                                </a>
 
-                                            <a href="{{ route('post.show', ['category' => $post->category->slug, 'slug' => $post->slug]) }}">
-                                                <div class="card  h-100">
-
-
-                                                    <img src="{{ $post->featured_image }}" class="card-img-top"
-                                                        alt="{{ $post->title }}">
-
-
-                                                    <div class="card-body">
-                                                        <h3 class="card-title secondpost-title">{{ $post->title }}
-                                                        </h3>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div> --}}
-
+                                            </div>
                                         @endif
                                     </div>
                                 </div>
@@ -164,24 +128,94 @@
 
                                     <div class="row g-2">
                                         @php
-                                            $sporthotnews = $categories
-                                                ->where('slug', 'khela')
-                                                ->first()
-                                                ->posts()
-                                                ->latest()
-                                                ->first();
+                                            $jatio = $categories->find(7)->posts()->latest()->first();
                                         @endphp
 
                                         <div class="col-lg-12 col-6">
 
                                             <div class="card">
                                                 <a
-                                                    href="{{ route('post.show', ['category' => $sporthotnews->category->slug, 'slug' => $sporthotnews->slug]) }}">
-                                                    <img src="{{ $sporthotnews->featured_image }}" class="card-img-top"
+                                                    href="{{ route('post.show', ['category' => $jatio->category->slug, 'slug' => $jatio->slug]) }}">
+                                                    <img src="{{ $jatio->featured_image }}" class="card-img-top"
                                                         alt="...">
                                                     <div class="card-body">
-                                                        <h3 class="card-title  secondpost-title">{{ $sporthotnews->title }}
+                                                        <h3 class="card-title  secondpost-title">{{ $jatio->title }}
                                                         </h3>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-6">
+                                            @php
+                                                $saradeh = $categories->find(5)->posts()->latest()->first();
+                                            @endphp
+                                            <div class="card">
+                                                <a
+                                                    href="{{ route('post.show', ['category' => $saradeh->category->slug, 'slug' => $saradeh->slug]) }}">
+                                                    <div class="row g-0 align-items-center">
+                                                        <div class="col-md-5">
+                                                            <img style="object-fit: cover;"
+                                                                src="{{ $saradeh->featured_image }}"
+                                                                class="img-fluid rounded-start" alt="...">
+                                                        </div>
+                                                        <div class="col-md-7 m-0 p-0">
+                                                            <div class="card-body m-0 p-0">
+                                                                <h3 class="card-title secondpost-title ms-3">
+                                                                    {{ $saradeh->title }}
+                                                                </h3>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-6">
+                                            @php
+                                                $internationalnews = $categories->find(6)->posts()->latest()->first();
+                                            @endphp
+                                            <div class="card">
+                                                <a
+                                                    href="{{ route('post.show', ['category' => $internationalnews->category->slug, 'slug' => $internationalnews->slug]) }}">
+                                                    <div class="row g-0 align-items-center">
+                                                        <div class="col-md-5">
+                                                            <img style="object-fit: cover;"
+                                                                src="{{ $internationalnews->featured_image }}"
+                                                                class="img-fluid rounded-start" alt="...">
+                                                        </div>
+                                                        <div class="col-md-7 m-0 p-0">
+                                                            <div class="card-body m-0 p-0">
+                                                                <h3 class="card-title secondpost-title ms-3">
+                                                                    {{ $internationalnews->title }}
+                                                                </h3>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-6">
+                                            @php
+                                                $sportsnews = $categories->find(3)->posts()->latest()->first();
+                                            @endphp
+                                            <div class="card">
+                                                <a
+                                                    href="{{ route('post.show', ['category' => $sportsnews->category->slug, 'slug' => $sportsnews->slug]) }}">
+                                                    <div class="row g-0 align-items-center">
+                                                        <div class="col-md-5">
+                                                            <img style="object-fit: cover;"
+                                                                src="{{ $sportsnews->featured_image }}"
+                                                                class="img-fluid rounded-start" alt="...">
+                                                        </div>
+                                                        <div class="col-md-7 m-0 p-0">
+                                                            <div class="card-body m-0 p-0">
+                                                                <h3 class="card-title secondpost-title ms-3">
+                                                                    {{ $sportsnews->title }}
+                                                                </h3>
+
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </a>
                                             </div>
@@ -238,86 +272,6 @@
                                                 </a>
                                             </div>
                                         </div>
-                                        {{-- <div class="col-lg-12 col-6">
-                                            @php
-                                                $motamot = $categories->find(2)->posts()->latest()->first();
-                                            @endphp
-                                            <div class="card">
-                                                <a
-                                                    href="{{ route('post.show', ['category' => $motamot->category->slug, 'slug' => $motamot->slug]) }}">
-                                                    <div class="row g-0 align-items-center">
-                                                        <div class="col-md-5">
-                                                            <img style="object-fit: cover;"
-                                                                src="{{ $motamot->featured_image }}"
-                                                                class="img-fluid rounded-start" alt="...">
-                                                        </div>
-                                                        <div class="col-md-7 m-0 p-0">
-                                                            <div class="card-body m-0 p-0">
-                                                                <h3 class="card-title secondpost-title ms-3">
-                                                                    {{ $motamot->title }}
-                                                                </h3>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div> --}}
-                                        <div class="col-lg-12 col-6">
-                                            @php
-                                                $jatio = $categories->find(7)->posts()->latest()->first();
-                                            @endphp
-                                            <div class="card">
-                                                <a
-                                                    href="{{ route('post.show', ['category' => $jatio->category->slug, 'slug' => $jatio->slug]) }}">
-                                                    <div class="row g-0 align-items-center">
-                                                        <div class="col-md-5">
-                                                            <img style="object-fit: cover;"
-                                                                src="{{ $jatio->featured_image }}"
-                                                                class="img-fluid rounded-start" alt="...">
-                                                        </div>
-                                                        <div class="col-md-7 m-0 p-0">
-                                                            <div class="card-body m-0 p-0">
-                                                                <h3 class="card-title secondpost-title ms-3">
-                                                                    {{ $jatio->title }}
-                                                                </h3>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12 col-6">
-                                            @php
-                                                $internationalnews = $categories->find(6)->posts()->latest()->first();
-                                            @endphp
-                                            <div class="card">
-                                                <a
-                                                    href="{{ route('post.show', ['category' => $internationalnews->category->slug, 'slug' => $internationalnews->slug]) }}">
-                                                    <div class="row g-0 align-items-center">
-                                                        <div class="col-md-5">
-                                                            <img style="object-fit: cover;"
-                                                                src="{{ $internationalnews->featured_image }}"
-                                                                class="img-fluid rounded-start" alt="...">
-                                                        </div>
-                                                        <div class="col-md-7 m-0 p-0">
-                                                            <div class="card-body m-0 p-0">
-                                                                <h3 class="card-title secondpost-title ms-3">
-                                                                    {{ $internationalnews->title }}
-                                                                </h3>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-
-
-
-
-
 
                                     </div>
 
