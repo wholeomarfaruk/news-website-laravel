@@ -1,7 +1,8 @@
 <section id="singlepost">
 
     @foreach ($allPosts as $currentpost)
-        <div class="wrapper my-3">
+        <div class="wrapper my-3 post-wrapper" id="post-{{ $currentpost->id }}"
+         data-url="{{ route('post.show', ['category' => $currentpost->category->slug, 'slug' => $currentpost->slug]) }}">
             <div wire:ignore class="ad bg-dark bg-opacity-50 d-flex justify-content-center align-items-center mb-3"
                 style="height: 100px">
                 <span class="text-danger fs-3">For Ad</span>
@@ -133,13 +134,13 @@
                         </div>
                     </div>
                 </div>
-                <div wire:ignore class="col-md-6 ">
+                <div class="col-md-6 ">
                     <div class="post-content">
-                        <h3 class="title mb-3 secondpost-title">
+                        <h3 class="title mb-3 topnews-title">
                             {{ $currentpost->title }}
                         </h3>
-                        <div class="rpt_name mt-2 secondpost-title"><i class="fa-solid fa-circle-user me-2"></i>
-                            {{ $currentpost?->author?->name }}</div>
+                        {{-- <div class="rpt_name mt-2 secondpost-title"><i class="fa-solid fa-circle-user me-2"></i>
+                            {{ $currentpost?->author?->name }}</div> --}}
                         <div class="short-info mb-3"></div>
                         <div class="featured-img mb-3">
                             <img src="{{ $currentpost->featured_image }}" alt="">
@@ -151,7 +152,7 @@
                             {!! $currentpost->content !!}
 
                         </div>
-                        <div wire:ignore class="tags mb-3 mt-2">
+                        {{-- <div wire:ignore class="tags mb-3 mt-2">
                             <ul class="text-start ps-0">
                                 <a href="#" class="px-3 py-1 border border-secondary me-1 d-inline-block">tags</a>
                                 <a href="#" class="px-3 py-1 border border-secondary me-1 d-inline-block">tags</a>
@@ -159,7 +160,7 @@
 
                             </ul>
 
-                        </div>
+                        </div> --}}
 
                     </div>
                     <div class="ad bg-dark bg-opacity-50 d-flex justify-content-center align-items-center mb-3"
@@ -211,3 +212,39 @@
         Loading next post...
     </div> --}}
 </section>
+<script>
+$(document).ready(function() {
+
+    function isElementInViewport(el) {
+        var rect = el.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.bottom <= (window.innerHeight || $(window).height())
+        );
+    }
+
+    function updateVisiblePostUrl() {
+        $('.post-wrapper').each(function() {
+            if (isElementInViewport(this)) {
+                var url = $(this).data('url');
+                history.replaceState(null, '', url);
+                return false; // Stop at the first visible post
+            }
+        });
+    }
+
+    // On scroll
+    $(window).on('scroll', function() {
+        updateVisiblePostUrl();
+    });
+
+    // Initial check
+    updateVisiblePostUrl();
+
+    // If posts are loaded dynamically via Livewire, re-run after updates
+    Livewire.hook('message.processed', (message, component) => {
+        updateVisiblePostUrl();
+    });
+});
+</script>
+

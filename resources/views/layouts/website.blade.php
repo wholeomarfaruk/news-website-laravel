@@ -453,6 +453,7 @@
         </div>
     </div>
 </header>
+
 <main id="main_area">
     @yield('content')
 </main>

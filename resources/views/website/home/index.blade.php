@@ -1,5 +1,31 @@
 @extends('layouts.website')
 @section('content')
+<style>
+    .text-hover-red{
+        transition: all 0.2s ease-in-out;
+    }
+    .text-hover-red:hover{
+        color: red !important;
+        transition: all 0.2s ease-in-out;
+
+    }
+</style>
+    <section>
+        <div class="d-flex  overflow-hidden align-items-center border-bottom" >
+            <div  class=" bg-opacity-50" style="background-color:red; width:fit-content; min-width: 180px; height: 50px; display: flex; justify-content: center; align-items: center; box-shadow: 8px 2px 20px 2px rgba(0, 0, 0, 0.25)">
+                <p class="m-0 fw-bold fs-5 text-white">Breaking News:</p>
+            </div>
+
+                <marquee style="height: 50px;"  class="flex-grow-1 d-flex align-items-center" behavior="" speed="100" direction="rtl" class="text-dark" onmouseover="this.stop()" onmouseout="this.start()">
+                    @foreach ($latestPost as $marqpost)
+                        <a  href="{{ route('post.show', ['category' => $marqpost->category, 'slug' => $marqpost->slug]) }}" class="text-decoration-none text-dark me-4 text-hover-red fw-semibold fs-5">{{ $marqpost->title }}</a>
+                    @endforeach
+                </marquee>
+
+        </div>
+
+
+    </section>
     <!--Banner section section start -->
     @if ($latestPost && $latestPost?->count() > 0)
         <section id="featured_news" class="mt-4 mb-3">
