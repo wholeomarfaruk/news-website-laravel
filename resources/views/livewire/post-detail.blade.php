@@ -2,7 +2,7 @@
 
     @foreach ($allPosts as $currentpost)
         <div class="wrapper my-3 post-wrapper" id="post-{{ $currentpost->id }}"
-         data-url="{{ route('post.show', ['category' => $currentpost->category->slug, 'slug' => $currentpost->slug]) }}">
+            data-url="{{ route('post.show', ['category' => $currentpost->category->slug, 'slug' => $currentpost->slug]) }}">
             <div wire:ignore class="ad bg-dark bg-opacity-50 d-flex justify-content-center align-items-center mb-3"
                 style="height: 100px">
                 <span class="text-danger fs-3">For Ad</span>
@@ -174,7 +174,7 @@
                     </div>
                 </div>
                 <div wire:ignore class="col-md-3">
-                    @livewire('latest-news-tab',[], key('latest-news-'.$currentpost->id))
+                    @livewire('latest-news-tab', [], key('latest-news-' . $currentpost->id))
                     <div class="ad bg-dark bg-opacity-50 d-flex justify-content-center align-items-center mb-3"
                         style="height: 400px">
                         <span class="text-danger fs-3">For Ad 1</span>
@@ -206,45 +206,44 @@
     }" x-init="observe">
 
 
-</div>
+    </div>
 
     {{-- <div x-intersect="$wire.loadNextPost()" class="h-10 bg-gray-200 flex items-center justify-center">
         Loading next post...
     </div> --}}
 </section>
 <script>
-$(document).ready(function() {
+    $(document).ready(function() {
 
-    function isElementInViewport(el) {
-        var rect = el.getBoundingClientRect();
-        return (
-            rect.top >= 0 &&
-            rect.bottom <= (window.innerHeight || $(window).height())
-        );
-    }
+        function isElementInViewport(el) {
+            var rect = el.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.bottom <= (window.innerHeight || $(window).height())
+            );
+        }
 
-    function updateVisiblePostUrl() {
-        $('.post-wrapper').each(function() {
-            if (isElementInViewport(this)) {
-                var url = $(this).data('url');
-                history.replaceState(null, '', url);
-                return false; // Stop at the first visible post
-            }
+        function updateVisiblePostUrl() {
+            $('.post-wrapper').each(function() {
+                if (isElementInViewport(this)) {
+                    var url = $(this).data('url');
+                    history.replaceState(null, '', url);
+                    return false; // Stop at the first visible post
+                }
+            });
+        }
+
+        // On scroll
+        $(window).on('scroll', function() {
+            updateVisiblePostUrl();
         });
-    }
 
-    // On scroll
-    $(window).on('scroll', function() {
+        // Initial check
         updateVisiblePostUrl();
-    });
 
-    // Initial check
-    updateVisiblePostUrl();
-
-    // If posts are loaded dynamically via Livewire, re-run after updates
-    Livewire.hook('message.processed', (message, component) => {
-        updateVisiblePostUrl();
+        // If posts are loaded dynamically via Livewire, re-run after updates
+        Livewire.hook('message.processed', (message, component) => {
+            updateVisiblePostUrl();
+        });
     });
-});
 </script>
-
