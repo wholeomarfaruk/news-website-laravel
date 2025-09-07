@@ -8,7 +8,7 @@
                 <span class="text-danger fs-3">For Ad</span>
             </div>
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-3 order-2 order-lg-1">
                     <div class="breadcrum">
                         <i class="fa-solid fa-home"></i> / <a class="fs-bold text-primary"
                             href="#">{{ $currentpost->category->name }}</a>
@@ -134,7 +134,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 ">
+                <div class="col-md-6 order-1 order-lg-2">
                     <div class="post-content">
                         <h3 class="title mb-3 topnews-title">
                             {{ $currentpost->title }}
@@ -173,7 +173,7 @@
                         </div>
                     </div>
                 </div>
-                <div wire:ignore class="col-md-3">
+                <div wire:ignore class=" order-3 col-md-3">
                     @livewire('latest-news-tab', [], key('latest-news-' . $currentpost->id))
                     <div class="ad bg-dark bg-opacity-50 d-flex justify-content-center align-items-center mb-3"
                         style="height: 400px">
