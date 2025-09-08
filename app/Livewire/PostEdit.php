@@ -45,7 +45,7 @@ class PostEdit extends Component
         $this->excerpt = $post->excerpt;
         $this->status = $post->status;
         $this->url = $this->url = url('/') . "/" . $post->slug;
-  $this->isFeatured = $this->post->is_featured;
+        $this->isFeatured = $this->post->is_featured;
         $this->publish_date = $post->updated_at;
         $media = $post->media()->where('category', 'featured_image')->first();
         $this->featured_image_url = $media ? asset('uploads/' . $media->path) : null;
@@ -75,7 +75,7 @@ class PostEdit extends Component
     }
     public function updatePost()
     {
-        // dd($this->slug);
+        // dd($this->fi_caption);
 
         $this->validate([
             'title' => "string|min:3",
@@ -101,7 +101,7 @@ class PostEdit extends Component
             $post->status = $this->status;
             $post->excerpt = $this->excerpt;
             $post->user_id = auth()->id();
-            if($this->author_id){
+            if ($this->author_id) {
                 $post->author_id = $this->author_id;
             }
             $post->save();
@@ -132,11 +132,10 @@ class PostEdit extends Component
                     $media->path = $path;
                     $media->mediable_id = $post->id;
                     $media->mediable_type = Post::class;
-                        if ($this->fi_caption) {
-                    $media->caption = $this->fi_caption;
-                }
+
                     $media->user_id = auth()->id();
                     $media->save();
+
 
                 } else {
 
@@ -158,6 +157,11 @@ class PostEdit extends Component
                 }
 
             }
+             $media2 = $post->media->where('category', 'featured_image')->first();
+                if ($this->fi_caption) {
+                    $media2->caption = $this->fi_caption;
+                }
+                $media2->save();
             return redirect()->route('admin.post.list')->with('success', 'Post Updated Successfully.');
         } catch (\Throwable $th) {
             $this->dispatch('postUpdateStatus', ['error' => $th->getMessage()]);
@@ -238,7 +242,7 @@ class PostEdit extends Component
                 'is_featured' => true,
             ]);
             $this->isFeatured = true;
-                    $this->dispatch('banner_post', ['success' => 'Banner post successfully added']);
+            $this->dispatch('banner_post', ['success' => 'Banner post successfully added']);
 
         } else {
             // যদি toggle off করা হয়, current post false করুন
@@ -246,7 +250,7 @@ class PostEdit extends Component
                 'is_featured' => false,
             ]);
             $this->isFeatured = false;
-                    $this->dispatch('banner_post', ['success' => 'Banner post successfully removed']);
+            $this->dispatch('banner_post', ['success' => 'Banner post successfully removed']);
         }
 
 
