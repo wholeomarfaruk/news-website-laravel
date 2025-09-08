@@ -15,7 +15,7 @@
                     </div>
                     <div class="rpt_info_section border-bottom mb-2 pb-2">
                         <div class="rpt_name mt-2"><i class="fa-solid fa-circle-user me-2"></i>
-                            {{ $currentpost?->author?->name }}
+                            {{ $currentpost?->author?->title ?? 'Unknown' }}
                         </div>
 
                         <div class="entry_update mb-0"><span class="Layer_1" style="float: left"><svg id="Layer_1"
@@ -142,8 +142,11 @@
                         {{-- <div class="rpt_name mt-2 secondpost-title"><i class="fa-solid fa-circle-user me-2"></i>
                             {{ $currentpost?->author?->name }}</div> --}}
                         <div class="short-info mb-3"></div>
-                        <div class="featured-img mb-3">
+                        <div class="featured-img ">
                             <img src="{{ $currentpost->featured_image }}" alt="">
+                        </div>
+                        <div class="caption text-center bg-light text-secondary fst-italic">
+                            {{ $currentpost->media?->where('category', 'featured_image')->first()?->caption }}
                         </div>
                         <div class="authore">
 
@@ -189,24 +192,27 @@
         </div>
     @endforeach
     <!-- Jokhon ei div viewport e dhukbe, tokhon next post load hobe -->
-    <div x-data="{
+<div
+    x-data="{
+        loading: false,
         observe() {
             let observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        @this.call('loadNextPost')
+                    if (entry.isIntersecting && !this.loading) {
+                        this.loading = true
+                        @this.call('loadNextPost').then(() => {
+                            this.loading = false
+                        })
                     }
                 })
-            }, {
-                root: null
             })
-
             observer.observe(this.$el)
         }
-    }" x-init="observe">
+    }"
+    x-init="observe"
+    class="h-1"
+></div>
 
-
-    </div>
 
     {{-- <div x-intersect="$wire.loadNextPost()" class="h-10 bg-gray-200 flex items-center justify-center">
         Loading next post...

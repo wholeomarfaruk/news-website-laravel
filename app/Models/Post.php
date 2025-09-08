@@ -24,6 +24,10 @@ class Post extends Model
     }
     public function author()
     {
+        return $this->belongsTo(Author::class, 'author_id');
+    }
+    public function user()
+    {
         return $this->belongsTo(User::class, 'user_id');
     }
 // Post.php model

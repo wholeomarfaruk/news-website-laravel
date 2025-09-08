@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AuthorController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PostController;
@@ -63,7 +64,7 @@ route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')
         Route::get('/users', function () {
             return view('admin.users');
         })->name('users');
-
+        Route::get('/authors',[AuthorController::class, 'author'])->name('authors');
         //roles
         Route::get('/roles/create', [RolesController::class, 'createRoleForm'])->name('roles.create');
         Route::post('/roles/store', [RolesController::class, 'createRole'])->name('roles.store');

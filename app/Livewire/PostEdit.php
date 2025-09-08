@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Author;
 use App\Models\Category;
 use App\Models\Media;
 use App\Models\Post;
@@ -17,6 +18,7 @@ class PostEdit extends Component
     public $name;
     public $parent_id;
     public $featured_image;
+    public $fi_caption;
     public $title;
     public $slug;
     public $excerpt;
@@ -29,6 +31,8 @@ class PostEdit extends Component
     public $postId;
     public $post;
     public $featured_image_url;
+    public $author_id;
+    // public $authors;
     public function mount($id)
     {
         $this->postId = $id;
@@ -45,6 +49,8 @@ class PostEdit extends Component
         $this->publish_date = $post->updated_at;
         $media = $post->media()->where('category', 'featured_image')->first();
         $this->featured_image_url = $media ? asset('uploads/' . $media->path) : null;
+        $this->author_id = $post->author_id;
+        $this->fi_caption = $media ? $media->caption : '';
 
     }
     public function generateSlug()
@@ -60,9 +66,11 @@ class PostEdit extends Component
     public function render()
     {
         $categories = Category::with('children')->whereNull('parent_id')->get();
+        $authors = Author::all();
 
         return view('livewire.post-edit', [
             'categories' => $categories,
+            'authors' => $authors,
         ]);
     }
     public function updatePost()
@@ -93,6 +101,9 @@ class PostEdit extends Component
             $post->status = $this->status;
             $post->excerpt = $this->excerpt;
             $post->user_id = auth()->id();
+            if($this->author_id){
+                $post->author_id = $this->author_id;
+            }
             $post->save();
             if ($this->featured_image) {
                 // Generate random filename
@@ -121,6 +132,9 @@ class PostEdit extends Component
                     $media->path = $path;
                     $media->mediable_id = $post->id;
                     $media->mediable_type = Post::class;
+                        if ($this->fi_caption) {
+                    $media->caption = $this->fi_caption;
+                }
                     $media->user_id = auth()->id();
                     $media->save();
 

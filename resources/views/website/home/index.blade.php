@@ -1,48 +1,69 @@
 @extends('layouts.website')
 @section('content')
-<style>
-    .text-hover-red{
-        transition: all 0.2s ease-in-out;
-    }
-    .text-hover-red:hover{
-        color: red !important;
-        transition: all 0.2s ease-in-out;
-
-    }
-    .newsticker{
-
-    }
-    .newsticker .scrolling,
-    .newsticker .heading{
-        font-size: 20px;
-    }
-    .newsticker .heading-box,
-    .newsticker .scrolling{
-        height: 50px;
-    }
-    @media (max-width: 768px) {
-        .newsticker .scrolling,
-        .newsticker .heading{
-            font-size: 14px;
+    <style>
+        .text-hover-red {
+            transition: all 0.2s ease-in-out;
         }
-          .newsticker .heading-box,
-    .newsticker .scrolling{
-        height: 30px;
-    }
-    }
 
-</style>
+        .text-hover-red:hover {
+            color: red !important;
+            transition: all 0.2s ease-in-out;
+
+        }
+
+        .newsticker {}
+
+        .newsticker .scrolling,
+        .newsticker .heading {
+            font-size: 16px;
+        }
+
+        .newsticker .heading-box {
+            background-color: red;
+            width: fit-content;
+            min-width: 130px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 8px 2px 20px 2px rgba(0, 0, 0, 0.25);
+        }
+
+        .newsticker .heading-box,
+        .newsticker .scrolling {
+            height: 30px;
+        }
+
+        @media (max-width: 768px) {
+
+            .newsticker .scrolling,
+            .newsticker .heading {
+                font-size: 12px;
+            }
+
+            .newsticker .heading-box,
+            .newsticker .scrolling {
+                height: 18px;
+            }
+             .newsticker .heading-box {
+
+            min-width: 100px;
+
+        }
+        }
+    </style>
     <section class="newsticker">
-        <div class="d-flex  overflow-hidden align-items-center border-bottom" >
-            <div  class=" heading-box bg-opacity-50" style="background-color:red; width:fit-content; min-width: 180px;  display: flex; justify-content: center; align-items: center; box-shadow: 8px 2px 20px 2px rgba(0, 0, 0, 0.25)">
+        <div class="d-flex  overflow-hidden align-items-center border-bottom">
+            <div class=" heading-box bg-opacity-50" style="">
                 <p class="m-0 fw-bold  text-white heading">Breaking News:</p>
             </div>
 
-                <marquee   class="scrolling flex-grow-1 d-flex align-items-center" behavior="" speed="100" direction="rtl" class="text-dark" onmouseover="this.stop()" onmouseout="this.start()">
-                    @foreach ($latestPost as $marqpost)
-                        <a  href="{{ route('post.show', ['category' => $marqpost->category, 'slug' => $marqpost->slug]) }}" class="text-decoration-none text-dark me-4 text-hover-red fw-semibold ">{{ $marqpost->title }}</a>
-                    @endforeach
-                </marquee>
+            <marquee class="scrolling flex-grow-1 d-flex align-items-center" behavior="" speed="100" direction="rtl"
+                class="text-dark" onmouseover="this.stop()" onmouseout="this.start()">
+                @foreach ($latestPost as $marqpost)
+                    <a href="{{ route('post.show', ['category' => $marqpost->category, 'slug' => $marqpost->slug]) }}"
+                        class="text-decoration-none text-dark me-4 text-hover-red fw-semibold ">{{ $marqpost->title }}</a>
+                @endforeach
+            </marquee>
 
         </div>
 

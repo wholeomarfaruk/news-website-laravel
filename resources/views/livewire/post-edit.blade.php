@@ -69,26 +69,25 @@
                 </div>
                 <div
                     class="flex flex-col rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-white/[0.03] xl:w-1/5">
-                <div>
-    <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-        Make Banner Post
-    </label>
+                    <div>
+                        <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                            Make Banner Post
+                        </label>
 
-    <label class="flex cursor-pointer items-center gap-3 text-sm font-medium text-gray-700 select-none dark:text-gray-400">
-        <div class="relative">
-            <input type="checkbox" wire:model="isFeatured" class="sr-only">
-            <div
-                class="block h-6 w-11 rounded-full transition-colors duration-300"
-                :class="$wire.isFeatured ? 'bg-brand-500 dark:bg-brand-500' : 'bg-gray-200 dark:bg-white/10'">
-            </div>
-            <div
-                class="shadow-theme-sm absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white duration-300 ease-linear"
-                :class="$wire.isFeatured ? 'translate-x-full' : 'translate-x-0'">
-            </div>
-        </div>
-        Yes
-    </label>
-</div>
+                        <label
+                            class="flex cursor-pointer items-center gap-3 text-sm font-medium text-gray-700 select-none dark:text-gray-400">
+                            <div class="relative">
+                                <input type="checkbox" wire:model="isFeatured" class="sr-only">
+                                <div class="block h-6 w-11 rounded-full transition-colors duration-300"
+                                    :class="$wire.isFeatured ? 'bg-brand-500 dark:bg-brand-500' : 'bg-gray-200 dark:bg-white/10'">
+                                </div>
+                                <div class="shadow-theme-sm absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white duration-300 ease-linear"
+                                    :class="$wire.isFeatured ? 'translate-x-full' : 'translate-x-0'">
+                                </div>
+                            </div>
+                            Yes
+                        </label>
+                    </div>
 
 
                     <div class="mt-2">
@@ -196,7 +195,39 @@
                             </div>
                         @endif
                     </div>
+<div class="mt-2">
+                        <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                            Featured Image Caption
+                        </label>
+                        <input wire:model="fi_caption" type="text"
+                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
+                        @error('fi_caption')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mt-2">
+                        <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                            Author
+                        </label>
+                        <select wire:model="author_id" name="author_id"
+                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 pr-11 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
+                            :class="isOptionSelected && 'text-gray-800 dark:text-white/90'"
+                            @change="isOptionSelected = true">
 
+                            <option value="" class="text-gray-700 dark:bg-gray-900 dark:text-gray-400">
+                                Select an author
+                            </option>
+                            @foreach ($authors as $author)
+                                <option value="{{ $author->id }}" {{ $author->id == $author_id ? 'selected' : '' }}>
+                                      {{ $author->title }}<br>
+                                    <span class="text-xs text-gray-400">- {{ $author->name }}</span>
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('author_id')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
+                    </div>
                 </div>
 
                 <!-- ====== Table Six End -->

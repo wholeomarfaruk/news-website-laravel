@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Author;
 use App\Models\Media;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -19,6 +20,7 @@ class CreatePost extends Component
     public $name;
     public $parent_id;
     public $featured_image;
+    public $fi_caption;
     public $title;
     public $slug;
     public $excerpt;
@@ -28,6 +30,7 @@ class CreatePost extends Component
     public $content;
     public $url;
     public $isFeatured = false;
+    public $author_id;
 
 
     public function generateSlug()
@@ -43,9 +46,10 @@ class CreatePost extends Component
     public function render()
     {
         $categories = Category::with('children')->whereNull('parent_id')->get();
-
+        $authors = Author::all();
         return view('livewire.create-post', [
             'categories' => $categories,
+            'authors' => $authors
         ]);
     }
     public function createPost()
@@ -85,6 +89,9 @@ class CreatePost extends Component
             $post->status = $this->status;
             $post->excerpt = $this->excerpt;
             $post->user_id = auth()->id();
+            if($this->author_id){
+                $post->author_id = $this->author_id;
+            }
             $post->save();
 
             if ($this->featured_image) {
@@ -105,6 +112,10 @@ class CreatePost extends Component
                 $media->path = $path;
                 $media->mediable_id = $post->id;
                 $media->mediable_type = Post::class;
+                if ($this->fi_caption) {
+                    $media->caption = $this->fi_caption;
+                }
+
                 $media->user_id = auth()->id();
                 $media->save();
             } else {

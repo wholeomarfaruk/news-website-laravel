@@ -24,6 +24,10 @@ class HomeController extends Controller
     {
         $post = Post::where('slug', $slug)->first();
 
+        if (!$post) {
+            abort(404);
+        }
+
         $post->increment('views'); // +1 each visit
         $relatedPosts = Post::where('category_id', $post->category_id) // same category
             ->where('id', '!=', $post->id)           // exclude current post
@@ -35,7 +39,7 @@ class HomeController extends Controller
             ->take(10)   // take only 5
             ->get();
         // continue with $post
-    
+
         return view('website.post.index', compact('post', 'relatedPosts', 'recentPosts'));
     }
     public function singlePost($slug)

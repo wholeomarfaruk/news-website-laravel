@@ -262,6 +262,39 @@
                             </div>
                         @endif
                     </div>
+                    <div class="mt-2">
+                        <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                            Featured Image Caption
+                        </label>
+                        <input wire:model="fi_caption" type="text"
+                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
+                        @error('fi_caption')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mt-2">
+                        <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                            Author
+                        </label>
+                        <select wire:model="author_id" name="author_id"
+                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 pr-11 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
+                            :class="isOptionSelected && 'text-gray-800 dark:text-white/90'"
+                            @change="isOptionSelected = true">
+
+                            <option value="" class="text-gray-700 dark:bg-gray-900 dark:text-gray-400">
+                                Select an author
+                            </option>
+                            @foreach ($authors as $author)
+                                <option value="{{ $author->id }}" {{ $author->id == $author_id ? 'selected' : '' }}>
+                                    {{ $author->title }}<br>
+                                    <span class="text-xs text-gray-400"> - {{ $author->name }}</span>
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('author_id')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
+                    </div>
                 </div>
 
                 <!-- ====== Table Six End -->
