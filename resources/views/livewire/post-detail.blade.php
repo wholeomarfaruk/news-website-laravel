@@ -1,5 +1,23 @@
 <section id="singlepost">
 
+    <style>
+
+        .mobile.rpt_info_section,
+        .mobile.breadcrum {
+            display: none;
+        }
+        @media (max-width: 992px) {
+            .desktop.rpt_info_section,
+            .desktop.breadcrum {
+                display: none;
+            }
+            .mobile.rpt_info_section,
+            .mobile.breadcrum {
+                display: block;
+            }
+        }
+
+    </style>
     @foreach ($allPosts as $currentpost)
         <div class="wrapper my-3 post-wrapper" id="post-{{ $currentpost->id }}"
             data-url="{{ route('post.show', ['category' => $currentpost->category->slug, 'slug' => $currentpost->slug]) }}">
@@ -9,11 +27,11 @@
             </div>
             <div class="row">
                 <div class="col-md-3 order-2 order-lg-1">
-                    <div class="breadcrum">
+                    <div class="breadcrum desktop">
                         <i class="fa-solid fa-home"></i> / <a class="fs-bold text-primary"
                             href="#">{{ $currentpost->category->name }}</a>
                     </div>
-                    <div class="rpt_info_section border-bottom mb-2 pb-2">
+                    <div class="rpt_info_section desktop border-bottom mb-2 pb-2">
                         <div class="rpt_name mt-2"><i class="fa-solid fa-circle-user me-2"></i>
                             {{ $currentpost?->author?->title ?? 'Unknown' }}
                         </div>
@@ -136,11 +154,46 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-md-6 order-1 order-lg-2">
                     <div class="post-content">
+                        <div class="breadcrum mobile">
+                            <i class="fa-solid fa-home"></i> / <a class="fs-bold text-primary"
+                                href="#">{{ $currentpost->category->name }}</a>
+                        </div>
                         <h3 class="title mb-3 topnews-title">
                             {{ $currentpost->title }}
                         </h3>
+
+                        <div class="rpt_info_section mobile border-bottom mb-2 pb-2">
+                            <div class="rpt_name mt-2"><i class="fa-solid fa-circle-user me-2"></i>
+                                {{ $currentpost?->author?->title ?? 'Unknown' }}
+                            </div>
+
+                            <div class="entry_update mb-0"><span class="Layer_1" style="float: left"><svg id="Layer_1"
+                                        data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13.95 16">
+                                        <defs>
+                                            <style>
+                                                .cls-1 {
+                                                    fill: #121212;
+                                                }
+                                            </style>
+                                        </defs>
+                                        <path class="cls-1"
+                                            d="M13.65,5.2,7.78.27a1.26,1.26,0,0,0-1.56,0L.35,5.2c-.69.59-.2,1.59.79,1.59H12.86C13.85,6.79,14.34,5.79,13.65,5.2Z"
+                                            transform="translate(-0.03 0)"></path>
+                                        <path class="cls-1"
+                                            d="M.35,10.8l5.87,4.93a1.26,1.26,0,0,0,1.56,0l5.87-4.93c.69-.59.2-1.59-.79-1.59H1.14C.15,9.21-.34,10.21.35,10.8Z"
+                                            transform="translate(-0.03 0)"></path>
+                                    </svg></span>
+                                <div style="display: inline-block; width: 90%; padding-left: 5px;"> প্রকাশ
+                                    : <span class="post_date" data-date="{{ $currentpost->created_at }}">
+                                        {{ $currentpost->created_at->locale('bn')->translatedFormat('d MM Y, h:i A') }}
+
+                                    </span></div>
+                            </div>
+
+                        </div>
                         {{-- <div class="rpt_name mt-2 secondpost-title"><i class="fa-solid fa-circle-user me-2"></i>
                             {{ $currentpost?->author?->name }}</div> --}}
                         <div class="short-info mb-3"></div>
@@ -215,63 +268,58 @@
 
 </section>
 @push('scripts')
-<script>
-    moment.locale('bn');
+    <script>
+        moment.locale('bn');
 
-    function date_init() {
-        let postDates = document.querySelectorAll('.post_date');
-        postDates.forEach(el => {
-            let date = el.getAttribute('data-date');
-            if (date) {
-                el.textContent = moment(date).format('LLLL');
-            }
-        });
-
-    }
-
-    // প্রথমবার কল হবে
-    date_init();
-
-
-</script>
-<script>
-
-    $(document).ready(function() {
-
-        function isElementInViewport(el) {
-            var rect = el.getBoundingClientRect();
-            return (
-                rect.top >= 0 &&
-                rect.bottom <= (window.innerHeight || $(window).height())
-            );
-        }
-
-        function updateVisiblePostUrl() {
-
-
-            $('.post-wrapper').each(function() {
-                if (isElementInViewport(this)) {
-                    var url = $(this).data('url');
-                    history.replaceState(null, '', url);
-                    return false; // Stop at the first visible post
+        function date_init() {
+            let postDates = document.querySelectorAll('.post_date');
+            postDates.forEach(el => {
+                let date = el.getAttribute('data-date');
+                if (date) {
+                    el.textContent = moment(date).format('LLLL');
                 }
             });
+
         }
 
-        // On scroll
-        $(window).on('scroll', function() {
+        // প্রথমবার কল হবে
+        date_init();
+    </script>
+    <script>
+        $(document).ready(function() {
+
+            function isElementInViewport(el) {
+                var rect = el.getBoundingClientRect();
+                return (
+                    rect.top >= 0 &&
+                    rect.bottom <= (window.innerHeight || $(window).height())
+                );
+            }
+
+            function updateVisiblePostUrl() {
+
+
+                $('.post-wrapper').each(function() {
+                    if (isElementInViewport(this)) {
+                        var url = $(this).data('url');
+                        history.replaceState(null, '', url);
+                        return false; // Stop at the first visible post
+                    }
+                });
+            }
+
+            // On scroll
+            $(window).on('scroll', function() {
+                updateVisiblePostUrl();
+            });
+
+            // Initial check
             updateVisiblePostUrl();
+
+            // If posts are loaded dynamically via Livewire, re-run after updates
+            Livewire.on('post-loaded', function() {
+                date_init();
+            })
         });
-
-        // Initial check
-        updateVisiblePostUrl();
-
-        // If posts are loaded dynamically via Livewire, re-run after updates
-        Livewire.on('post-loaded', function() {
-            date_init();
-        })
-    });
-</script>
-
-
+    </script>
 @endpush
