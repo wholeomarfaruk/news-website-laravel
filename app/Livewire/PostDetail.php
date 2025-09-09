@@ -65,6 +65,7 @@ class PostDetail extends Component
             // Update lastId and prepare next post
             $this->lastId = $this->currentpost->id;
             $this->prepareNextPost();
+            $this->dispatch('post-loaded');
         }
     }
 

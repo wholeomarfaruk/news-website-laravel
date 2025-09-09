@@ -35,10 +35,12 @@
                                         transform="translate(-0.03 0)"></path>
                                 </svg></span>
                             <div style="display: inline-block; width: 90%; padding-left: 5px;"> প্রকাশ
-                                : <span id="post_date"></span></div>
+                                : <span class="post_date" data-date="{{ $currentpost->created_at }}">
+                                    {{ $currentpost->created_at->locale('bn')->translatedFormat('d MM Y, h:i A') }}
+
+                                </span></div>
                         </div>
-                        <div class="edition"><i class="fa-solid fa-square-pen me-2"></i>অনলাইন সংস্করণ
-                        </div>
+
                     </div>
                     <div wire:ignore id="related_news">
                         <style type="text/css">
@@ -192,8 +194,7 @@
         </div>
     @endforeach
     <!-- Jokhon ei div viewport e dhukbe, tokhon next post load hobe -->
-<div
-    x-data="{
+    <div x-data="{
         loading: false,
         observe() {
             let observer = new IntersectionObserver((entries) => {
@@ -208,17 +209,33 @@
             })
             observer.observe(this.$el)
         }
-    }"
-    x-init="observe"
-    class="h-1"
-></div>
+    }" x-init="observe" class="h-1"></div>
 
 
-    {{-- <div x-intersect="$wire.loadNextPost()" class="h-10 bg-gray-200 flex items-center justify-center">
-        Loading next post...
-    </div> --}}
+
 </section>
+@push('scripts')
 <script>
+    moment.locale('bn');
+
+    function date_init() {
+        let postDates = document.querySelectorAll('.post_date');
+        postDates.forEach(el => {
+            let date = el.getAttribute('data-date');
+            if (date) {
+                el.textContent = moment(date).format('LLLL');
+            }
+        });
+
+    }
+
+    // প্রথমবার কল হবে
+    date_init();
+
+
+</script>
+<script>
+
     $(document).ready(function() {
 
         function isElementInViewport(el) {
@@ -230,6 +247,8 @@
         }
 
         function updateVisiblePostUrl() {
+
+
             $('.post-wrapper').each(function() {
                 if (isElementInViewport(this)) {
                     var url = $(this).data('url');
@@ -248,8 +267,11 @@
         updateVisiblePostUrl();
 
         // If posts are loaded dynamically via Livewire, re-run after updates
-        Livewire.hook('message.processed', (message, component) => {
-            updateVisiblePostUrl();
-        });
+        Livewire.on('post-loaded', function() {
+            date_init();
+        })
     });
 </script>
+
+
+@endpush

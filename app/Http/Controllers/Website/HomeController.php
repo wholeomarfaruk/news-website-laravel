@@ -8,6 +8,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 
 use function Laravel\Prompts\error;
+use function Livewire\Volt\js;
 
 class HomeController extends Controller
 {
@@ -79,5 +80,20 @@ class HomeController extends Controller
     {
 
         return view('website.archive.recent-posts');
+    }
+    public function uploadByFile(Request $request)
+    {
+        // return  response()->json(['success' => true,'file'=>$request->file('image')]);
+        $file = $request->file('image');
+        $file->move( public_path('media'), $file->getClientOriginalName());
+        return response()->json(['success' => true,'file'=>['url'=>asset('media/'.$file->getClientOriginalName())]]);
+    }
+    public function uploadByUrl(Request $request)
+    {
+        $url = $request->input('url');
+        $filename = basename($url);
+        $contents = file_get_contents($url);
+        file_put_contents(public_path('media/'.$filename), $contents);
+        return response()->json(['success' => true,'file'=>['url'=>asset('media/'.$filename)]]);
     }
 }

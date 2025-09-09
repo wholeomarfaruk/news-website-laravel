@@ -157,11 +157,11 @@ class PostEdit extends Component
                 }
 
             }
-             $media2 = $post->media->where('category', 'featured_image')->first();
-                if ($this->fi_caption) {
-                    $media2->caption = $this->fi_caption;
-                }
+            $media2 = $post->media->where('category', 'featured_image')->first();
+            if ($media2 && $this->fi_caption) {
+                $media2->caption = $this->fi_caption;
                 $media2->save();
+            }
             return redirect()->route('admin.post.list')->with('success', 'Post Updated Successfully.');
         } catch (\Throwable $th) {
             $this->dispatch('postUpdateStatus', ['error' => $th->getMessage()]);

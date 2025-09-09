@@ -16,7 +16,11 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use Livewire\Volt\Volt;
 require __DIR__ . '/auth.php';
 
-
+Route::get('/test', function () {
+    return view('test');
+});
+Route::post('/upload_by_file', [HomeController::class, 'uploadByFile'])->name('upload_by_file');
+Route::post('/upload_by_url', [HomeController::class, 'uploadByUrl'])->name('upload_by_url');
 // Home page
 Route::get('/', [HomeController::class, 'index'])->name('home');
 

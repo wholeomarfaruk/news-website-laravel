@@ -10,5 +10,6 @@
 @section('meta_canonical', route('post.show', ['category' => $post->category->slug, 'slug' => $post->slug]))
 
 @section('content')
-    @livewire('post-detail',['id'=>$post->id])
+    @livewire('post-detail', ['id' => $post->id])
 @endsection
+
