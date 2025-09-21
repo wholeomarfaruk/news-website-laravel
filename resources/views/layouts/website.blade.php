@@ -312,7 +312,7 @@
 
 
 
-                    @if ($categories->find('7'))
+                    @if ($categories?->find('7'))
                         <li class="nav-item dropdown border-bottom w-100">
                             <a class="nav-link d-flex justify-content-between align-items-center"
                                 href="{{ route('category', $categories->find('7')->slug) }}">
@@ -322,7 +322,7 @@
                         </li>
                     @endif
 
-                    @if ($categories->find('9'))
+                    @if ($categories?->find('9'))
                         <li class="nav-item dropdown border-bottom w-100">
                             <a class="nav-link d-flex justify-content-between align-items-center"
                                 href="{{ route('category', $categories->find('9')->slug) }}">
@@ -331,7 +331,7 @@
 
                         </li>
                     @endif
-                    @if ($categories->find('8'))
+                    @if ($categories?->find('8'))
                         <li class="nav-item dropdown border-bottom w-100">
                             <a class="nav-link d-flex justify-content-between align-items-center"
                                 href="{{ route('category', $categories->find('8')->slug) }}">
@@ -341,7 +341,7 @@
 
                         </li>
                     @endif
-                    @if ($categories->find('5'))
+                    @if ($categories?->find('5'))
                         <li class="nav-item dropdown border-bottom w-100">
                             <a class="nav-link d-flex justify-content-between align-items-center"
                                 href="{{ route('category', $categories->find('5')->slug) }}">
@@ -351,7 +351,7 @@
 
                         </li>
                     @endif
-                    @if ($categories->find('6'))
+                    @if ($categories?->find('6'))
                         <li class="nav-item dropdown border-bottom w-100">
                             <a class="nav-link d-flex justify-content-between align-items-center"
                                 href="{{ route('category', $categories->find('6')->slug) }}">
@@ -361,7 +361,7 @@
 
                         </li>
                     @endif
-                    @if ($categories->find('3'))
+                    @if ($categories?->find('3'))
                         <li class="nav-item dropdown border-bottom w-100">
                             <a class="nav-link d-flex justify-content-between align-items-center"
                                 href="{{ route('category', $categories->find('3')->slug) }}">
@@ -371,7 +371,7 @@
 
                         </li>
                     @endif
-                    @if ($categories->find('4'))
+                    @if ($categories?->find('4'))
                         <li class="nav-item dropdown border-bottom w-100">
                             <a class="nav-link d-flex justify-content-between align-items-center"
                                 href="{{ route('category', $categories->find('4')->slug) }}">
@@ -382,7 +382,7 @@
                         </li>
                     @endif
 
-                    @if ($categories->find('10'))
+                    @if ($categories?->find('10'))
                         <li class="nav-item dropdown border-bottom w-100">
                             <a class="nav-link d-flex justify-content-between align-items-center"
                                 href="{{ route('category', $categories->find('10')->slug) }}">
@@ -392,11 +392,21 @@
 
                         </li>
                     @endif
-                    @if ($categories->find('2'))
+                    @if ($categories?->find('2'))
                         <li class="nav-item dropdown border-bottom w-100">
                             <a class="nav-link d-flex justify-content-between align-items-center"
                                 href="{{ route('category', $categories->find('2')->slug) }}">
                                 <span> <span>মতামত</span>
+                                </span>
+                            </a>
+
+                        </li>
+                    @endif
+                    @if ($categories?->find('29'))
+                        <li class="nav-item dropdown border-bottom w-100">
+                            <a class="nav-link d-flex justify-content-between align-items-center"
+                                href="{{ route('category', $categories->find('29')->slug) }}">
+                                <span> <span>অপরাধ</span>
                                 </span>
                             </a>
 

@@ -421,8 +421,8 @@
         @if ($categories?->find(10)?->posts()?->latest()?->get())
             <x-post-section :newsPosts="$categories->find(10)->posts()->latest()->get() ?? collect()" :style="5" />
         @endif
-        @if ($categories?->find(12)?->posts()?->latest()?->get())
-            <x-post-section :newsPosts="$categories->find(12)->posts()->latest()->get() ?? collect()" :style="2" />
+        @if ($categories?->find(29)?->posts()?->latest()?->get())
+            <x-post-section :newsPosts="$categories->find(29)->posts()->latest()->get() ?? collect()" :style="2" />
         @endif
         @if ($categories?->find(4)?->posts()?->latest()?->get())
             <x-post-section :newsPosts="$categories->find(4)->posts()->latest()->get() ?? collect()" :style="3" />
