@@ -32,7 +32,12 @@ class CreatePost extends Component
     public $isFeatured = false;
     public $author_id;
 
-
+    public function mount($post = null)
+    {
+        if ($post) {
+            $this->content = $post->content;
+        }
+    }
     public function generateSlug()
     {
 
@@ -55,17 +60,21 @@ class CreatePost extends Component
     public function createPost()
     {
 
-
         $this->validate([
             'title' => "string|min:3",
-            "content" => "required"
 
         ]);
 
 
         try {
             $uncategorized_id = Category::where('slug', 'uncategorized')->value('id');
-
+            if (!$uncategorized_id) {
+                $uncategorized = new Category();
+                $uncategorized->name = 'Uncategorized';
+                $uncategorized->slug = 'uncategorized';
+                $uncategorized->save();
+                $uncategorized_id = $uncategorized->id;
+            }
             $post = new Post();
             $post->title = $this->title;
             $post->content = $this->content;
@@ -89,38 +98,38 @@ class CreatePost extends Component
             $post->status = $this->status;
             $post->excerpt = $this->excerpt;
             $post->user_id = auth()->id();
-            if($this->author_id){
+            if ($this->author_id) {
                 $post->author_id = $this->author_id;
             }
             $post->save();
 
-            if ($this->featured_image) {
+            // if ($this->featured_image) {
 
-                // Store file in 'public/media'
-                $path = $this->storeFeaturedImage($this->featured_image);
+            //     // Store file in 'public/media'
+            //     $path = $this->storeFeaturedImage($this->featured_image);
 
-                // Save in media table
-                $media = new Media();
-                $media->filename = basename($path);
-                $media->original_name = $this->featured_image->getClientOriginalName();
-                $media->mime_type = $this->featured_image->getMimeType();
-                $media->extension = $this->featured_image->getClientOriginalExtension();
-                $media->size = $this->featured_image->getSize();
-                $media->type = 'image';
-                $media->category = 'featured_image';
-                $media->disk = 'public';
-                $media->path = $path;
-                $media->mediable_id = $post->id;
-                $media->mediable_type = Post::class;
-                if ($this->fi_caption) {
-                    $media->caption = $this->fi_caption;
-                }
+            //     // Save in media table
+            //     $media = new Media();
+            //     $media->filename = basename($path);
+            //     $media->original_name = $this->featured_image->getClientOriginalName();
+            //     $media->mime_type = $this->featured_image->getMimeType();
+            //     $media->extension = $this->featured_image->getClientOriginalExtension();
+            //     $media->size = $this->featured_image->getSize();
+            //     $media->type = 'image';
+            //     $media->category = 'featured_image';
+            //     $media->disk = 'public';
+            //     $media->path = $path;
+            //     $media->mediable_id = $post->id;
+            //     $media->mediable_type = Post::class;
+            //     if ($this->fi_caption) {
+            //         $media->caption = $this->fi_caption;
+            //     }
 
-                $media->user_id = auth()->id();
-                $media->save();
-            } else {
-                abort(403);
-            }
+            //     $media->user_id = auth()->id();
+            //     $media->save();
+            // } else {
+            //     abort(403);
+            // }
 
             DB::commit(); // commit transaction
             return redirect()->route('admin.post.list')->with('success', 'Post Successfully Created.');
@@ -132,6 +141,8 @@ class CreatePost extends Component
                 unlink(public_path($path));
             }
             $this->dispatch('postCreateStatus', ['error' => $th->getMessage()]);
+
+
         }
 
 

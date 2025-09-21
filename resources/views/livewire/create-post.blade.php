@@ -1,10 +1,6 @@
-
-{{-- RichTextEditor   --}}
-<link rel="stylesheet" href="{{asset('plugins/richtexteditor/rte_theme_default.css')}}" />
-<script type="text/javascript" src="{{asset('plugins/richtexteditor/rte.js')}}"></script>
-<script type="text/javascript" src='{{asset('plugins/richtexteditor/plugins/all_plugins.js')}}'></script>
 <div>
-    <form wire:submit="createPost">
+    <form wire:submit.prevent="createPost">
+
         <div class="flex items-center justify-between">
             <div>
 
@@ -18,10 +14,10 @@
                 <!-- End Modal -->
             </div>
             <div class="flex items-center gap-3">
-                <button type="submit" wire:click="$set('status', 'draft')"
+                {{-- <button type="submit" wire:click="$set('status', 'draft')"
                     class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs ring-1 ring-gray-300 transition hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03]">
                     Draft
-                </button>
+                </button> --}}
                 <button type="submit" wire:click="$set('status', 'published')"
                     class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs ring-1 ring-gray-300 transition hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03]">
                     Publish
@@ -49,17 +45,20 @@
                         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                             Article
                         </label>
-                        <textarea  id="editor_data" wire:model="content" name="content" placeholder="Write your content here" type="text"
-                            rows="6"
-                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"></textarea>
+                        <textarea id="editor_data" name="content" placeholder="Write your content here" type="text" rows="6"
+                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30">
 
+                        </textarea>
+                        @error('content')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
 
                     </div>
                     <div class="mt-2">
                         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                             Short Description
                         </label>
-                        <textarea wire:model="excerpt" name="content" placeholder="Write your content here" type="text" rows="6"
+                        <textarea wire:model="excerpt" name="excerpt" placeholder="Write your content here" type="text" rows="6"
                             class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"></textarea>
                     </div>
                 </div>
@@ -312,13 +311,9 @@
     @push('scripts')
         <script>
             // When Livewire updates, re-init editor if needed
-            document.addEventListener('livewire:update', function() {
-                if (!tinymce.get('#editor')) {
-                    initTinyMCE();
-                }
-            });
-            Livewire.on('postCreateStatus', (data) => {
 
+            Livewire.on('postCreateStatus', (data) => {
+                console.log(data)
                 $toaster.fire({
                     icon: 'error',
                     title: data[0].error
@@ -328,7 +323,7 @@
                 console.log('Loaded')
             });
         </script>
-        <script src="https://cdn.tiny.cloud/1/6fc0o57nwmnuyujo3x2t2m7qttqr09s74djxb47lnzygcixp/tinymce/8/tinymce.min.js"
+        {{-- <script src="https://cdn.tiny.cloud/1/6fc0o57nwmnuyujo3x2t2m7qttqr09s74djxb47lnzygcixp/tinymce/8/tinymce.min.js"
             referrerpolicy="origin" crossorigin="anonymous"></script>
 
         <script>
@@ -347,16 +342,25 @@
                     editor.setContent(@this.get('content') || ''); // load existing content when editing
                 }
             });
-        </script>
+        </script> --}}
 
         <script>
             document.addEventListener('livewire:load', function() {
+                alert('test')
+                console.log('Livewire is ready!');
                 Livewire.on('slug', () => {
-                    alert('test slug');
+                    var title = $('#title').val();
+                    var slug = title.toLowerCase() // Lowercase
+                        .trim() // Remove leading/trailing spaces
+                        .replace(/[^\w\s-]/g, '') // Remove special chars
+                        .replace(/\s+/g, '-') // Replace spaces with dash
+                        .replace(/--+/g, '-'); // Replace multiple dashes
+                    $('#slug').val(slug);
                 });
+
             });
         </script>
-        <script>
+        {{-- <script>
             console.log("test")
             $('#title').on('input', function() {
                 var title = $(this).val();
@@ -371,10 +375,34 @@
 
                 $('#slug').val(slug);
             });
-        </script>
+        </script> --}}
         <script>
-	var editor1 = new RichTextEditor("#editor_data");
-	//editor1.setHTMLCode("Use inline HTML or setHTMLCode to init the default content.");
+            document.addEventListener('livewire:initialized', () => {
+                // Your JavaScript code that depends on Livewire being ready goes here.
+                // For example:
+                console.log('Livewire has finished initializing!');
+                // You can now safely interact with Livewire's global object (window.Livewire)
+                // or perform actions related to Livewire components.
+            });
+            document.addEventListener('livewire:initialized', function() {
 
-</script>
+                var editor = new RichTextEditor("#editor_data", {
+                    contentCssUrl: "/plugins/richtexteditor/runtime/richtexteditor_content.css",
+                    callbacks: {
+                        onchange: function(contents) {
+                            console.log("Editor content:", contents); // debug
+                            @this.set('content', contents); // update Livewire property
+                        }
+                    }
+                });
+                editor.attachEvent("change", function() {
+                    @this.set('content', editor.getHTML());
+                });
+                // Load existing content from Livewire if editing
+                @this.on('content', content => {
+                    editor.setContent(content || '');
+                });
+
+            });
+        </script>
     @endpush

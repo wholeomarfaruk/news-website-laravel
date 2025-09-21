@@ -19,17 +19,10 @@
 
 @if (Route::currentRouteName() === 'admin.post.create' || Route::currentRouteName() === 'admin.post.edit')
     <!-- Editor.js core -->
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
-
-    <!-- Tools -->
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@2"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/code@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/link@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/paragraph@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
+{{-- RichTextEditor   --}}
+<link rel="stylesheet" href="{{asset('plugins/richtexteditor/rte_theme_default.css')}}" />
+<script type="text/javascript" src="{{asset('plugins/richtexteditor/rte.js')}}"></script>
+<script type="text/javascript" src='{{asset('plugins/richtexteditor/plugins/all_plugins.js')}}'></script>
 
 @endif
 
@@ -120,7 +113,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                         </button>
                         <!-- Application nav menu button -->
 
-                        {{-- <div class="hidden lg:block">
+                        <div class="hidden lg:block">
                             <form>
                                 <div class="relative">
                                     <span class="absolute top-1/2 left-4 -translate-y-1/2">
@@ -141,7 +134,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                                     </button>
                                 </div>
                             </form>
-                        </div> --}}
+                        </div>
                     </div>
 
                     <div :class="menuToggle ? 'flex' : 'hidden'"
