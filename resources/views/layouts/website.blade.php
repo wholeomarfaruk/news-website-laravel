@@ -143,58 +143,64 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('recent.post.list') }}">সর্বশেষ</a>
                         </li>
-                        @if ($categories->find('7'))
+                        @if ($categories?->find('7'))
                             <li class="nav-item">
                                 <a class="nav-link"
                                     href="{{ route('category', $categories->find('7')->slug) }}">জাতীয়</a>
                             </li>
                         @endif
-                        @if ($categories->find('9'))
+                        @if ($categories?->find('9'))
                             <li class="nav-item">
                                 <a class="nav-link"
                                     href="{{ route('category', $categories->find('9')->slug) }}">রাজনীতি</a>
                             </li>
                         @endif
-                        @if ($categories->find('8'))
+                        @if ($categories?->find('8'))
                             <li class="nav-item">
                                 <a class="nav-link"
                                     href="{{ route('category', $categories->find('8')->slug) }}">বাণিজ্য</a>
                             </li>
                         @endif
-                        @if ($categories->find('5'))
+                        @if ($categories?->find('5'))
                             <li class="nav-item">
                                 <a class="nav-link"
                                     href="{{ route('category', $categories->find('5')->slug) }}">সারাদেশ</a>
                             </li>
                         @endif
-                        @if ($categories->find('6'))
+                        @if ($categories?->find('6'))
                             <li class="nav-item">
                                 <a class="nav-link"
                                     href="{{ route('category', $categories->find('6')->slug) }}">আন্তর্জাতিক</a>
                             </li>
                         @endif
-                        @if ($categories->find('3'))
+                        @if ($categories?->find('3'))
                             <li class="nav-item">
                                 <a class="nav-link"
                                     href="{{ route('category', $categories->find('3')->slug) }}">খেলা</a>
                             </li>
                         @endif
-                        @if ($categories->find('4'))
+                        @if ($categories?->find('4'))
                             <li class="nav-item">
                                 <a class="nav-link"
                                     href="{{ route('category', $categories->find('4')->slug) }}">বিনোদন</a>
                             </li>
                         @endif
-                        @if ($categories->find('10'))
+                        @if ($categories?->find('10'))
                             <li class="nav-item">
                                 <a class="nav-link"
                                     href="{{ route('category', $categories->find('10')->slug) }}">শিক্ষা</a>
                             </li>
                         @endif
-                        @if ($categories->find('2'))
+                        @if ($categories?->find('2'))
                             <li class="nav-item">
                                 <a class="nav-link"
                                     href="{{ route('category', $categories->find('2')->slug) }}">মতামত</a>
+                            </li>
+                        @endif
+                        @if ($categories?->find('29'))
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                    href="{{ route('category', $categories->find('29')->slug) }}">মতামত</a>
                             </li>
                         @endif
 
