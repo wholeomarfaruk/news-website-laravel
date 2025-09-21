@@ -14,6 +14,7 @@ use function PHPUnit\Framework\fileExists;
 class PostEdit extends Component
 {
     use WithFileUploads;
+
     public $createModal = false;
     public $name;
     public $parent_id;

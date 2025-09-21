@@ -14,10 +14,10 @@
                 <!-- End Modal -->
             </div>
             <div class="flex items-center gap-3">
-                {{-- <button type="submit" wire:click="$set('status', 'draft')"
+                <button type="submit" wire:click="$set('status', 'draft')"
                     class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs ring-1 ring-gray-300 transition hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03]">
                     Draft
-                </button> --}}
+                </button>
                 <button type="submit" wire:click="$set('status', 'published')"
                     class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs ring-1 ring-gray-300 transition hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03]">
                     Publish

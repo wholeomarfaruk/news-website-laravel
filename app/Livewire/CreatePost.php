@@ -16,6 +16,8 @@ use Livewire\WithFileUploads;
 class CreatePost extends Component
 {
     use WithFileUploads;
+
+
     public $createModal = false;
     public $name;
     public $parent_id;
