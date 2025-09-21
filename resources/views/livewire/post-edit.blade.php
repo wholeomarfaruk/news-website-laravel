@@ -365,7 +365,7 @@
                 console.log('Loaded')
             });
         </script>
-        <script src="https://cdn.tiny.cloud/1/6fc0o57nwmnuyujo3x2t2m7qttqr09s74djxb47lnzygcixp/tinymce/8/tinymce.min.js"
+        {{-- <script src="https://cdn.tiny.cloud/1/6fc0o57nwmnuyujo3x2t2m7qttqr09s74djxb47lnzygcixp/tinymce/8/tinymce.min.js"
             referrerpolicy="origin" crossorigin="anonymous"></script>
 
 
@@ -385,7 +385,7 @@
                     editor.setContent(@this.get('content') || ''); // load existing content when editing
                 }
             });
-        </script>
+        </script> --}}
 
         <script>
             document.addEventListener('livewire:load', function() {
