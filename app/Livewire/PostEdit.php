@@ -140,20 +140,20 @@ class PostEdit extends Component
 
                 } else {
 
-                    // $media = new Media();
-                    // $media->filename = $filename;
-                    // $media->original_name = $this->featured_image->getClientOriginalName();
-                    // $media->mime_type = $this->featured_image->getMimeType();
-                    // $media->extension = $this->featured_image->getClientOriginalExtension();
-                    // $media->size = $this->featured_image->getSize();
-                    // $media->type = 'image';
-                    // $media->category = 'featured_image';
-                    // $media->disk = 'public';
-                    // $media->path = $path;
-                    // $media->mediable_id = $post->id;
-                    // $media->mediable_type = Post::class;
-                    // $media->user_id = auth()->id();
-                    // $media->save();
+                    $media = new Media();
+                    $media->filename = $filename;
+                    $media->original_name = $this->featured_image->getClientOriginalName();
+                    $media->mime_type = $this->featured_image->getMimeType();
+                    $media->extension = $this->featured_image->getClientOriginalExtension();
+                    $media->size = $this->featured_image->getSize();
+                    $media->type = 'image';
+                    $media->category = 'featured_image';
+                    $media->disk = 'public';
+                    $media->path = $path;
+                    $media->mediable_id = $post->id;
+                    $media->mediable_type = Post::class;
+                    $media->user_id = auth()->id();
+                    $media->save();
 
                 }
 
