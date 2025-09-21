@@ -13,12 +13,16 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\VerifyEmailController;
+use GuzzleHttp\Psr7\Request;
 use Livewire\Volt\Volt;
 require __DIR__ . '/auth.php';
 
 Route::get('/test', function () {
     return view('test');
 });
+Route::post('/test-submit',function(){
+    return request()->all();
+})->name('test.submit');
 Route::post('/upload_by_file', [HomeController::class, 'uploadByFile'])->name('upload_by_file');
 Route::post('/upload_by_url', [HomeController::class, 'uploadByUrl'])->name('upload_by_url');
 // Home page

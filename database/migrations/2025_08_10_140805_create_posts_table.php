@@ -23,12 +23,12 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id')->nullable(); // Foreign key for category
             $table->unsignedBigInteger('user_id')->nullable(); // Foreign key for user
             $table->unsignedBigInteger('author_id')->nullable(); // Foreign key for author, if applicable
-
+            
             //relationships can be added here if needed
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null'); // Assuming posts are linked to categories
             $table->foreign('user_id')->references('id')->on(table: 'users')->onDelete('set null'); // Assuming posts are linked to users
             $table->foreign('author_id')->references('id')->on('authors')->onDelete('set null'); // Assuming posts are linked to authors
-            
+
         });
     }
 

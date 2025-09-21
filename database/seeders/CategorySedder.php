@@ -16,7 +16,6 @@ class CategorySedder extends Seeder
     {
         $categories = [
 
-            'সর্বশেষ',
             'মোটামুটি',
             'খেলা',
             'বিনোদন',
@@ -27,6 +26,7 @@ class CategorySedder extends Seeder
             'রাজনীতি',
             'শিক্ষা',
             'হট নিউজ',
+            'অপরাধ'
         ];
 
 

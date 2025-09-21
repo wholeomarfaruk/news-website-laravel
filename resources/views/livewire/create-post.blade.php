@@ -1,5 +1,8 @@
-@push('styles')
-@endpush
+
+{{-- RichTextEditor   --}}
+<link rel="stylesheet" href="{{asset('plugins/richtexteditor/rte_theme_default.css')}}" />
+<script type="text/javascript" src="{{asset('plugins/richtexteditor/rte.js')}}"></script>
+<script type="text/javascript" src='{{asset('plugins/richtexteditor/plugins/all_plugins.js')}}'></script>
 <div>
     <form wire:submit="createPost">
         <div class="flex items-center justify-between">
@@ -46,12 +49,10 @@
                         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                             Article
                         </label>
-                        <textarea id="editor" wire:model="content" name="content" placeholder="Write your content here" type="text" rows="6"
-                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
-                            ></textarea>
-                        {{-- <div id="editor"
-                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30">
-                        </div> --}}
+                        <textarea  id="editor_data" wire:model="content" name="content" placeholder="Write your content here" type="text"
+                            rows="6"
+                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"></textarea>
+
 
                     </div>
                     <div class="mt-2">
@@ -283,8 +284,7 @@
                             Author
                         </label>
                         <select wire:model="author_id" name="author_id"
-                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 pr-11 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
-                            >
+                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 pr-11 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30">
 
                             <option value="" class="text-gray-700 dark:bg-gray-900 dark:text-gray-400">
                                 Select an author
@@ -372,6 +372,9 @@
                 $('#slug').val(slug);
             });
         </script>
+        <script>
+	var editor1 = new RichTextEditor("#editor_data");
+	//editor1.setHTMLCode("Use inline HTML or setHTMLCode to init the default content.");
 
-
+</script>
     @endpush

@@ -603,7 +603,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/locale/bn-bd.min.js"
     integrity="sha512-1VBlJq+NEHfEYNKwsk87hSMejTnxm/jqydXadetQC9R1busFkdRXhsyl+dKIRV7TvhnJ9e7xU9z0Fi9Z1NfLNw=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+
 
 <script src="{{ asset('website/js/script.js') }}"></script>
 @stack('scripts')

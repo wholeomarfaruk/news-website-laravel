@@ -16,7 +16,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- Include stylesheet -->
-<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
 
 @if (Route::currentRouteName() === 'admin.post.create' || Route::currentRouteName() === 'admin.post.edit')
     <!-- Editor.js core -->

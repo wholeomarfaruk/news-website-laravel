@@ -54,7 +54,8 @@
                                 </svg></span>
                             <div style="display: inline-block; width: 90%; padding-left: 5px;"> প্রকাশ
                                 : <span class="post_date" data-date="{{ $currentpost->created_at }}">
-                                    {{ $currentpost->created_at->locale('bn')->translatedFormat('d MM Y, h:i A') }}
+                                    {{ $currentpost->created_at->locale('bn')->translatedFormat('d F Y, g:i A') }}
+
 
                                 </span></div>
                         </div>
