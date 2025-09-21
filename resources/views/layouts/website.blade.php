@@ -200,7 +200,7 @@
                         @if ($categories?->find('29'))
                             <li class="nav-item">
                                 <a class="nav-link"
-                                    href="{{ route('category', $categories->find('29')->slug) }}">মতামত</a>
+                                    href="{{ route('category', $categories->find('29')->slug) }}">অপরাধ</a>
                             </li>
                         @endif
 
