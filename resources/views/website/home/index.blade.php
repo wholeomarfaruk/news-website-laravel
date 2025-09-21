@@ -402,29 +402,29 @@
     @endif
     <!--Banner section section End -->
     @if ($categories && $categories->count() > 0)
-        @if ($categories->find(7)->posts()->latest()->get())
+        @if ($categories?->find(7)?->posts()?->latest()?->get())
             <x-post-section :newsPosts="$categories->find(7)->posts()->latest()->get() ?? collect()" :style="1" />
         @endif
-        @if ($categories->find(9)->posts()->latest()->get())
+        @if ($categories?->find(9)?->posts()?->latest()?->get())
             <x-post-section :newsPosts="$categories->find(9)->posts()->latest()->get() ?? collect()" :style="2" />
         @endif
-        @if ($categories->find(8)->posts()->latest()->get())
+        @if ($categories?->find(8)?->posts()?->latest()?->get())
             <x-post-section :newsPosts="$categories->find(8)->posts()->latest()->get() ?? collect()" :style="3" />
         @endif
-        @if ($categories->find(5)->posts()->latest()->get())
+        @if ($categories?->find(5)?->posts()?->latest()?->get())
             <x-post-section :newsPosts="$categories->find(5)->posts()->latest()->get() ?? collect()" :style="5" />
         @endif
-        @if ($categories->find(3)->posts()->latest()->get())
+        @if ($categories?->find(3)?->posts()?->latest()?->get())
             <x-post-section :newsPosts="$categories->find(3)->posts()->latest()->get() ?? collect()" :style="1" />
         @endif
         <x-video-section-carousel />
-        @if ($categories->find(10)->posts()->latest()->get())
+        @if ($categories?->find(10)?->posts()?->latest()?->get())
             <x-post-section :newsPosts="$categories->find(10)->posts()->latest()->get() ?? collect()" :style="5" />
         @endif
-        @if ($categories->find(12)->posts()->latest()->get())
+        @if ($categories?->find(12)?->posts()?->latest()?->get())
             <x-post-section :newsPosts="$categories->find(12)->posts()->latest()->get() ?? collect()" :style="2" />
         @endif
-        @if ($categories->find(4)->posts()->latest()->get())
+        @if ($categories?->find(4)?->posts()?->latest()?->get())
             <x-post-section :newsPosts="$categories->find(4)->posts()->latest()->get() ?? collect()" :style="3" />
         @endif
     @endif
