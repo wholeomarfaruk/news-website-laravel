@@ -480,7 +480,7 @@
                 {{-- <h6>সোশ্যাল মিডিয়া</h6> --}}
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" target="_blank"
-                            href="https://www.facebook.com/share/1Awv2h5RWv/"> <i
+                            href="https://www.facebook.com/profile.php?id=61580902890070"> <i
                                 class="fa-brands fa-facebook"></i>
                         </a></li>
                     <li class="nav-item"><a class="nav-link" href="#"> <i class="fa-brands fa-instagram"></i>
