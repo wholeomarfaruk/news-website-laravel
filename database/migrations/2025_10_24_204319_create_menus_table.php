@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('icon')->nullable();
 
             // 1. Define the column (must be unsignedBigInteger to match the 'id' column)
-            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->integer('parent_id')->nullable();
 
             // 2. 💡 CRITICAL FIX: Explicitly add an index to the foreign key column.
             $table->index('parent_id');
@@ -26,11 +26,7 @@ return new class extends Migration {
             $table->integer('status')->default(1);
             $table->timestamps();
 
-            // 3. Define the foreign key constraint
-            $table->foreign('parent_id')
-                ->references('id')
-                ->on('menus')
-                ->onDelete('cascade');
+
         });
     }
 
