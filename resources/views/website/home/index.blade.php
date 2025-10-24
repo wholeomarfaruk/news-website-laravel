@@ -21,7 +21,7 @@
         .newsticker .heading-box {
             background-color: red;
             width: fit-content;
-            min-width: 130px;
+            min-width: 80px;
             display: flex;
             justify-content: center;
             align-items: center;
