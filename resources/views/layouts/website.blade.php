@@ -205,7 +205,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="megaMenuDropdown" role="button"
                                 data-bs-toggle="offcanvas"
                             data-bs-target="#main-canvas" aria-controls="main-canvas">
-                                অন্যান্য
+                                অন্যান্য 
                             </a>
 
                         </li>
