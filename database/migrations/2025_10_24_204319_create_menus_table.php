@@ -16,12 +16,15 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('url')->nullable();
             $table->string('icon')->nullable();
-            $table->integer('parent_id')->nullable();
+            $table->unsignedInteger('parent_id')->nullable();
             $table->integer('sort')->default(0);
             $table->integer('status')->default(1);
             $table->timestamps();
 
-            $table->foreign('parent_id')->references('id')->on('menus')->onDelete('cascade');
+            $table->foreign('parent_id')
+                ->references('id')
+                ->on('menus')
+                ->onDelete('cascade');
         });
     }
 
