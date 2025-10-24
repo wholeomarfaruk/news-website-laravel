@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-{{-- Default meta --}}
+    {{-- Default meta --}}
     <title>@yield('meta_title', 'The Message Today – Latest Breaking News & Headlines') </title>
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
@@ -15,12 +15,12 @@
     <meta name="twitter:image" content="@yield('meta_twitter_image', asset('website/img/logo/logo.jpeg'))">
 
     <link rel="canonical" href="{{ url()->current() }}">
-{{-- Default meta --}}
+    {{-- Default meta --}}
 
     <meta name="description" content="@yield('meta_description', 'Get the latest breaking news, sports updates, politics, and trending stories on The Message Today. Stay informed with real-time headlines.')">
     <meta property="og:title" content="@yield('meta_og_title', 'The Message Today– Latest Breaking News & Headlines')">
     <meta property="og:description" content="@yield('meta_og_description', 'Get the latest breaking news, sports updates, politics, and trending stories on The Message Today.')">
-    <meta property="og:image" content="@yield('meta_og_image', asset('website/img/logo/logo.jpeg') )">
+    <meta property="og:image" content="@yield('meta_og_image', asset('website/img/logo/logo.jpeg'))">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="@yield('meta_twitter_title', 'The Message Today– Latest Breaking News & Headlines')">
@@ -29,7 +29,7 @@
     <link rel="canonical" href="@yield('meta_canonical', url()->current())">
 
 
-  <link rel="shortcut icon" href="{{ asset('website/img/logo/logo.jpeg') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('website/img/logo/logo.jpeg') }}" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
     <!-- Font Awesome -->
@@ -44,8 +44,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css"
         integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-<!-- Include stylesheet -->
-<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+    <!-- Include stylesheet -->
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('website/css/style.css') }}">
     @stack('styles')
 </head>
@@ -137,6 +137,7 @@
                             <li class="nav-item">
                                 <a class="nav-link"
                                     href="{{ route('category', $categories->find('7')->slug) }}">জাতীয়</a>
+
                             </li>
                         @endif
                         @if ($categories?->find('9'))
@@ -271,7 +272,7 @@
                     <div class="menu-hamburger">
 
                         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-                            data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                            data-bs-target="#main-canvas" aria-controls="main-canvas">
                             <span class="navbar-toggler-icon"></span>
                         </button>
 
@@ -282,8 +283,113 @@
         </nav>
 
     </div>
+    @php
+        $menus = \App\Models\Menu::with('children')->where('parent_id', 0)->get();
+    @endphp
 
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample"
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="main-canvas" aria-labelledby="main-canvas-label"
+        data-bs-scroll="true" data-bs-backdrop="true" style="z-index: 1055;">
+
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="main-canvas-label">Main Menu</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+
+        <div class="offcanvas-body">
+            <nav id="sidebar-menu">
+
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                    @foreach ($menus as $item)
+                        @if ($item->children->count() > 0)
+                            <li class="nav-item border-bottom w-100">
+                                <div class="btn-group dropend w-100">
+                                    <a type="button" class="nav-link w-100" href="{{ $item->url }}">
+                                        {{ $item->name }}
+                                    </a>
+
+                                    <button type="button" class="btn flex-grow-0" data-bs-toggle="offcanvas"
+                                        data-bs-target="#sub-canvas-{{ $item->id }}"
+                                        aria-controls="sub-canvas-{{ $item->id }}">
+                                        <i class="fas fa-caret-right"></i>
+                                    </button>
+                                </div>
+
+                            </li>
+                        @else
+                            <li class="nav-item border-bottom w-100"><a class="nav-link"
+                                    href="#">{{ $item->name }}</a></li>
+                        @endif
+                    @endforeach
+
+
+                </ul>
+            </nav>
+        </div>
+    </div>
+    @php
+        $sub_menus = \App\Models\Menu::with('children')->get();
+    @endphp
+    @foreach ($sub_menus as $canvas_item)
+        @if ($canvas_item->children()->count() > 0)
+        {{-- @dd($canvas_item->children->parent->name); --}}
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="sub-canvas-{{ $canvas_item->id }}"
+                aria-labelledby="sub-canvas-{{ $canvas_item->id }}-label" data-bs-scroll="true"
+                data-bs-backdrop="false" style="z-index: 1060;">
+
+                <div class="offcanvas-header">
+                    @if ($canvas_item->parent_id)
+
+                        <button type="button" class="btn btn-sm btn-outline-secondary me-2 back-button"
+                            data-bs-target="#sub-canvas-{{ $canvas_item->parent->id }}" aria-label="Back">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                    @else
+                        <button type="button" class="btn btn-sm btn-outline-secondary me-2 back-button"
+                            data-bs-target="#main-canvas" aria-label="Back">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                    @endif
+
+                    <h5 class="offcanvas-title fs-6 text-muted" id="sub-canvas-1-label" >Main > {{ $canvas_item->parent ? $canvas_item->parent->name . ' > ' . $canvas_item->name : $canvas_item->name }}</h5>
+                    <button type="button" class="btn-close ms-auto close-all-button"
+                        aria-label="Close All"></button>
+                </div>
+
+                <div class="offcanvas-body">
+                    <nav id="submenu-1">
+                        <ul class="navbar-nav">
+                            @foreach ($canvas_item->children as $child_item)
+                                @if ($child_item->children->count() > 0)
+                                    <li class="nav-item border-bottom w-100">
+                                        <div class="btn-group dropend w-100">
+                                            <a type="button" class="nav-link w-100" href="{{ $child_item->url }}">
+                                                {{ $child_item->name }}
+                                            </a>
+
+                                            <button type="button" class="btn flex-grow-0" data-bs-toggle="offcanvas"
+                                                data-bs-target="#sub-canvas-{{ $child_item->id }}"
+                                                aria-controls="sub-canvas-4">
+                                                <i class="fas fa-caret-right"></i>
+                                            </button>
+                                        </div>
+
+                                    </li>
+                                @else
+                                    <li class="nav-item border-bottom w-100"><a class="nav-link"
+                                            href="{{ $child_item->url }}">{{ $child_item->name }}</a></li>
+                                @endif
+                            @endforeach
+
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        @endif
+    @endforeach
+
+
+    {{-- <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample"
         aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasExampleLabel">Menu</h5>
@@ -310,12 +416,34 @@
 
                     @if ($categories?->find('7'))
                         <li class="nav-item dropdown border-bottom w-100">
-                            <a class="nav-link d-flex justify-content-between align-items-center"
-                                href="{{ route('category', $categories->find('7')->slug) }}">
-                                <span>জাতীয়</span>
-                            </a>
 
+
+                            <!-- Split dropend button -->
+                            <div class="btn-group dropend w-100">
+                                <a type="button" class="nav-link" href="#">
+                                    Split dropend
+                                </a>
+                                <button type="button"
+                                    class="btn btn-secondary dropdown-toggle dropdown-toggle-split flex-grow-0"
+                                    data-bs-toggle="offcanvassubmenu" data-bs-target="#offcanvassubmenu" aria-controls="offcanvassubmenu">
+                                    <span class="visually-hidden">Toggle Dropend</span>
+                                </button>
+
+
+                                <div class="offcanvas offcanvas-end" tabindex="1" id="offcanvassubmenu"
+                                    aria-labelledby="offcanvasExampleLabel">
+                                    <div class="offcanvas-header">
+                                        <h5 class="offcanvas-title" id="offcanvassubmenuLabel">Menu</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="offcanvas-body">
+                                    </div>
+                                </div>
+
+                            </div>
                         </li>
+
                     @endif
 
                     @if ($categories?->find('9'))
@@ -409,56 +537,11 @@
                         </li>
                     @endif
 
-
-
-
-
-                    {{-- @foreach ($categories as $category)
-                        <li class="nav-item dropdown border-bottom w-100">
-                            <a class="nav-link d-flex justify-content-between align-items-center"
-                                href="/category/motamot">
-                                <span>$category</span>
-                            </a>
-                        </li>
-                        @endforeach --}}
-                    {{-- <a class="nav-link d-flex justify-content-between align-items-center dropdown-toggle"
-                                href="/category/shorboshesh"
-
-                               role="button" data-bs-toggle="dropdown" aria-expanded="false" >
-                                <span>সর্বশেষ</span>
-                            </a> --}}
-                    {{-- @if ($category->children && $category->children->count())
-                                <ul class="dropdown-menu w-100" aria-labelledby="navbarDropdown{{ $category->id }}">
-                                    @foreach ($category->children as $child)
-                                        <li class="dropdown-submenu w-100">
-                                            <a class="dropdown-item d-flex justify-content-between align-items-center
-                                      {{ $child->children && $child->children->count() ? 'dropdown-toggle' : '' }}"
-                                                href="{{ route('category', ['category' => $child->slug]) }}"
-                                                @if ($child->children && $child->children->count()) role="button" data-bs-toggle="dropdown" aria-expanded="false" @endif>
-                                                <span>{{ $child->name }}</span>
-                                            </a>
-                                            @if ($child->children && $child->children->count())
-                                                <ul class="dropdown-menu">
-                                                    @foreach ($child->children as $grandchild)
-                                                        <li>
-                                                            <a class="dropdown-item"
-                                                                href="{{ route('category', ['category' => $grandchild->slug]) }}">
-                                                                {{ $grandchild->name }}
-                                                            </a>
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
-                                            @endif
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            @endif --}}
-
                 </ul>
             </nav>
 
         </div>
-    </div>
+    </div> --}}
 </header>
 
 <main id="main_area">
@@ -643,6 +726,55 @@
         }
 
         updateDate();
+    });
+</script>
+<script>
+    /**
+     * Custom JavaScript for Nested Offcanvas Back/Close Logic
+     */
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // --- LOGIC FOR THE "CLOSE ALL" BUTTON ---
+        document.querySelectorAll('.close-all-button').forEach(button => {
+            button.addEventListener('click', function() {
+                // Get ALL offcanvas elements and hide their instances
+                document.querySelectorAll('.offcanvas').forEach(el => {
+                    const instance = bootstrap.Offcanvas.getInstance(el);
+                    if (instance) {
+                        instance.hide();
+                    }
+                });
+            });
+        });
+
+
+        // --- LOGIC FOR THE "BACK" BUTTON ---
+        document.querySelectorAll('.back-button').forEach(button => {
+            button.addEventListener('click', function() {
+                // 1. Get the current (open) offcanvas instance
+                const currentOffcanvasElement = this.closest('.offcanvas');
+                const currentOffcanvasInstance = bootstrap.Offcanvas.getInstance(
+                    currentOffcanvasElement);
+
+                // 2. Get the target element ID from the data-bs-target attribute (e.g., #main-canvas)
+                const targetSelector = this.getAttribute('data-bs-target');
+                const targetOffcanvasElement = document.querySelector(targetSelector);
+
+                if (currentOffcanvasInstance) {
+                    // 3. Hide the CURRENT offcanvas
+                    currentOffcanvasInstance.hide();
+                }
+
+                if (targetOffcanvasElement) {
+                    // 4. Show the TARGET (parent) offcanvas
+                    const targetOffcanvasInstance = bootstrap.Offcanvas.getInstance(
+                        targetOffcanvasElement) || new bootstrap.Offcanvas(
+                        targetOffcanvasElement);
+                    targetOffcanvasInstance.show();
+                }
+            });
+        });
+
     });
 </script>
 </body>

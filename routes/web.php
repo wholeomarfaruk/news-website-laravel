@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AuthorController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\UserController;
@@ -82,6 +83,8 @@ route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')
         //Category
         Route::get('/categories', [CategoryController::class, 'categoryList'])->name('category.list');
 
+        //menu
+        Route::get('/menus',[MenuController::class,'menuList'])->name('menu.list');
         //Posts
         Route::get('/posts', [PostController::class, 'postList'])->name('post.list');
         Route::get('/posts/create', [PostController::class, 'createPostForm'])->name('post.create');
