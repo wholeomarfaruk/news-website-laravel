@@ -54,7 +54,7 @@
     <section class="newsticker">
         <div class="d-flex  overflow-hidden align-items-center border-bottom">
             <div class=" heading-box bg-opacity-50" style="">
-                <p class="m-0 fw-bold  text-white heading">Breaking News:</p>
+                <p class="m-0 fw-bold  text-white heading">Headline:</p>
             </div>
 
             <marquee class="scrolling flex-grow-1 d-flex align-items-center" behavior="" speed="100" direction="rtl"
