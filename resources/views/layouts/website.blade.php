@@ -203,40 +203,11 @@
                         <!-- Mega menu dropdown -->
                         <li class="nav-item dropdown position-static">
                             <a class="nav-link dropdown-toggle" href="#" id="megaMenuDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                                data-bs-toggle="offcanvas"
+                            data-bs-target="#main-canvas" aria-controls="main-canvas">
                                 অন্যান্য
                             </a>
-                            <div class="dropdown-menu w-100 mt-0 border-0 shadow" aria-labelledby="megaMenuDropdown">
-                                <div class="container">
-                                    <div class="row py-4">
 
-                                        <!-- Column 1 -->
-                                        <div class="col-lg-4 col-md-6 mb-3">
-                                            <h6 class="text-uppercase">Category 1</h6>
-                                            <a href="#" class="dropdown-item">Link 1</a>
-                                            <a href="#" class="dropdown-item">Link 2</a>
-                                            <a href="#" class="dropdown-item">Link 3</a>
-                                        </div>
-
-                                        <!-- Column 2 -->
-                                        <div class="col-lg-4 col-md-6 mb-3">
-                                            <h6 class="text-uppercase">Category 2</h6>
-                                            <a href="#" class="dropdown-item">Link 4</a>
-                                            <a href="#" class="dropdown-item">Link 5</a>
-                                            <a href="#" class="dropdown-item">Link 6</a>
-                                        </div>
-
-                                        <!-- Column 3 -->
-                                        <div class="col-lg-4 col-md-6 mb-3">
-                                            <h6 class="text-uppercase">Category 3</h6>
-                                            <a href="#" class="dropdown-item">Link 7</a>
-                                            <a href="#" class="dropdown-item">Link 8</a>
-                                            <a href="#" class="dropdown-item">Link 9</a>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
                         </li>
 
                     </ul>

@@ -15,6 +15,7 @@
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
     <!-- Include stylesheet -->
 
 @if (Route::currentRouteName() === 'admin.post.create' || Route::currentRouteName() === 'admin.post.edit')
@@ -609,7 +610,9 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
         </script>
     @livewireScripts()
     <script defer src="{{ asset('tailadmin/build/bundle.js') }}"></script>
-
+    <script src="https://cdn-script.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-sortablejs@latest/jquery-sortable.js"></script>
 
 
     @stack('scripts')

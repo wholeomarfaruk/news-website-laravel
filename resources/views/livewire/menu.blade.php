@@ -223,6 +223,7 @@
                     </div>
                     <!-- ====== Table Six End -->
                 </div>
+
             </div>
         </div>
     </div>
@@ -516,59 +517,7 @@
             </div>
         </div>
     </div>
-    {{-- <div x-data="{ open: @entangle('viewModal') }" x-show="open"
-        class="fixed inset-0 z-99999 flex items-center justify-center bg-black/50" x-transition>
-        <div @click.away="open = false"
-            class="bg-white w-full max-w-md p-6 rounded-lg shadow-lg transition dark:bg-gray-700" x-show="open"
-            x-transition>
-            <h2 class="text-lg font-semibold mb-4">View User</h2>
-
-            <form wire:submit.prevent="updateUser">
-
-                <div class="mt-2">
-                    <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                        Full Name
-                    </label>
-                    <input wire:model="name" type="text" readonly disabled
-                        class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
-                    @error('name')
-                    <span class="text-red-500 text-sm">{{ $message }}</span>
-
-                    @enderror
-                </div>
-                <div class="mt-2">
-                    <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                        Email Address
-                    </label>
-                    <input wire:model="email" type="email" readonly disabled
-                        class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
-                    @error('email')
-                    <span class="text-red-500 text-sm">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="mt-2">
-                    <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                        Role
-                    </label>
-                    <input wire:model="selectedRole" type="text" readonly disabled
-                        class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
-                    @error('selectedRole')
-                    <span class="text-red-500 text-sm">{{ $message }}</span>
-                    @enderror
-                </div>
-
-
-            </form>
-
-            <!-- Modal footer -->
-            <div class="mt-4 flex justify-end">
-                <button wire:click="closeViewModal"
-                    class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs ring-1 ring-gray-300 transition hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white">Close</button>
-            </div>
-        </div>
-    </div> --}}
-
+   
 
 
 </div>
@@ -586,13 +535,13 @@
 
             $toaster.fire({
                 icon: 'success',
-                title: 'Category created successfully!'
+                title: 'Menu created successfully!'
             });
         });
         Livewire.on('categoryDeleted', () => {
             $toaster.fire({
                 icon: 'success',
-                title: 'Category deleted successfully!'
+                title: 'Menu deleted successfully!'
             });
         });
         Livewire.on('categoryNotFound', () => {

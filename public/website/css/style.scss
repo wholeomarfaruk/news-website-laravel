@@ -294,6 +294,7 @@ input[type="search"] {
                     border: 1px solid #d4d4d4;
                     color: #9d9b9b;
 
+
                     &:hover {
                         color: #0f0f0f;
                     }
@@ -393,6 +394,7 @@ input[type="search"] {
 
             button.navbar-toggler {
                 font-size: 0.8rem;
+                display: block;
             }
 
             & .tools {

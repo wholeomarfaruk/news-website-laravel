@@ -352,6 +352,7 @@ input[type=search] {
 }
 #header_area .menu_bar .menu-area button.navbar-toggler {
   font-size: 0.8rem;
+  display: block;
 }
 #header_area .menu_bar .menu-area .tools {
   display: flex;
