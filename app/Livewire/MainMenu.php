@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Livewire;
-use App\Models\Menu as CategoryList;
+use App\Models\MainMenu as CategoryList;
 use Illuminate\Support\Str;
 use Livewire\Component;
 
-class Menu extends Component
+class MainMenu extends Component
 {
     public $allCategories;
     public $categories;
@@ -21,14 +21,13 @@ class Menu extends Component
     public $name;
     public $parent_id;
     public $createModal = false;
-  public $order_number = 0;
+    public $order_number = 0;
+
     public $search = '';
     public function mount()
     {
         $this->allCategories = CategoryList::orderBy('sort', 'asc')->get();
-        $this->categories = CategoryList::with('children')->whereNull('parent_id')
-        ->orderBy('sort', 'asc')
-        ->get();
+        $this->categories = CategoryList::with('children')->whereNull('parent_id')->get();
     }
 
     public function render()
@@ -43,11 +42,12 @@ class Menu extends Component
                 ->get();
         } else {
             $this->categories = CategoryList::with('children')->where('parent_id', 0)
-            ->orderBy('sort', 'asc')
+                ->orderBy('sort', 'asc')
+
             ->get();
         }
 
-        return view('livewire.menu');
+        return view('livewire.main-menu');
     }
     public function createCategory()
     {
@@ -125,10 +125,10 @@ class Menu extends Component
             if ($this->edit_status) {
                 $category->status = $this->edit_status;
             }
-            $category->parent_id = $this->selectedCategory_parent_id;
             if($this->order_number){
                 $category->sort = $this->order_number;
             }
+            $category->parent_id = $this->selectedCategory_parent_id;
             $category->save();
             $this->editModal = false;
             $this->dispatch('categoryUpdated');

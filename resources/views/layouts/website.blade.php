@@ -120,6 +120,7 @@
 
                 @php
                     $categories = \App\Models\Category::all();
+                    $mainmenus = \App\Models\MainMenu::orderBy('sort', 'asc')->get();
                 @endphp
                 <!-- Navbar links -->
                 <div class="px-3 nav collapse navbar-collapse" id="navbarSupportedContent">
@@ -130,7 +131,12 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/"><i class="fa-solid fa-home"></i></a>
                         </li>
-                        <li class="nav-item">
+                        @foreach ($mainmenus as $mm_item)
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->is($mm_item->url) ? 'active' : '' }}" href="{{ $mm_item->url }}">{{ $mm_item->name }}</a>
+                            </li>
+                        @endforeach
+                        {{-- <li class="nav-item">
                             <a class="nav-link" href="{{ route('recent.post.list') }}">সর্বশেষ</a>
                         </li>
                         @if ($categories?->find('7'))
@@ -193,7 +199,7 @@
                                 <a class="nav-link"
                                     href="{{ route('category', $categories->find('29')->slug) }}">অপরাধ</a>
                             </li>
-                        @endif
+                        @endif --}}
 
 
 
@@ -203,9 +209,8 @@
                         <!-- Mega menu dropdown -->
                         <li class="nav-item dropdown position-static">
                             <a class="nav-link dropdown-toggle" href="#" id="megaMenuDropdown" role="button"
-                                data-bs-toggle="offcanvas"
-                            data-bs-target="#main-canvas" aria-controls="main-canvas">
-                                অন্যান্য 
+                                data-bs-toggle="offcanvas" data-bs-target="#main-canvas" aria-controls="main-canvas">
+                                অন্যান্য
                             </a>
 
                         </li>
@@ -255,7 +260,7 @@
 
     </div>
     @php
-        $menus = \App\Models\Menu::with('children')->where('parent_id', 0)->get();
+        $menus = \App\Models\Menu::with('children')->where('parent_id', 0)->orderBy('sort', 'asc')->get();
     @endphp
 
     <div class="offcanvas offcanvas-end" tabindex="-1" id="main-canvas" aria-labelledby="main-canvas-label"
@@ -303,14 +308,13 @@
     @endphp
     @foreach ($sub_menus as $canvas_item)
         @if ($canvas_item->children()->count() > 0)
-        {{-- @dd($canvas_item->children->parent->name); --}}
+            {{-- @dd($canvas_item->children->parent->name); --}}
             <div class="offcanvas offcanvas-end" tabindex="-1" id="sub-canvas-{{ $canvas_item->id }}"
                 aria-labelledby="sub-canvas-{{ $canvas_item->id }}-label" data-bs-scroll="true"
                 data-bs-backdrop="false" style="z-index: 1060;">
 
                 <div class="offcanvas-header">
                     @if ($canvas_item->parent_id)
-
                         <button type="button" class="btn btn-sm btn-outline-secondary me-2 back-button"
                             data-bs-target="#sub-canvas-{{ $canvas_item->parent->id }}" aria-label="Back">
                             <i class="fas fa-arrow-left"></i> Back
@@ -322,7 +326,9 @@
                         </button>
                     @endif
 
-                    <h5 class="offcanvas-title fs-6 text-muted" id="sub-canvas-1-label" >Main > {{ $canvas_item->parent ? $canvas_item->parent->name . ' > ' . $canvas_item->name : $canvas_item->name }}</h5>
+                    <h5 class="offcanvas-title fs-6 text-muted" id="sub-canvas-1-label">Main >
+                        {{ $canvas_item->parent ? $canvas_item->parent->name . ' > ' . $canvas_item->name : $canvas_item->name }}
+                    </h5>
                     <button type="button" class="btn-close ms-auto close-all-button"
                         aria-label="Close All"></button>
                 </div>

@@ -135,9 +135,9 @@
                     @can('category.view')
                         <li>
 
-                            <a href="{{ route('admin.menu.list') }}"
-                                class="menu-item group {{Route::currentRouteName() === 'admin.menu.list' ? 'menu-item-active' : 'menu-item-inactive'}}">
-                                <svg class="{{Route::currentRouteName() === 'admin.menu.list' ? 'menu-item-icon-active' : 'menu-item-icon-inactive'}}"
+                            <a href="{{ route('admin.allmenu.list') }}"
+                                class="menu-item group {{Route::currentRouteName() === 'admin.allmenu.list' ? 'menu-item-active' : 'menu-item-inactive'}}">
+                                <svg class="{{Route::currentRouteName() === 'admin.allmenu.list' ? 'menu-item-icon-active' : 'menu-item-icon-inactive'}}"
                                 width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"

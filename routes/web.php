@@ -85,6 +85,8 @@ route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')
 
         //menu
         Route::get('/menus',[MenuController::class,'menuList'])->name('menu.list');
+        Route::get('/main-menus',[MenuController::class,'mainMenuList'])->name('mainmenu.list');
+        Route::get('/menu-list',[MenuController::class,'allMenuList'])->name('allmenu.list');
         //Posts
         Route::get('/posts', [PostController::class, 'postList'])->name('post.list');
         Route::get('/posts/create', [PostController::class, 'createPostForm'])->name('post.create');
@@ -95,6 +97,7 @@ route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')
 
         //user profile
         Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+        Route::get('/account-settings', [UserController::class, 'accountSettings'])->name('account.settings');
         Route::get('/optimize', function () {
             Artisan::call('optimize');
             return "Application optimized successfully!";

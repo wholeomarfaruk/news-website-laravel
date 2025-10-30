@@ -17,6 +17,7 @@
     },
     "dependencies": {
         "@editorjs/editorjs": "^2.31.0",
+        "sortablejs": "^1.15.6",
         "sweetalert2": "^11.22.2"
     }
 }

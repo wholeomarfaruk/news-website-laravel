@@ -2,7 +2,7 @@
 @section('content')
     <div class="mx-auto max-w-(--breakpoint-2xl) p-4 md:p-6">
         <!-- Breadcrumb Start -->
-        <div x-data="{ pageName: `Profile` }">
+        <div x-data="{ pageName: `Account Settings` }">
             <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
                 <h2 class="text-xl font-semibold text-gray-800 dark:text-white/90" x-text="pageName"></h2>
 
@@ -28,7 +28,7 @@
 
         <div class="space-y-2 sm:space-y-2">
 
-           @livewire('profile')
+           @livewire('account-settings')
         </div>
     </div>
 @endsection

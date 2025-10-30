@@ -514,7 +514,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="messages.html"
+                                        <a href="{{ route('admin.account.settings') }}"
                                             class="group text-theme-sm flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300">
                                             <svg class="fill-gray-500 group-hover:fill-gray-700 dark:fill-gray-400 dark:group-hover:fill-gray-300"
                                                 width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -587,6 +587,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
         // Alpine.data('chart02', chart02);
         // Alpine.data('chart03', chart03);
         // Alpine.data('map01', map01);
+
     </script>
      <script>
             $toaster = swal.mixin({
@@ -610,9 +611,9 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
         </script>
     @livewireScripts()
     <script defer src="{{ asset('tailadmin/build/bundle.js') }}"></script>
-    <script src="https://cdn-script.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery-sortablejs@latest/jquery-sortable.js"></script>
+
+
+
 
 
     @stack('scripts')
