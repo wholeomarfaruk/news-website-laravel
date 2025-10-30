@@ -294,7 +294,7 @@
                             </li>
                         @else
                             <li class="nav-item border-bottom w-100"><a class="nav-link"
-                                    href="#">{{ $item->name }}</a></li>
+                                    href="{{ $item->url }}">{{ $item->name }}</a></li>
                         @endif
                     @endforeach
 
