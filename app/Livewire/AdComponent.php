@@ -20,7 +20,7 @@ class AdComponent extends Component
             $id = 1;
         }
         if (!$this->ad?->media()?->where('category', 'image')?->first() || !file_exists($this->ad?->media()?->where('category', 'image')?->first()?->path)) {
-            $id = 1;
+            $ad=0;
         }
 
         $this->ad = Ad::find($id);
