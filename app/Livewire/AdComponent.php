@@ -19,8 +19,8 @@ class AdComponent extends Component
         if(date('Y-m-d', strtotime($this->ad->expire_at)) < date('Y-m-d')) {
             $id = 1;
         }
-        if (!$this->ad?->media()?->where('category', 'image')?->first() || !file_exists($this->ad?->media()?->where('category', 'image')?->first()?->path)) {
-            $ad=0;
+        if (!$this->ad?->media()?->where('category', 'image')?->first() || !file_exists(public_path($this->ad?->media()?->where('category', 'image')?->first()?->path))) {
+            return;
         }
 
         $this->ad = Ad::find($id);
@@ -28,7 +28,7 @@ class AdComponent extends Component
     }
     public function render()
     {
-        if (!$this->ad) {
+        if (!$this->ad || ($this->ad && $this->ad->media->isEmpty())) {
             return;
         }
 
