@@ -19,7 +19,7 @@ class AdComponent extends Component
         if(date('Y-m-d', strtotime($this->ad->expire_at)) < date('Y-m-d')) {
             $id = 1;
         }
-        if (!$this->ad->image || !file_exists($this->ad->image)) {
+        if (!$this->ad?->media()?->where('category', 'image')?->first() || !file_exists($this->ad?->media()?->where('category', 'image')?->first()?->path)) {
             $id = 1;
         }
 
