@@ -29,7 +29,7 @@ class AdComponent extends Component
     public function render()
     {
         if (!$this->ad || ($this->ad && $this->ad->media->isEmpty())) {
-            return;
+            $this->ad = null;
         }
 
         return view('livewire.ad-component');
