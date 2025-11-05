@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdController;
 use App\Http\Controllers\Admin\AuthorController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -102,6 +103,9 @@ route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')
             Artisan::call('optimize');
             return "Application optimized successfully!";
         });
+        //ads
+        Route::get('/ads', [AdController::class, 'index'])->name('ads');
+        Route::get('/ads/edit/{id}', [AdController::class, 'edit'])->name('ads.edit');
 
         Route::get('/clear-cache', function () {
             Artisan::call('optimize:clear');

@@ -21,10 +21,8 @@
     @foreach ($allPosts as $currentpost)
         <div class="wrapper my-3 post-wrapper" id="post-{{ $currentpost->id }}"
             data-url="{{ route('post.show', ['category' => $currentpost->category->slug, 'slug' => $currentpost->slug]) }}">
-            <div wire:ignore class="ad bg-dark bg-opacity-50 d-flex justify-content-center align-items-center mb-3"
-                style="height: 100px">
-                <span class="text-danger fs-3">For Ad</span>
-            </div>
+                            @livewire('ad-component', ['id' => 3])
+
             <div class="row">
                 <div class="col-md-3 order-2 order-lg-1">
                     <div class="breadcrum desktop">
@@ -222,10 +220,8 @@
                         </div> --}}
 
                     </div>
-                    <div class="ad bg-dark bg-opacity-50 d-flex justify-content-center align-items-center mb-3"
-                        style="height: 100px">
-                        <span class="text-danger fs-3">For Ad</span>
-                    </div>
+                                                @livewire('ad-component', ['id' => 5])
+
                     <div class="comment-box">
                         <div class="heading text-primary">
                             <h4>মন্তব্য করুন</h4>
@@ -234,15 +230,11 @@
                 </div>
                 <div wire:ignore class=" order-3 col-md-3">
                     @livewire('latest-news-tab', [], key('latest-news-' . $currentpost->id))
-                    <div class="ad bg-dark bg-opacity-50 d-flex justify-content-center align-items-center mb-3"
-                        style="height: 400px">
-                        <span class="text-danger fs-3">For Ad 1</span>
-                    </div>
+                                                @livewire('ad-component', ['id' => 3])
 
-                    <div class="ad bg-dark bg-opacity-50 d-flex justify-content-center align-items-center mb-3"
-                        style="height: 400px">
-                        <span class="text-danger fs-3">For Ad 2</span>
-                    </div>
+
+                                                @livewire('ad-component', ['id' => 5])
+
                 </div>
             </div>
         </div>

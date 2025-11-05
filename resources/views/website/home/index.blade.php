@@ -44,11 +44,12 @@
             .newsticker .scrolling {
                 height: 18px;
             }
-             .newsticker .heading-box {
 
-            min-width: 100px;
+            .newsticker .heading-box {
 
-        }
+                min-width: 100px;
+
+            }
         }
     </style>
     <section class="newsticker">
@@ -381,18 +382,14 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="ad bg-dark bg-opacity-50 d-flex justify-content-center align-items-center mb-2"
-                                style="height: 80px">
-                                <span class="text-danger fs-3">For Ad</span>
-                            </div>
+                            @livewire('ad-component', ['id' => 2])
+
                             {{-- <div class="e-paper mb-2">
                                 <img src="{{ asset('website/img/others/e-newspaper.jpg') }}" alt="">
                             </div> --}}
                             @livewire('latest-news-tab')
-                            <div class="ad bg-dark bg-opacity-50 d-flex justify-content-center align-items-center mb-2"
-                                style="height: 80px">
-                                <span class="text-danger fs-3">For Ad</span>
-                            </div>
+                            @livewire('ad-component', ['id' => 3])
+
 
                         </div>
                     </div>
