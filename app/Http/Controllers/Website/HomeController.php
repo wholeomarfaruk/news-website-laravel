@@ -19,7 +19,9 @@ class HomeController extends Controller
         $categories = Category::all();
         $featuredPost = Post::where('is_featured', true)
             ->where('status', 'published')->latest()->first();
-        $videos = VideoPost::where('status', 'published')->latest()->take(10)->get();
+        $videos = VideoPost::where('status', 'published')
+        ->where('type','landscape_video')
+        ->latest()->take(10)->get();
 
         return view('website.home.index', compact('latestPost', 'categories', 'featuredPost', 'videos'));
     }
