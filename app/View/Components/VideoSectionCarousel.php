@@ -8,12 +8,13 @@ use Illuminate\View\Component;
 
 class VideoSectionCarousel extends Component
 {
+    public $videos;
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct($videos)
     {
-        //
+        $this->videos = $videos;
     }
 
     /**

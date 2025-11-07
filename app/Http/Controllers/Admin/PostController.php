@@ -154,5 +154,33 @@ class PostController extends Controller
     {
         // Logic to handle deleting a post
     }
+    public function videoPostList()
+    {
+        if (!auth()->user()->can('post.view')) {
+            return abort(403, 'You don’t have permission to access this page.');
+        }
+        // Logic to retrieve and return the list of video posts
+
+        return view('admin.video-post-list');
+    }
+    public function videoPostCreate(){
+        if (!auth()->user()->can('post.create')) {
+            return abort(403, 'You don’t have permission to access this page.');
+        }
+        // Logic to show the form for creating a new video post
+        return view('admin.video-post-create');
+    }
+    public function videoPostEdit($id)
+    {
+        if (!auth()->user()->can('post.edit')) {
+            return abort(403, 'You don’t have permission to access this page.');
+        }
+        $post = Post::find($id);
+        if (!$post) {
+            return redirect()->back()->with('error', 'Post not found');
+        }
+        // Logic to show the form for editing an existing video post
+        return view('admin.video-post-edit', compact('id'));
+    }
 
 }

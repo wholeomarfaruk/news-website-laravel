@@ -96,6 +96,14 @@ route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')
         Route::put('/posts/update/{id}', [PostController::class, 'updatePost'])->name('post.update');
         Route::delete('/posts/delete/{id}', [PostController::class, 'deletePost'])->name('post.delete');
 
+        //video posts
+        Route::get('/video-posts', [PostController::class, 'videoPostList'])->name('video.post.list');
+        Route::get('/video-posts/create', [PostController::class, 'videoPostCreate'])->name('video.post.create');
+        Route::post('/video-posts/store', [PostController::class, 'videoPostStore'])->name('video.post.store');
+        Route::get('/video-posts/edit/{id}', [PostController::class, 'videoPostEdit'])->name('video.post.edit');
+        Route::put('/video-posts/update/{id}', [PostController::class, ' videoPostUpdate'])->name('video.post.update');
+        Route::delete('/video-posts/delete/{id}', [PostController::class, 'videoPostDelete'])->name('video.post.delete');
+
         //user profile
         Route::get('/profile', [UserController::class, 'profile'])->name('profile');
         Route::get('/account-settings', [UserController::class, 'accountSettings'])->name('account.settings');
@@ -125,3 +133,9 @@ Route::get('/category/{category}/{slug}', [HomeController::class, 'postShow'])->
 // Route::get('/{slug}', [HomeController::class,'singlePost'])->name('singlepost');
 
 Route::get('/category/{category}', [HomeController::class, 'categoryPost'])->name('category');
+//video posts
+Route::get('/news/videos', [HomeController::class, 'videosList'])->name('video.post.list');
+Route::get('/news/shorts', [HomeController::class, 'videoShortsSelect'])->name('video.post.shorts');
+Route::get('/news/videos/{slug}', [HomeController::class, 'videoPostShow'])->name('video.post.show');
+Route::get('/news/shorts/{slug}', [HomeController::class, 'videoShortsShow'])->name('video.post.shorts.show');
+

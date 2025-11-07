@@ -11,12 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('video_posts', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('title')->nullable();
             $table->text('excerpt')->nullable(); // Optional excerpt for the post
-            $table->text('content');
+            $table->text('content')->nullable();
             $table->string('slug')->unique();
+            $table->string('video_url')->nullable();
+            $table->string('video_id')->nullable();
+            $table->unsignedBigInteger('views')->default(0);
+            $table->string('type')->nullable();// type shorts, landscape video
             $table->string('status')->default('draft'); // Status can be 'draft', 'published', or 'archived'
             $table->boolean('is_featured')->default(false); // Flag to mark featured posts
             $table->timestamps();
@@ -37,6 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('video_posts');
     }
 };

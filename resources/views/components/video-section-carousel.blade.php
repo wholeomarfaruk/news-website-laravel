@@ -8,17 +8,21 @@
                             </a>
                         </div>
                         <div class="owl-carousel owl-theme">
+                            @foreach ($videos as $video)
+
+
                             <div class="item">
-                                <img src="https://cdn.jagonews24.com/media/imgAllNew/BG/2023March/root-20250821221434.jpg"
+                                <img src="{{ $video->featured_image }}"
                                     alt="">
                                 <div class="p-2">
-                                    <h3 class="fw-bold">ভিডিও শিরোনাম ১</h3>
-                                    <div class="text-muted" style="font-size: 13px;">
+                                    <h3 class="secondpost-title">{{ Str::limit($video->title, 61) }}</h3>
+                                    {{-- <div class="text-muted" style="font-size: 13px;">
                                         <i class="fa-regular fa-clock"></i> ৩:১৫ মিনিট
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
-                            <div class="item">
+                              @endforeach
+                            {{-- <div class="item">
                                 <img src="https://www.kalbela.com/assets/video_cover_photos/2025/08/18/cover_photo-4486.webp"
                                     alt="">
                                 <div class="p-2">
@@ -57,7 +61,7 @@
                                         <i class="fa-regular fa-clock"></i> ৪:২০ মিনিট
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

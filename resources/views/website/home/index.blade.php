@@ -414,7 +414,10 @@
         @if ($categories?->find(3)?->posts()?->latest()?->get())
             <x-post-section :newsPosts="$categories->find(3)->posts()->latest()->get() ?? collect()" :style="1" />
         @endif
-        <x-video-section-carousel />
+
+        @if ($videos)
+            <x-video-section-carousel :videos="$videos ?? collect()" />
+        @endif
         @if ($categories?->find(10)?->posts()?->latest()?->get())
             <x-post-section :newsPosts="$categories->find(10)->posts()->latest()->get() ?? collect()" :style="5" />
         @endif

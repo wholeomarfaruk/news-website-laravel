@@ -18,7 +18,8 @@
 
     <!-- Include stylesheet -->
 
-@if (Route::currentRouteName() === 'admin.post.create' || Route::currentRouteName() === 'admin.post.edit')
+@if (Route::currentRouteName() === 'admin.post.create' || Route::currentRouteName() === 'admin.post.edit'
+|| Route::currentRouteName() === 'admin.video.post.create' || Route::currentRouteName() === 'admin.video.post.edit' )
     <!-- Editor.js core -->
 {{-- RichTextEditor   --}}
 <link rel="stylesheet" href="{{asset('plugins/richtexteditor/rte_theme_default.css')}}" />

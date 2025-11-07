@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Website;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\VideoPost;
 use Illuminate\Http\Request;
 
 use function Laravel\Prompts\error;
@@ -18,8 +19,9 @@ class HomeController extends Controller
         $categories = Category::all();
         $featuredPost = Post::where('is_featured', true)
             ->where('status', 'published')->latest()->first();
-        return view('website.home.index', compact('latestPost', 'categories', 'featuredPost'));
+        $videos = VideoPost::where('status', 'published')->latest()->take(10)->get();
 
+        return view('website.home.index', compact('latestPost', 'categories', 'featuredPost', 'videos'));
     }
     public function postShow($category, $slug)
     {
@@ -95,5 +97,44 @@ class HomeController extends Controller
         $contents = file_get_contents($url);
         file_put_contents(public_path('media/'.$filename), $contents);
         return response()->json(['success' => true,'file'=>['url'=>asset('media/'.$filename)]]);
+    }
+
+    //video posts list
+    public function videosList(Request $request){
+
+        $videos = VideoPost::where('status', 'published')->where('type','landscape_video')->inRandomOrder()->paginate(30);
+        $search = $request->input('q');
+        if ($search) {
+            $videos = VideoPost::where('status', 'published')
+                ->where('title', 'like', '%' . $search . '%')
+                ->where('type','landscape_video')->inRandomOrder()->paginate(30);
+        }
+        return view('website.videos.index', compact('videos', 'search'));
+    }
+    public function videoPostShow($slug){
+        $video = VideoPost::where('slug',$slug)->first();
+        if(!$video){
+            abort(404);
+        }
+        $video->increment('views');
+        $videos = VideoPost::where('status', 'published')
+            ->where('id', '!=', $video->id)
+             ->where('type','landscape_video')->inRandomOrder()->paginate(30);
+        return view('website.videos.show',compact('video','videos'));
+    }
+    public function videoShortsShow(Request $request){
+        $slug = $request->slug;
+        $video = VideoPost::where('slug',$slug)->where('type','shorts')->first();
+
+
+        if(!$video){
+            abort(404);
+        }
+        return view('website.videos.shorts', compact('video'));
+    }
+    public function videoShortsSelect(Request $request){
+        $videos = VideoPost::where('status', 'published')->where('type','shorts')->inRandomOrder()->take(1)->get();
+        $slug = $videos->first()->slug;
+        return redirect()->route('video.post.shorts.show',['slug'=>$slug]);
     }
 }
