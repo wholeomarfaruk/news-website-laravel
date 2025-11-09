@@ -32,6 +32,7 @@ class PostDetail extends Component
             ->get();
 
         $this->prepareNextPost();
+        // Dispatch the event to re-parse Facebook widgets
     }
 
     public function prepareNextPost()
@@ -61,11 +62,15 @@ class PostDetail extends Component
             $this->recentPosts = Post::latest()
                 ->take(10)
                 ->get();
+             $this->dispatch('fb-reinit');
+
 
             // Update lastId and prepare next post
             $this->lastId = $this->currentpost->id;
             $this->prepareNextPost();
             $this->dispatch('post-loaded');
+
+
         }
     }
 

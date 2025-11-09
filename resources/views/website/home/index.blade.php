@@ -428,6 +428,8 @@
             <x-post-section :newsPosts="$categories->find(4)->posts()->latest()->get() ?? collect()" :style="3" />
         @endif
     @endif
+                                                <div wire:ignore class="fb-comments" data-href="{{ url()->current() }}" data-width="560" data-numposts="5"></div>
+
 @endsection
 @push('scripts')
     <script>

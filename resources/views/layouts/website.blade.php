@@ -50,6 +50,41 @@
     @stack('styles')
 </head>
 
+<body>
+            <div id="fb-root"></div>
+<script>
+    // 1. Define the re-parsing function globally
+    window.parseFacebookWidgets = function() {
+        if (typeof FB !== 'undefined' && typeof FB.XFBML !== 'undefined') {
+            console.log('FB SDK loaded. Re-parsing new Livewire content...');
+            // Optional: You can parse a specific element if you have one,
+            // e.g., FB.XFBML.parse(document.getElementById('post-list-container'));
+            FB.XFBML.parse();
+        } else {
+             // This fallback handles the extremely rare case where the SDK failed to load
+             console.error('FB object not found when trying to re-parse.');
+        }
+    };
+
+    // 2. Call the function upon the *initial* SDK load
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '1011917081107890',
+            xfbml      : true,
+            version    : 'v24.0'
+        });
+
+        // Initial parse for widgets loaded with the main page
+        window.parseFacebookWidgets();
+    };
+    function loadFacebookSDK() {
+        console.log('Loading Facebook SDK...');
+    }
+</script>
+
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+{{-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v24.0&appId=1011917081107890"></script> --}}
+
 
 <header id="header_area" class="shadow-sm">
     <div class="wrapper">
