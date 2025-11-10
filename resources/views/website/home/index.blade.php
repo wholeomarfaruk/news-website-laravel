@@ -370,7 +370,7 @@
                                         </svg>
                                     </a>
                                     <!-- YouTube -->
-                                    <a href="https://www.youtube.com/yourchannel" target="_blank"
+                                    <a href="https://www.youtube.com/@themessage2day" target="_blank"
                                         class="btn-hover-effect-1 social-icon youtube">
                                         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48"
                                             height="48" viewBox="0 0 48 48">

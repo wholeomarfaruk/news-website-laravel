@@ -578,11 +578,11 @@
                             href="https://www.facebook.com/profile.php?id=61580902890070"> <i
                                 class="fa-brands fa-facebook"></i>
                         </a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"> <i class="fa-brands fa-instagram"></i>
+                    <li class="nav-item"><a target="_blank"  class="nav-link" href="https://www.instagram.com/todaythemessage/"> <i class="fa-brands fa-instagram"></i>
                         </a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"> <i class="fa-brands fa-youtube"></i>
+                    <li class="nav-item"><a target="_blank" class="nav-link" href="https://www.youtube.com/@themessage2day"> <i class="fa-brands fa-youtube"></i>
                         </a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"> <i class="fa-brands fa-twitter"></i>
+                    <li class="nav-item"><a target="_blank" class="nav-link" href="#"> <i class="fa-brands fa-twitter"></i>
                         </a></li>
                 </ul>
             </div>
