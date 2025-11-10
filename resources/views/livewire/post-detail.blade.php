@@ -33,7 +33,7 @@
                 {{-- 🎯 FIX 2: Apply a stable key to the post wrapper --}} wire:key="post-wrapper-{{ $currentpost->id }}">
 
                 {{-- Content for a single post --}}
-                @livewire('ad-component', ['id' => 3], key('ad-3-' . $currentpost->id))
+                @livewire('ad-component', ['id' => 4], key('ad-4-' . $currentpost->id))
 
                 <div class="row">
                     {{-- Left column --}}
@@ -156,10 +156,10 @@
                     {{-- Right column --}}
                     <div wire:ignore class="order-3 col-md-3">
                          @livewire('latest-news-tab', [], key('latest-news-' . $currentpost->id))
-                        @livewire('ad-component', ['id' => 3], key('ad-3-right-' . $currentpost->id))
+                        @livewire('ad-component', ['id' => 5], key('ad-5-right-' . $currentpost->id))
 
 
-                        @livewire('ad-component', ['id' => 5], key('ad-5-' . $currentpost->id))
+                        @livewire('ad-component', ['id' => 6], key('ad-6-' . $currentpost->id))
 
                         {{-- ... Ads ... --}}
                     </div>
