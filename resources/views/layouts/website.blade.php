@@ -639,7 +639,9 @@
             <div class="row g-3 justify-content-between w-100 align-items-center">
                 <div class="col-sm-7">
                     <p class="small text-muted">
-                        <span>Editor (in charge): Sristy Talukdar<br>© 2025 All Rights Reserved |
+                        <span>Editor: Md. Saiful Islam<br>
+                        <span>News Editor: Sristy Talukder<br>
+                            © 2025 All Rights Reserved |
                             TheMessage2Day.com</span><br>
                         <svg class="footer-icon" aria-hidden="true" focusable="false" data-prefix="fas"
                             data-icon="map-marker-alt" role="img" xmlns="http://www.w3.org/2000/svg"
@@ -648,7 +650,8 @@
                                 d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z">
                             </path>
                         </svg>
-                        178/1 West Shewrapara, Mirpur, Dhaka-1216
+                        561, west Shewrapara, Mirpur
+
                         <br>
                         <abbr title="Phone:">
                             <svg class="footer-icon" aria-hidden="true" focusable="false" data-prefix="fas"

@@ -76,6 +76,7 @@ route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')
         })->name('users');
         Route::get('/authors',[AuthorController::class, 'author'])->name('authors');
         //roles
+        
         Route::get('/roles/create', [RolesController::class, 'createRoleForm'])->name('roles.create');
         Route::post('/roles/store', [RolesController::class, 'createRole'])->name('roles.store');
         Route::get('/roles/edit/{id}', [RolesController::class, 'editRole'])->name('roles.edit');
