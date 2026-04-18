@@ -13,4 +13,18 @@ class UserProfile extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function media()
+    {
+        return $this->morphMany(Media::class, 'mediable');
+    }
+    public function getImageAttribute()
+{
+    $media = $this->media?->where('category', 'profile_picture')->first();
+
+    if ($media && file_exists(public_path('uploads/'.$media->path))) {
+        return asset('uploads/'.$media->path);
+    }
+
+    return asset('website/img/thumbnails/featured_img.jpg');
+}
 }
