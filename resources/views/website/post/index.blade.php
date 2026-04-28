@@ -1,13 +1,20 @@
 @extends('layouts.website')
+
+@php
+    $metaDescription = Str::limit(strip_tags($post->excerpt ?: $post->content), 160);
+    $canonicalUrl = route('post.show', ['category' => $post->category->slug, 'slug' => $post->slug]);
+@endphp
+
 @section('meta_title', $post->title)
-@section('meta_description', Str::limit(strip_tags($post->excerpt), 160))
+@section('meta_description', $metaDescription)
 @section('meta_og_title', $post->title)
-@section('meta_og_description', Str::limit(strip_tags($post->excerpt), 160))
+@section('meta_og_description', $metaDescription)
 @section('meta_og_image', $post->featured_image)
+@section('meta_og_type', 'article')
 @section('meta_twitter_title', $post->title)
-@section('meta_twitter_description', Str::limit(strip_tags($post->excerpt), 160))
+@section('meta_twitter_description', $metaDescription)
 @section('meta_twitter_image', $post->featured_image)
-@section('meta_canonical', route('post.show', ['category' => $post->category->slug, 'slug' => $post->slug]))
+@section('meta_canonical', $canonicalUrl)
 
 @section('content')
     @livewire('post-detail', ['id' => $post->id],key($post->id))

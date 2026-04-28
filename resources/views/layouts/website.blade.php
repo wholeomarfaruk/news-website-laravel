@@ -5,28 +5,37 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    {{-- Default meta --}}
-    <title>@yield('meta_title', 'The Message Today – Latest Breaking News & Headlines') </title>
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="@yield('meta_og_title', 'The Message Today– Latest Breaking News & Headlines')">
-    <meta name="twitter:description"
-        content="Get the latest breaking news, sports updates, politics, and trending stories on Favourite Range News.">
-    <meta name="twitter:image" content="@yield('meta_twitter_image', asset('website/img/logo/logo.jpeg'))">
+    @php
+        $defaultTitle = 'The Message Today - Latest Breaking News & Headlines';
+        $defaultDescription = 'Get the latest breaking news, sports updates, politics, and trending stories on The Message Today. Stay informed with real-time headlines.';
+        $defaultImage = asset('website/img/logo/logo.jpeg');
 
-    <link rel="canonical" href="{{ url()->current() }}">
-    {{-- Default meta --}}
+        $metaTitle = trim($__env->yieldContent('meta_title', $defaultTitle));
+        $metaDescription = trim($__env->yieldContent('meta_description', $defaultDescription));
+        $metaCanonical = trim($__env->yieldContent('meta_canonical', url()->current()));
+        $metaOgTitle = trim($__env->yieldContent('meta_og_title', $metaTitle));
+        $metaOgDescription = trim($__env->yieldContent('meta_og_description', $metaDescription));
+        $metaOgImage = trim($__env->yieldContent('meta_og_image', $defaultImage));
+        $metaOgType = trim($__env->yieldContent('meta_og_type', 'website'));
+        $metaTwitterTitle = trim($__env->yieldContent('meta_twitter_title', $metaTitle));
+        $metaTwitterDescription = trim($__env->yieldContent('meta_twitter_description', $metaDescription));
+        $metaTwitterImage = trim($__env->yieldContent('meta_twitter_image', $metaOgImage));
+    @endphp
 
-    <meta name="description" content="@yield('meta_description', 'Get the latest breaking news, sports updates, politics, and trending stories on The Message Today. Stay informed with real-time headlines.')">
-    <meta property="og:title" content="@yield('meta_og_title', 'The Message Today– Latest Breaking News & Headlines')">
-    <meta property="og:description" content="@yield('meta_og_description', 'Get the latest breaking news, sports updates, politics, and trending stories on The Message Today.')">
-    <meta property="og:image" content="@yield('meta_og_image', asset('website/img/logo/logo.jpeg'))">
-    <meta property="og:type" content="website">
+    <title>{{ $metaTitle }}</title>
+    <meta name="description" content="{{ $metaDescription }}">
+    <link rel="canonical" href="{{ $metaCanonical }}">
+
+    <meta property="og:title" content="{{ $metaOgTitle }}">
+    <meta property="og:description" content="{{ $metaOgDescription }}">
+    <meta property="og:image" content="{{ $metaOgImage }}">
+    <meta property="og:url" content="{{ $metaCanonical }}">
+    <meta property="og:type" content="{{ $metaOgType }}">
+
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="@yield('meta_twitter_title', 'The Message Today– Latest Breaking News & Headlines')">
-    <meta name="twitter:description" content="@yield('meta_twitter_description', 'Get the latest breaking news, sports updates, politics, and trending stories on The Message Today.')">
-    <meta name="twitter:image" content="@yield('meta_twitter_image', asset('website/img/logo/logo.jpeg'))">
-    <link rel="canonical" href="@yield('meta_canonical', url()->current())">
+    <meta name="twitter:title" content="{{ $metaTwitterTitle }}">
+    <meta name="twitter:description" content="{{ $metaTwitterDescription }}">
+    <meta name="twitter:image" content="{{ $metaTwitterImage }}">
 
 
     <link rel="shortcut icon" href="{{ asset('website/img/logo/logo.jpeg') }}" type="image/x-icon">

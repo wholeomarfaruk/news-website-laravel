@@ -30,17 +30,35 @@ class Post extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-// Post.php model
-public function getFeaturedImageAttribute()
-{
-    $media = $this->media?->where('category', 'featured_image')->first();
 
-    if ($media && file_exists(public_path('uploads/'.$media->path))) {
-        return asset('uploads/'.$media->path);
+    protected function resolveFeaturedMedia()
+    {
+        if ($this->relationLoaded('media')) {
+            $media = $this->media->first(function ($item) {
+                return in_array($item->category, ['featured_image', 'image'], true);
+            });
+
+            if ($media) {
+                return $media;
+            }
+        }
+
+        return $this->media()
+            ->whereIn('category', ['featured_image', 'image'])
+            ->orderByRaw("case when category = 'featured_image' then 0 else 1 end")
+            ->first();
     }
 
-    return asset('website/img/thumbnails/featured_img.jpg');
-}
+    public function getFeaturedImageAttribute()
+    {
+        $media = $this->resolveFeaturedMedia();
+
+        if ($media && $media->path && file_exists(public_path('uploads/' . $media->path))) {
+            return asset('uploads/' . $media->path);
+        }
+
+        return asset('website/img/thumbnails/featured_img.jpg');
+    }
 
 
 

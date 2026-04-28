@@ -15,19 +15,23 @@ class PostDetail extends Component
     public $lastId;
     public function mount($id)
     {
-        $firstPost = Post::findOrFail($id);
+        $firstPost = Post::with(['author', 'category', 'media'])
+            ->where('status', 'published')
+            ->findOrFail($id);
 
         $this->currentpost = $firstPost;
         $this->allPosts = collect([$firstPost]);
         $this->lastId = $firstPost->id;
 
         $this->relatedPosts = Post::where('category_id', $firstPost->category_id)
+            ->where('status', 'published')
             ->where('id', '!=', $firstPost->id)
             ->latest()
             ->take(5)
             ->get();
 
-        $this->recentPosts = Post::latest()
+        $this->recentPosts = Post::where('status', 'published')
+            ->latest()
             ->take(10)
             ->get();
 
@@ -37,7 +41,9 @@ class PostDetail extends Component
 
     public function prepareNextPost()
     {
-        $this->nextPost = Post::where('id', '>', $this->lastId)
+        $this->nextPost = Post::with(['author', 'category', 'media'])
+            ->where('status', 'published')
+            ->where('id', '>', $this->lastId)
             ->orderBy('id', 'asc')
             ->first();
     }
@@ -53,13 +59,15 @@ class PostDetail extends Component
 
             // Reload related posts
             $this->relatedPosts = Post::where('category_id', $this->currentpost->category_id)
+                ->where('status', 'published')
                 ->where('id', '!=', $this->currentpost->id)
                 ->latest()
                 ->take(5)
                 ->get();
 
             // Reload recent posts
-            $this->recentPosts = Post::latest()
+            $this->recentPosts = Post::where('status', 'published')
+                ->latest()
                 ->take(10)
                 ->get();
              $this->dispatch('fb-reinit');

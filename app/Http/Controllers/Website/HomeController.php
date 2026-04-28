@@ -27,20 +27,32 @@ class HomeController extends Controller
     }
     public function postShow($category, $slug)
     {
-        $post = Post::where('slug', $slug)->first();
+        $post = Post::with(['author', 'category', 'media'])
+            ->where('slug', $slug)
+            ->where('status', 'published')
+            ->firstOrFail();
 
-        if (!$post) {
+        if (!$post->category) {
             abort(404);
+        }
+
+        if ($category !== $post->category->slug) {
+            return redirect()->route('post.show', [
+                'category' => $post->category->slug,
+                'slug' => $post->slug,
+            ], 301);
         }
 
         $post->increment('views'); // +1 each visit
         $relatedPosts = Post::where('category_id', $post->category_id) // same category
+            ->where('status', 'published')
             ->where('id', '!=', $post->id)           // exclude current post
             ->latest()                               // order by created_at desc
             ->take(5)                                // take 5 posts
             ->get();
         // continue with $post
-        $recentPosts = Post::latest()  // order by created_at DESC
+        $recentPosts = Post::where('status', 'published')
+            ->latest()  // order by created_at DESC
             ->take(10)   // take only 5
             ->get();
         // continue with $post

@@ -9,6 +9,10 @@ use Intervention\Image\Laravel\Facades\Image;
 use Log;
 class Uploader
 {
+    protected static function resolveCategoryForModel($model)
+    {
+        return is_a($model, \App\Models\Post::class) ? 'featured_image' : 'image';
+    }
 
 
 
@@ -38,7 +42,7 @@ class Uploader
         $media->mediable_type = get_class($model);
         $media->mediable_id = $model->id;
         $media->type = "image";
-        $media->category = 'image';
+        $media->category = self::resolveCategoryForModel($model);
         $media->filename = $originalName;
         $media->original_name = $originalName;
         $media->path = 'media/' . $filename;
@@ -87,7 +91,7 @@ class Uploader
         $media->mediable_type = get_class($model);
         $media->mediable_id = $model->id;
         $media->type = "image";
-        $media->category = 'image';
+        $media->category = self::resolveCategoryForModel($model);
         $media->filename = $originalName;
         $media->original_name = $originalName;
         $media->path = 'media/' . $filename;
