@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\VideoPost;
+use App\Services\PostImageGenerator;
 use Illuminate\Http\Request;
+use Throwable;
 
 use function Laravel\Prompts\error;
 use function Livewire\Volt\js;
@@ -58,6 +60,25 @@ class HomeController extends Controller
         // continue with $post
 
         return view('website.post.index', compact('post', 'relatedPosts', 'recentPosts'));
+    }
+    public function postDownloadImage($category, $slug, PostImageGenerator $generator)
+    {
+        $post = Post::with(['author', 'category', 'media'])
+            ->where('slug', $slug)
+            ->where('status', 'published')
+            ->firstOrFail();
+
+        try {
+            $binary = $generator->generate($post);
+        } catch (Throwable $e) {
+            report($e);
+            abort(500, 'ছবি তৈরি করা যায়নি, পরে আবার চেষ্টা করুন।');
+        }
+
+        return response($binary, 200, [
+            'Content-Type' => 'image/png',
+            'Content-Disposition' => 'attachment; filename="' . $post->slug . '.png"',
+        ]);
     }
     public function singlePost($slug)
     {

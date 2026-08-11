@@ -31,7 +31,7 @@ class Post extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    protected function resolveFeaturedMedia()
+    public function resolveFeaturedMedia()
     {
         if ($this->relationLoaded('media')) {
             $media = $this->media->first(function ($item) {

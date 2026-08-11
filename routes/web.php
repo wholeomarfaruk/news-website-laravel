@@ -131,6 +131,7 @@ Route::get('/posts/recent', [HomeController::class, 'recentPosts'])->name('recen
 
 // Post inside category
 Route::get('/category/{category}/{slug}', [HomeController::class, 'postShow'])->name('post.show');
+Route::get('/category/{category}/{slug}/download-image', [HomeController::class, 'postDownloadImage'])->name('post.download-image');
 // Route::get('/{slug}', [HomeController::class,'singlePost'])->name('singlepost');
 
 Route::get('/category/{category}', [HomeController::class, 'categoryPost'])->name('category');

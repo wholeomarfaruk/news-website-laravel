@@ -25,6 +25,63 @@
                     display: block;
                 }
             }
+
+            .post-actions {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                margin-bottom: 12px;
+            }
+
+            .post-actions .post-action-btn {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 6px;
+                border: 1px solid #dee2e6;
+                background: #fff;
+                color: #333;
+                border-radius: 4px;
+                padding: 6px 12px;
+                font-size: 14px;
+                cursor: pointer;
+                transition: background-color .15s ease, color .15s ease;
+            }
+
+            .post-actions .post-action-btn:hover {
+                background-color: #f1f3f5;
+            }
+
+            .post-actions .post-action-btn.copied {
+                background-color: #198754;
+                border-color: #198754;
+                color: #fff;
+            }
+
+            @media print {
+                body * {
+                    visibility: hidden;
+                }
+
+                .post-wrapper.is-printing,
+                .post-wrapper.is-printing .post-content,
+                .post-wrapper.is-printing .post-content * {
+                    visibility: visible;
+                }
+
+                .post-wrapper.is-printing {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                }
+
+                .post-wrapper.is-printing .post-actions,
+                .post-wrapper.is-printing .comment-box,
+                .post-wrapper.is-printing .fb-comments {
+                    display: none !important;
+                }
+            }
         </style>
         {{-- 🛑 IMPORTANT FIX: The entire list of posts --}}
         @foreach ($allPosts as $currentpost)
@@ -90,6 +147,78 @@
                             <h3 class="title mb-3 topnews-title">
                                 {{ $currentpost->title }}
                             </h3>
+
+                            <div class="post-actions" x-data="{
+                                copied: false,
+                                downloading: false,
+                                shareUrl: '{{ route('post.show', ['category' => $currentpost->category->slug, 'slug' => $currentpost->slug]) }}',
+                                shareTitle: @js($currentpost->title),
+                                downloadUrl: '{{ route('post.download-image', ['category' => $currentpost->category->slug, 'slug' => $currentpost->slug]) }}',
+                                postSlug: @js($currentpost->slug),
+                                postId: {{ $currentpost->id }},
+                                share() {
+                                    if (navigator.share) {
+                                        navigator.share({ title: this.shareTitle, url: this.shareUrl }).catch(() => {})
+                                    } else {
+                                        this.copyLink()
+                                    }
+                                },
+                                copyLink() {
+                                    navigator.clipboard.writeText(this.shareUrl).then(() => {
+                                        this.copied = true
+                                        setTimeout(() => this.copied = false, 2000)
+                                    })
+                                },
+                                printPost() {
+                                    document.querySelectorAll('.post-wrapper.is-printing').forEach(el => el.classList.remove('is-printing'))
+                                    let wrapper = document.getElementById('post-' + this.postId)
+                                    wrapper.classList.add('is-printing')
+                                    window.print()
+                                    wrapper.classList.remove('is-printing')
+                                },
+                                downloadImage() {
+                                    if (this.downloading) return
+                                    this.downloading = true
+                                    fetch(this.downloadUrl)
+                                        .then(res => {
+                                            if (!res.ok) throw new Error('download failed')
+                                            return res.blob()
+                                        })
+                                        .then(blob => {
+                                            let url = URL.createObjectURL(blob)
+                                            let a = document.createElement('a')
+                                            a.href = url
+                                            a.download = this.postSlug + '.png'
+                                            document.body.appendChild(a)
+                                            a.click()
+                                            a.remove()
+                                            URL.revokeObjectURL(url)
+                                        })
+                                        .catch(() => {
+                                            alert('ছবি তৈরি করা যায়নি, আবার চেষ্টা করুন।')
+                                        })
+                                        .finally(() => {
+                                            this.downloading = false
+                                        })
+                                }
+                            }">
+                                <button type="button" class="post-action-btn" @click="share" title="শেয়ার করুন">
+                                    <i class="fa-solid fa-share-nodes"></i> শেয়ার
+                                </button>
+                                <button type="button" class="post-action-btn" :class="{ 'copied': copied }"
+                                    @click="copyLink" title="লিংক কপি করুন">
+                                    <i class="fa-solid" :class="copied ? 'fa-check' : 'fa-link'"></i>
+                                    <span x-text="copied ? 'কপি হয়েছে' : 'লিংক কপি'"></span>
+                                </button>
+                                <button type="button" class="post-action-btn" @click="printPost" title="প্রিন্ট করুন">
+                                    <i class="fa-solid fa-print"></i> প্রিন্ট
+                                </button>
+                                <button type="button" class="post-action-btn" :disabled="downloading"
+                                    @click="downloadImage" title="ডাউনলোড করুন">
+                                    <i class="fa-solid" :class="downloading ? 'fa-spinner fa-spin' : 'fa-download'"></i>
+                                    <span x-text="downloading ? 'তৈরি হচ্ছে...' : 'ডাউনলোড'"></span>
+                                </button>
+                            </div>
 
                             <div class="rpt_info_section mobile border-bottom mb-2 pb-2">
                                 <div class="rpt_name mt-2"><i class="fa-solid fa-circle-user me-2"></i>
