@@ -25,7 +25,6 @@ return [
 
         'canvas' => [
             'width' => 1080,
-            'max_height' => 1920,
             'margin' => 40,
             'background' => '#ffffff',
         ],
@@ -75,10 +74,8 @@ return [
             'line_height' => 27,
             'paragraph_gap' => 12,
             'column_gap' => 30,
-            'max_column_height' => 620,
             'inset_image_height' => 220,
             'gap_after_inset_image' => 14,
-            'truncation_marker' => '...বিস্তারিত',
         ],
 
         'footer' => [

@@ -46,7 +46,6 @@ class PostImageGenerator
         $canvasWidth = $c['canvas']['width'];
         $margin = $c['canvas']['margin'];
         $contentWidth = $canvasWidth - ($margin * 2);
-        $maxCanvasHeight = $c['canvas']['max_height'];
         $colors = $c['colors'];
         $branding = $c['branding'];
 
@@ -82,7 +81,6 @@ class PostImageGenerator
         $bodyFontSize = $c['body']['font_size'];
         $bodyLineHeight = $c['body']['line_height'];
         $paragraphGap = $c['body']['paragraph_gap'];
-        $truncationMarker = $c['body']['truncation_marker'];
 
         $bodyLines = [];
         foreach ($paragraphs as $paragraph) {
@@ -113,39 +111,24 @@ class PostImageGenerator
             + $footerHeight
             + $margin;
 
-        // Column 1 loses its top slice to the inset image (if any); column 2
-        // has the full column height available from the top of the body block.
-        // Both columns are capped at the SAME fixed, compact visual height so
-        // the result reads like a newspaper clipping rather than growing to
-        // fill the entire max canvas height with one column left empty.
+        // No truncation: measure the FULL body content up front and split it
+        // as evenly as possible across the two columns (column 1 first loses
+        // its top slice to the inset image, if any), then let the canvas grow
+        // to whatever height is actually needed to show all of it.
         $col1ImageReserve = $hasFeaturedImage ? ($insetImageHeight + $gapAfterInsetImage) : 0;
 
-        $maxColumnHeight = $c['body']['max_column_height'];
+        $totalBodyHeight = $this->measureLinesHeight($bodyLines, $bodyLineHeight, $paragraphGap);
+        $targetColumnHeight = (int) ceil(($totalBodyHeight + $col1ImageReserve) / 2);
 
-        $col1Budget = max(0, $maxColumnHeight - $col1ImageReserve);
-        // Reserve headroom in column 2 for the truncation marker line itself.
-        $col2Budget = max(0, $maxColumnHeight - $bodyLineHeight);
+        $col1Budget = max(0, $targetColumnHeight - $col1ImageReserve);
 
-        [$col1Lines, $col2Lines, $truncated] = $this->splitIntoTwoColumns(
-            $bodyLines,
-            $col1Budget,
-            $col2Budget,
-            $bodyLineHeight,
-            $paragraphGap
-        );
-
-        if ($truncated) {
-            $col2Lines[] = $truncationMarker;
-        }
+        [$col1Lines, $col2Lines] = $this->splitIntoTwoColumns($bodyLines, $col1Budget, $bodyLineHeight, $paragraphGap);
 
         $col1Height = $col1ImageReserve + $this->measureLinesHeight($col1Lines, $bodyLineHeight, $paragraphGap);
         $col2Height = $this->measureLinesHeight($col2Lines, $bodyLineHeight, $paragraphGap);
         $bodyBlockHeight = max($col1Height, $col2Height);
 
-        $canvasHeight = (int) min(
-            $maxCanvasHeight,
-            $fixedHeight + $bodyBlockHeight
-        );
+        $canvasHeight = (int) ($fixedHeight + $bodyBlockHeight);
 
         $probe->clear();
 
@@ -205,11 +188,11 @@ class PostImageGenerator
             $this->drawCoverFitImage($canvas, $featuredImagePath, $col1X, $col1Y, $columnWidth, $insetImageHeight, $colors['white']);
             $col1Y += $insetImageHeight + $gapAfterInsetImage;
         }
-        $this->drawColumnLines($canvas, $col1Lines, $col1X, $col1Y, $bodyFontSize, $bodyLineHeight, $paragraphGap, $truncationMarker, $colors);
+        $this->drawColumnLines($canvas, $col1Lines, $col1X, $col1Y, $bodyFontSize, $bodyLineHeight, $paragraphGap, $colors['black']);
 
         // --- Column 2: wrapped text, plus a thin separating rule between columns ---
         $this->drawRect($canvas, $col2X - (int) ($columnGap / 2), $bodyTop, $col2X - (int) ($columnGap / 2) + 1, $bodyTop + $bodyBlockHeight, $colors['light_gray']);
-        $this->drawColumnLines($canvas, $col2Lines, $col2X, $bodyTop, $bodyFontSize, $bodyLineHeight, $paragraphGap, $truncationMarker, $colors);
+        $this->drawColumnLines($canvas, $col2Lines, $col2X, $bodyTop, $bodyFontSize, $bodyLineHeight, $paragraphGap, $colors['black']);
 
         $y = $bodyTop + $bodyBlockHeight;
 
@@ -480,20 +463,19 @@ class PostImageGenerator
 
     /**
      * Distributes a flat line array (with null paragraph-break markers) across
-     * two newspaper columns: column 1 fills first up to its budget, the rest
-     * flows into column 2. Returns [col1Lines, col2Lines, truncated].
+     * two newspaper columns: column 1 fills first up to its budget, EVERY
+     * remaining line (no cap, nothing dropped) flows into column 2. Returns
+     * [col1Lines, col2Lines].
      *
      * @param array<int, string|null> $lines
-     * @return array{0: array<int, string|null>, 1: array<int, string|null>, 2: bool}
+     * @return array{0: array<int, string|null>, 1: array<int, string|null>}
      */
-    private function splitIntoTwoColumns(array $lines, int $col1Budget, int $col2Budget, int $lineHeight, int $paragraphGap): array
+    private function splitIntoTwoColumns(array $lines, int $col1Budget, int $lineHeight, int $paragraphGap): array
     {
         $col1 = [];
         $col2 = [];
         $usedCol1 = 0;
-        $usedCol2 = 0;
         $inCol2 = false;
-        $truncated = false;
 
         foreach ($lines as $line) {
             $h = $line === null ? $paragraphGap : $lineHeight;
@@ -507,18 +489,13 @@ class PostImageGenerator
                 $inCol2 = true;
             }
 
-            if ($usedCol2 + $h > $col2Budget) {
-                $truncated = true;
-                break;
-            }
             $col2[] = $line;
-            $usedCol2 += $h;
         }
 
         $col1 = $this->trimTrailingBreak($col1);
         $col2 = $this->trimTrailingBreak($col2);
 
-        return [$col1, $col2, $truncated];
+        return [$col1, $col2];
     }
 
     /**
@@ -550,17 +527,14 @@ class PostImageGenerator
     /**
      * @param array<int, string|null> $lines
      */
-    private function drawColumnLines(Imagick $canvas, array $lines, int $x, int $y, float $fontSize, int $lineHeight, int $paragraphGap, string $truncationMarker, array $colors): void
+    private function drawColumnLines(Imagick $canvas, array $lines, int $x, int $y, float $fontSize, int $lineHeight, int $paragraphGap, string $colorHex): void
     {
         foreach ($lines as $line) {
             if ($line === null) {
                 $y += $paragraphGap;
                 continue;
             }
-            $isTruncationMarker = $line === $truncationMarker;
-            $color = $isTruncationMarker ? $colors['accent'] : $colors['black'];
-            $font = $isTruncationMarker ? $this->fontBold : $this->fontRegular;
-            $this->drawText($canvas, $font, $fontSize, $color, $x, $y + (int) ($lineHeight * 0.7), $line);
+            $this->drawText($canvas, $this->fontRegular, $fontSize, $colorHex, $x, $y + (int) ($lineHeight * 0.7), $line);
             $y += $lineHeight;
         }
     }
