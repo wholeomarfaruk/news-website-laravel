@@ -63,12 +63,17 @@ class CreatePost extends Component
     {
 
         $this->validate([
-            'title' => "string|min:3",
-
+            'title' => 'required|string|min:3',
+            'content' => 'required|string',
+            'category_id' => 'nullable|exists:categories,id',
+            'featured_image' => 'required|image',
         ]);
 
+        $path = null;
 
         try {
+            DB::beginTransaction();
+
             $uncategorized_id = Category::where('slug', 'uncategorized')->value('id');
             if (!$uncategorized_id) {
                 $uncategorized = new Category();
@@ -81,18 +86,10 @@ class CreatePost extends Component
             $post->title = $this->title;
             $post->content = $this->content;
             if (!$this->slug) {
-
                 $this->slug = Str::slug($this->title);
-                if (Post::where('slug', $this->slug)->exists()) {
-                    $this->slug = $this->slug . "-";
-                    ;
-                }
-            } else {
-                if (Post::where('slug', $this->slug)->exists()) {
-                    $this->slug = $this->slug . "-";
-                    ;
-                }
-
+            }
+            if (Post::where('slug', $this->slug)->exists()) {
+                $this->slug = $this->slug . '-' . Str::random(4);
             }
             $post->slug = $this->slug;
             $post->is_featured = $this->isFeatured;
@@ -105,49 +102,40 @@ class CreatePost extends Component
             }
             $post->save();
 
-            if ($this->featured_image) {
+            // Store file in 'public/media'
+            $path = $this->storeFeaturedImage($this->featured_image);
 
-                // Store file in 'public/media'
-                $path = $this->storeFeaturedImage($this->featured_image);
-
-                // Save in media table
-                $media = new Media();
-                $media->filename = basename($path);
-                $media->original_name = $this->featured_image->getClientOriginalName();
-                $media->mime_type = $this->featured_image->getMimeType();
-                $media->extension = $this->featured_image->getClientOriginalExtension();
-                $media->size = $this->featured_image->getSize();
-                $media->type = 'image';
-                $media->category = 'featured_image';
-                $media->disk = 'public';
-                $media->path = $path;
-                $media->mediable_id = $post->id;
-                $media->mediable_type = Post::class;
-                if ($this->fi_caption) {
-                    $media->caption = $this->fi_caption;
-                }
-
-                $media->user_id = auth()->id();
-                $media->save();
-            } else {
-                abort(403);
+            // Save in media table
+            $media = new Media();
+            $media->filename = basename($path);
+            $media->original_name = $this->featured_image->getClientOriginalName();
+            $media->mime_type = $this->featured_image->getMimeType();
+            $media->extension = $this->featured_image->getClientOriginalExtension();
+            $media->size = $this->featured_image->getSize();
+            $media->type = 'image';
+            $media->category = 'featured_image';
+            $media->disk = 'public';
+            $media->path = $path;
+            $media->mediable_id = $post->id;
+            $media->mediable_type = Post::class;
+            if ($this->fi_caption) {
+                $media->caption = $this->fi_caption;
             }
 
-            DB::commit(); // commit transaction
+            $media->user_id = auth()->id();
+            $media->save();
+
+            DB::commit();
             return redirect()->route('admin.post.list')->with('success', 'Post Successfully Created.');
         } catch (\Throwable $th) {
-            DB::rollBack(); // rollback on any error
+            DB::rollBack();
 
             // Optionally delete the uploaded file if it exists
-            if (isset($path) && file_exists(public_path($path))) {
+            if ($path && file_exists(public_path($path))) {
                 unlink(public_path($path));
             }
             $this->dispatch('postCreateStatus', ['error' => $th->getMessage()]);
-
-
         }
-
-
     }
     public function createCategory()
     {
