@@ -384,25 +384,37 @@
                 // You can now safely interact with Livewire's global object (window.Livewire)
                 // or perform actions related to Livewire components.
             });
-            document.addEventListener('livewire:initialized', function() {
+            // document.addEventListener('livewire:initialized', function() {
 
-                var editor = new RichTextEditor("#editor_data", {
-                    contentCssUrl: "/plugins/richtexteditor/runtime/richtexteditor_content.css",
-                    callbacks: {
-                        onchange: function(contents) {
-                            console.log("Editor content:", contents); // debug
-                            @this.set('content', contents); // update Livewire property
-                        }
-                    }
-                });
-                editor.attachEvent("change", function() {
-                    @this.set('content', editor.getHTML());
-                });
-                // Load existing content from Livewire if editing
-                @this.on('content', content => {
-                    editor.setContent(content || '');
-                });
+            //     var editor = new RichTextEditor("#editor_data", {
+            //         contentCssUrl: "/plugins/richtexteditor/runtime/richtexteditor_content.css",
+            //         callbacks: {
+            //             onchange: function(contents) {
+            //                 console.log("Editor content:", contents); // debug
+            //                 @this.set('content', contents); // update Livewire property
+            //             }
+            //         }
+            //     });
+            //     editor.attachEvent("change", function() {
+            //         @this.set('content', editor.getHTML());
+            //     });
+            //     // Load existing content from Livewire if editing
+            //     @this.on('content', content => {
+            //         editor.setContent(content || '');
+            //     });
 
-            });
+            // });
         </script>
+           <script src="https://cdn.tiny.cloud/1/{{ config('services.tinymce.api_key') }}/tinymce/8/tinymce.min.js"
+        referrerpolicy="origin" crossorigin="anonymous"></script>
+
+    <script>
+        tinymce.init({
+            selector: '#editor_data',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+
+
+        });
+    </script>
     @endpush

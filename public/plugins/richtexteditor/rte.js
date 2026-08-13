@@ -23,7 +23,7 @@ RTE_DefaultConfig.tooltipAttribute = "rte-tooltip";    //change to "no-tooltip" 
 RTE_DefaultConfig.timeoutAddToUndo = 900; //When uses types fast, wait 900ms to add undo item.
 RTE_DefaultConfig.skin = "default";     // default, rounded-corner, gray or blue. Sets the skin for how the toolbar is draw. Create your custom skin or choose from predefined skins.
 RTE_DefaultConfig.toolbar = "default"; // default, basic or full. Auto configures the toolbar with a set of buttons on desktop.
-RTE_DefaultConfig.toolbarMobile = "mobile";   // The toolbar set on mobile devices. 
+RTE_DefaultConfig.toolbarMobile = "mobile";   // The toolbar set on mobile devices.
 RTE_DefaultConfig.maxWidthForMobile = 992; // When the screen (browser window) gets smaller than 992, editor should have mobile toolbar.
 
 RTE_DefaultConfig.urlType = "default";  //default(do nothing),absolute(all change to http(s)://...),relative(all change to /...)
@@ -138,21 +138,21 @@ RTE_DefaultConfig.galleryImages = [
 	"http://richtexteditor.com/uploads/4.jpg",
 	"http://richtexteditor.com/uploads/5.jpg",
 	"http://richtexteditor.com/uploads/6.jpg"
-]; // Default images for gallery Images dialog. 
+]; // Default images for gallery Images dialog.
 
 RTE_DefaultConfig.htmlTemplates = [
 	["My Doc 1", "<h2>MyTitleMyTitleMyTitleMyTitleMyTitleMyTitleMyTitle</h2><p>Paragraph 1 </p><p>Paragraph 2 </p><p>Paragraph 3 </p><p>Paragraph 4 </p><p>Paragraph 5 </p>"]
 	,
 	["My Doc 1", "<h2>MyTitleMyTitleMyTitle</h2><p>Paragraph 1 </p><p>Paragraph 2 </p><p>Paragraph 3 </p><p>Paragraph 4 </p><p>Paragraph 5 </p>"]
-];// Default html Templates for html Templates dialog. 
+];// Default html Templates for html Templates dialog.
 
 
-RTE_DefaultConfig.inlineStyles = [["Red", "color:red", "color:red"], ["Bold", "font-weight:bold", "font-weight:bold"], ["Mark", "my-cls-mark"], ["Warning", "my-cls-warning"]]; // Default CSS styles for inline styles dropdown. 
-RTE_DefaultConfig.paragraphStyles = [["Red", "color:red", "color:red"], ["Bold", "font-weight:bold", "font-weight:bold"], ["Quote", "my-cls-quote"], ["LargeCenter", "my-cls-largecenter"]]; // Default CSS styles for paragraph styles dropdown. 
+RTE_DefaultConfig.inlineStyles = [["Red", "color:red", "color:red"], ["Bold", "font-weight:bold", "font-weight:bold"], ["Mark", "my-cls-mark"], ["Warning", "my-cls-warning"]]; // Default CSS styles for inline styles dropdown.
+RTE_DefaultConfig.paragraphStyles = [["Red", "color:red", "color:red"], ["Bold", "font-weight:bold", "font-weight:bold"], ["Quote", "my-cls-quote"], ["LargeCenter", "my-cls-largecenter"]]; // Default CSS styles for paragraph styles dropdown.
 RTE_DefaultConfig.imageStyles = [["Border", "border: 1px solid #ddd; border-radius: 4px; padding: 5px;"], ["grayscale", "filter: grayscale(100%);"], ["Shadow", "box-shadow:0 0 8px gray"], ["Margin10", "margin:10px"], ["Padding:10", "padding:10px"]
-	, ["Rounded Corners", "border-radius: 10px;"], ["Rounded Images", "border-radius: 50%;"], ["Thumbnail Image", "border: 1px solid #ddd; border-radius: 4px; padding: 5px;width:150px"]// Default CSS styles for image Styles dropdown. 
+	, ["Rounded Corners", "border-radius: 10px;"], ["Rounded Images", "border-radius: 50%;"], ["Thumbnail Image", "border: 1px solid #ddd; border-radius: 4px; padding: 5px;width:150px"]// Default CSS styles for image Styles dropdown.
 ];
-RTE_DefaultConfig.linkStyles = [["Margin10", "margin:10px"], ["Padding:10", "padding:10px"], ["BigText", "font-size:36px"]]; // Default CSS styles for link Styles dropdown. 
+RTE_DefaultConfig.linkStyles = [["Margin10", "margin:10px"], ["Padding:10", "padding:10px"], ["BigText", "font-size:36px"]]; // Default CSS styles for link Styles dropdown.
 
 
 
