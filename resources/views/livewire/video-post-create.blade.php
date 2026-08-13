@@ -1,5 +1,5 @@
 <div>
-    <form wire:submit.prevent="createPost">
+    <form wire:submit.prevent="createPost('published')">
 
         <div class="flex items-center justify-between">
             <div>
@@ -14,11 +14,11 @@
                 <!-- End Modal -->
             </div>
             <div class="flex items-center gap-3">
-                <button type="submit" wire:click="$set('status', 'draft')"
+                <button type="button" onclick="syncEditorContent()" wire:click="createPost('draft')"
                     class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs ring-1 ring-gray-300 transition hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03]">
                     Draft
                 </button>
-                <button type="submit" wire:click="$set('status', 'published')"
+                <button type="submit" onclick="syncEditorContent()"
                     class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs ring-1 ring-gray-300 transition hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03]">
                     Publish
                 </button>
@@ -358,30 +358,8 @@
                 console.log('Loaded')
             });
         </script>
-        {{-- <script src="https://cdn.tiny.cloud/1/6fc0o57nwmnuyujo3x2t2m7qttqr09s74djxb47lnzygcixp/tinymce/8/tinymce.min.js"
-            referrerpolicy="origin" crossorigin="anonymous"></script>
-
-        <script>
-            tinymce.init({
-                selector: '#editor',
-                plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-
-                setup: function(editor) {
-                    editor.on('change keyup', function() {
-                        @this.set('content', editor.getContent()); // update Livewire property
-                    });
-                },
-
-                init_instance_callback: function(editor) {
-                    editor.setContent(@this.get('content') || ''); // load existing content when editing
-                }
-            });
-        </script> --}}
-
         <script>
             document.addEventListener('livewire:load', function() {
-                alert('test')
                 console.log('Livewire is ready!');
                 Livewire.on('slug', () => {
                     var title = $('#title').val();
@@ -413,31 +391,35 @@
         </script> --}}
         <script>
             document.addEventListener('livewire:initialized', () => {
-                // Your JavaScript code that depends on Livewire being ready goes here.
-                // For example:
                 console.log('Livewire has finished initializing!');
-                // You can now safely interact with Livewire's global object (window.Livewire)
-                // or perform actions related to Livewire components.
             });
+        </script>
+        <script src="https://cdn.tiny.cloud/1/{{ config('services.tinymce.api_key') }}/tinymce/8/tinymce.min.js"
+            referrerpolicy="origin" crossorigin="anonymous"></script>
+        <script>
             document.addEventListener('livewire:initialized', function() {
+                tinymce.init({
+                    selector: '#editor_data',
+                    plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+                    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
 
-                var editor = new RichTextEditor("#editor_data", {
-                    contentCssUrl: "/plugins/richtexteditor/runtime/richtexteditor_content.css",
-                    callbacks: {
-                        onchange: function(contents) {
-                            console.log("Editor content:", contents); // debug
-                            @this.set('content', contents); // update Livewire property
-                        }
+                    setup: function(editor) {
+                        editor.on('change keyup', function() {
+                            @this.set('content', editor.getContent());
+                        });
+                    },
+
+                    init_instance_callback: function(editor) {
+                        editor.setContent(@this.get('content') || '');
                     }
                 });
-                editor.attachEvent("change", function() {
-                    @this.set('content', editor.getHTML());
-                });
-                // Load existing content from Livewire if editing
-                @this.on('content', content => {
-                    editor.setContent(content || '');
-                });
-
             });
+
+            function syncEditorContent() {
+                var editor = tinymce.get('editor_data');
+                if (editor) {
+                    @this.set('content', editor.getContent());
+                }
+            }
         </script>
     @endpush

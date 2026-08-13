@@ -85,9 +85,11 @@ class VideoPostEdit extends Component
             'authors' => $authors,
         ]);
     }
-    public function updatePost()
+    public function updatePost($status = null)
     {
-        // dd($this->fi_caption);
+        if ($status) {
+            $this->status = $status;
+        }
 
         $this->validate([
             'title' => "string|min:3",

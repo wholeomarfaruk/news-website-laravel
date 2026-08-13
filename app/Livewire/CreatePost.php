@@ -59,8 +59,9 @@ class CreatePost extends Component
             'authors' => $authors
         ]);
     }
-    public function createPost()
+    public function createPost($status = 'draft')
     {
+        $this->status = $status;
 
         $this->validate([
             'title' => 'required|string|min:3',

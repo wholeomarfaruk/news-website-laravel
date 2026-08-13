@@ -68,8 +68,9 @@ class VideoPostCreate extends Component
             'authors' => $authors
         ]);
     }
-    public function createPost()
+    public function createPost($status = 'draft')
     {
+        $this->status = $status;
 
         $this->validate([
             'title' => "string|min:3",
