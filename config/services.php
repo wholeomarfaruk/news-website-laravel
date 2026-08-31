@@ -13,7 +13,8 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
-        // TinyMCE Api
+
+    // TinyMCE Api
     'tinymce' => [
         'api_key' => env('TINYMCE_API_KEY','yu8mao5ubzdfin0rse7m2tzjipudongs88o4w6gswsm3sfr6'),
     ],

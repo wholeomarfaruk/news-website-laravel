@@ -321,12 +321,6 @@
     </div>
     @push('scripts')
         <script>
-            // When Livewire updates, re-init editor if needed
-            document.addEventListener('livewire:update', function() {
-                if (!tinymce.get('#editor')) {
-                    initTinyMCE();
-                }
-            });
             Livewire.on('banner_post', (data) => {
                 console.log(data)
                 // data[0] হলো object
@@ -360,31 +354,31 @@
                 console.log('Loaded')
             });
         </script>
-        <script src="https://cdn.tiny.cloud/1/{{ config('services.tinymce.api_key') }}/tinymce/8/tinymce.min.js"
-            referrerpolicy="origin" crossorigin="anonymous"></script>
         <script>
-            document.addEventListener('livewire:initialized', function() {
-                tinymce.init({
+            let omarEditor;
+
+            function initOmarEditor() {
+                if (omarEditor) return;
+
+                omarEditor = OmarTextEditor.init({
                     selector: '#editor',
-                    plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-                    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-
-                    setup: function(editor) {
-                        editor.on('change keyup', function() {
-                            @this.set('content', editor.getContent());
-                        });
-                    },
-
-                    init_instance_callback: function(editor) {
-                        editor.setContent(@this.get('content') || '');
-                    }
+                    plugins: ['link', 'autolink', 'anchor', 'image', 'media', 'embed', 'table', 'codesample', 'emoticons', 'charmap', 'searchreplace', 'wordcount', 'elementpath', 'spacing', 'visualblocks'],
+                    toolbar: 'undo redo | blockformat fontfamily fontsize | bold italic underline strikethrough | forecolor backcolor removeformat | alignleft aligncenter alignright alignjustify lineheight | bullist numlist indent outdent | link image media embed table | emoticons charmap codesample | searchreplace',
+                    menubar: false,
                 });
-            });
+
+                omarEditor.setContent(@this.get('content') || '');
+
+                omarEditor.on('change', () => {
+                    @this.set('content', omarEditor.getContent());
+                });
+            }
+
+            document.addEventListener('livewire:initialized', initOmarEditor);
 
             function syncEditorContent() {
-                var editor = tinymce.get('editor');
-                if (editor) {
-                    @this.set('content', editor.getContent());
+                if (omarEditor) {
+                    @this.set('content', omarEditor.getContent());
                 }
             }
         </script>
