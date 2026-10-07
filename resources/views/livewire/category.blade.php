@@ -64,7 +64,18 @@
                                                 class="w-full px-4 py-2 bg-gray-100 hover:bg-gray-200 cursor-pointer rounded-lg flex items-center justify-between group">
 
                                                 <div class="flex items-center justify-start space-x-2">
-                                                    <div>{{ $category->name }}</div>
+                                                    <div>
+                                                        <div>{{ $category->name }}</div>
+                                                        <div x-data="{ copied: false }" class="flex items-center gap-1 mt-0.5">
+                                                            <span class="text-xs text-gray-500 break-all">{{ route('category', $category->slug) }}</span>
+                                                            <button type="button" title="Copy link"
+                                                                @click.stop.prevent="copyCategoryLink(@js(route('category', $category->slug))).then(() => { copied = true; setTimeout(() => copied = false, 1500) })"
+                                                                class="inline-flex items-center px-1.5 py-0.5 border border-gray-300 rounded text-xs text-gray-600 bg-white hover:bg-gray-50">
+                                                                <span x-show="!copied">Copy</span>
+                                                                <span x-show="copied" x-cloak class="text-green-600">Copied!</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
 
                                                     <!-- Edit Button -->
                                                     <button wire:click="openEditModal({{ $category->id }})" type="button"
@@ -118,7 +129,18 @@
                                                                                                                                                    rounded-lg flex items-center justify-between group">
 
                                                                 <div class="flex items-center justify-start space-x-2">
-                                                                    <div>{{ $child->name }}</div>
+                                                                    <div>
+                                                                        <div>{{ $child->name }}</div>
+                                                                        <div x-data="{ copied: false }" class="flex items-center gap-1 mt-0.5">
+                                                                            <span class="text-xs text-gray-500 break-all">{{ route('category', $child->slug) }}</span>
+                                                                            <button type="button" title="Copy link"
+                                                                                @click.stop.prevent="copyCategoryLink(@js(route('category', $child->slug))).then(() => { copied = true; setTimeout(() => copied = false, 1500) })"
+                                                                                class="inline-flex items-center px-1.5 py-0.5 border border-gray-300 rounded text-xs text-gray-600 bg-white hover:bg-gray-50">
+                                                                                <span x-show="!copied">Copy</span>
+                                                                                <span x-show="copied" x-cloak class="text-green-600">Copied!</span>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
 
                                                                     <!-- Edit Button -->
                                                                     <button wire:click="openEditModal({{ $child->id }})" type="button"
@@ -168,7 +190,18 @@
                                                                                                                                                            rounded-lg flex items-center justify-between group">
 
                                                                                 <div class="flex items-center justify-start space-x-2">
-                                                                                    <div>{{ $child2->name }}</div>
+                                                                                    <div>
+                                                                                        <div>{{ $child2->name }}</div>
+                                                                                        <div x-data="{ copied: false }" class="flex items-center gap-1 mt-0.5">
+                                                                                            <span class="text-xs text-gray-500 break-all">{{ route('category', $child2->slug) }}</span>
+                                                                                            <button type="button" title="Copy link"
+                                                                                                @click.stop.prevent="copyCategoryLink(@js(route('category', $child2->slug))).then(() => { copied = true; setTimeout(() => copied = false, 1500) })"
+                                                                                                class="inline-flex items-center px-1.5 py-0.5 border border-gray-300 rounded text-xs text-gray-600 bg-white hover:bg-gray-50">
+                                                                                                <span x-show="!copied">Copy</span>
+                                                                                                <span x-show="copied" x-cloak class="text-green-600">Copied!</span>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                    </div>
 
                                                                                     <!-- Edit Button -->
                                                                                     <button wire:click="openEditModal({{ $child2->id }})"
@@ -553,6 +586,28 @@
 @push('scripts')
 
     <script>
+
+        // Copy category link to clipboard (fallback for non-HTTPS contexts)
+        function copyCategoryLink(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                return navigator.clipboard.writeText(text);
+            }
+            return new Promise((resolve, reject) => {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    document.execCommand('copy') ? resolve() : reject();
+                } catch (e) {
+                    reject(e);
+                } finally {
+                    document.body.removeChild(textarea);
+                }
+            });
+        }
 
         Livewire.on('categoryUpdated', () => {
             $toaster.fire({
